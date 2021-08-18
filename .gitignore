@@ -1,0 +1,7 @@
+.DS_Store
+node_modules
+yarn-error.log
+.tmp
+ssr
+.svelte-kit
+build
