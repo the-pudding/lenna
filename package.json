@@ -35,5 +35,8 @@
 	"engines": {
 		"node": ">= 14.17.3"
 	},
-	"browserslist": "> 0.5%, last 4 versions, not ie <= 11, not ie_mob <= 11"
+	"browserslist": "> 0.5%, last 4 versions, not ie <= 11, not ie_mob <= 11",
+	"dependencies": {
+		"lodash": "^4.17.21"
+	}
 }
