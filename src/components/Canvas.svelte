@@ -1,73 +1,133 @@
 <script>
-	import { onMount } from 'svelte';
-    import viewport from '$stores/viewport.js';
-	import _ from 'lodash';
+  import { onMount } from "svelte";
+  import viewport from "$stores/viewport.js";
+  import data from "$data/data.csv";
+  import _ from "lodash";
+  import Stats from "stats.js";
 
-    export let pixels = [];
-    
-	let canvas;
-	let ctx;
-    let dpr = 1;
-	let speed = 0.1;
-	let acceleration = 0.002;
-	const imageSize = Math.sqrt(pixels.length);
+  const stats = new Stats();
+  stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
 
-	$: console.log(pixels)
+  export let pixels = [];
 
-	$: unitSize = Math.floor(Math.min($viewport.width, $viewport.height) / imageSize);
-  	$: canvasWidth = $viewport.width * dpr;
-	$: canvasHeight = $viewport.height * dpr;
-	
+  pixels = pixels
+    .map((d, i) => ({
+      ...d,
+      ...data[i]
+    }))
+    .map((d) => ({
+      ...d,
+      year: +d.year
+    }));
 
-	const renderAll = () => {
-        pixels.forEach(({x, y, rgb }) => {
-            ctx.fillStyle = rgb;
-            ctx.fillRect(x * unitSize, y * unitSize, unitSize, unitSize);
-        })
-	    render();
-	};
+  let canvas;
+  let ctx;
+  let dpr = 2; // change with screen
+  const imageSize = Math.sqrt(pixels.length);
 
-	const updateList = _.times(30, _.random.bind(0, imageSize**2 - 1));
-	const shouldUpdate = pixel => updateList.includes(pixel.i);
+  $: width = $viewport.width * 0.5;
+  $: height = $viewport.height * 0.5;
+  $: pixelSize = Math.floor(Math.min(width, height) / imageSize);
+  $: canvasWidth = width * dpr;
+  $: canvasHeight = height * dpr;
 
-	const render = () => {
-        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+  const frames = 200;
+  let currentFrame = 0;
 
-        // re-draw
-		// fade out
-		ctx.globalAlpha -= 0.02;
-		pixels.filter(p => !shouldUpdate(p)).forEach((pixel) => {
-			// pixel.a -= 0.1;
-			// ctx.fillStyle = `rgba(${pixel.r}, ${pixel.g}, ${pixel.b}, ${pixel.a})`
-			ctx.fillStyle = pixel.rgb;
-            ctx.fillRect(pixel.x * unitSize, pixel.y * unitSize, unitSize, unitSize);
-        })
+  // bar chart
+  const range = (start, end) => {
+    if (start === end) return [start];
+    return [start, ...range(start + 1, end)];
+  };
+  const pixelsWithValidYear = pixels.filter((d) => Number.isInteger(d.year) && d.year !== 0);
+  const maxYear = Math.max(...pixelsWithValidYear.map((d) => d.year));
+  const minYear = Math.min(...pixelsWithValidYear.map((d) => d.year));
+  const yearRange = range(minYear, maxYear);
 
-        // move
-        pixels.filter(p => shouldUpdate(p)).forEach((pixel) => {
-			pixel.y += speed;
-			speed += acceleration;
-          	ctx.fillRect(pixel.x * unitSize, pixel.y * unitSize, unitSize, unitSize);
-        })
+  $: xScale = d3
+    .scaleBand()
+    .domain(yearRange)
+    .range([0, width / 4])
+    .padding(0.1);
 
-		window.requestAnimationFrame(render);
-	};
+  // $: xScale = d3
+  //   .scaleLinear()
+  //   .domain(d3.extent(data.map((d) => d.year).filter((d) => d !== "")))
+  //   .range([0, width]);
+  // const yScale = d3.scaleLinear().domain();
 
-	onMount(() => {
-		ctx = canvas.getContext('2d');
-		dpr = window.devicePixelRatio;
-		renderAll();
-	});
-	
+  const render = () => {
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    pixels.forEach(({ x, y, rgb }) => {
+      ctx.fillStyle = rgb;
+      ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+    });
+  };
+
+  const tick = () => {
+    stats.begin();
+
+    render();
+    const t = currentFrame / frames;
+    pixels
+      .filter((d) => d.animate)
+      .forEach((pixel) => {
+        pixel.y = pixel.originY * (1 - t) + pixel.targetY * t;
+        pixel.x = pixel.originX * (1 - t) + pixel.targetX * t;
+
+        if (t >= 1) {
+          console.log("done");
+          pixel.animate = false;
+        }
+      });
+
+    stats.end();
+
+    currentFrame += 1;
+    if (t < 1) window.requestAnimationFrame(tick);
+  };
+
+  const onClick = () => {
+    // update pixel target destinations
+    pixels.forEach((d) => {
+      d.animate = true;
+      d.targetX = xScale(d.year);
+      d.targetY = 130;
+      d.originX = d.x;
+      d.originY = d.y;
+    });
+    // start animation
+    currentFrame = 0;
+    tick();
+  };
+
+  onMount(() => {
+    document.body.appendChild(stats.dom);
+
+    ctx = canvas.getContext("2d");
+    dpr = window.devicePixelRatio;
+    render();
+  });
 </script>
 
-<canvas bind:this={canvas} style="width: {$viewport.width}px; height: {$viewport.height}px;" width={canvasWidth} height={canvasHeight}/>
+<canvas
+  bind:this={canvas}
+  style="width: {width}px; height: {height}px;"
+  width={canvasWidth}
+  height={canvasHeight}
+/>
+
+<button on:click={onClick}>Test</button>
 
 <style>
-	canvas {
-		display: block;
-		position: fixed;
-		top: 0;
-		left: 0;
-	}
+  canvas {
+    display: block;
+    position: fixed;
+    top: 200px;
+    left: 0;
+  }
+  div {
+    border: 1px solid gray;
+    width: 100px;
+  }
 </style>
