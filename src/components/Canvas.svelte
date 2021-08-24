@@ -10,76 +10,49 @@
 
   export let pixels = [];
 
-  pixels = pixels
-    .map((d, i) => ({
-      ...d,
-      ...data[i]
-    }))
-    .map((d) => ({
-      ...d,
-      year: +d.year
-    }));
-
   let canvas;
   let ctx;
-  let dpr = 2; // change with screen
+  let dpr = 1; // change with screen
   const imageSize = Math.sqrt(pixels.length);
 
-  $: width = $viewport.width * 0.5;
-  $: height = $viewport.height * 0.5;
+  $: width = $viewport.width;
+  $: height = $viewport.height;
   $: pixelSize = Math.floor(Math.min(width, height) / imageSize);
   $: canvasWidth = width * dpr;
   $: canvasHeight = height * dpr;
 
-  const frames = 200;
+  let frames = 0;
   let currentFrame = 0;
-
-  // bar chart
-  const range = (start, end) => {
-    if (start === end) return [start];
-    return [start, ...range(start + 1, end)];
-  };
-  const pixelsWithValidYear = pixels.filter((d) => Number.isInteger(d.year) && d.year !== 0);
-  const maxYear = Math.max(...pixelsWithValidYear.map((d) => d.year));
-  const minYear = Math.min(...pixelsWithValidYear.map((d) => d.year));
-  const yearRange = range(minYear, maxYear);
 
   $: xScale = d3
     .scaleBand()
-    .domain(yearRange)
-    .range([0, width / 4])
+    .domain(d3.range(...d3.extent(pixels, (d) => d.year)))
+    .range([0, width])
     .padding(0.1);
-
-  // $: xScale = d3
-  //   .scaleLinear()
-  //   .domain(d3.extent(data.map((d) => d.year).filter((d) => d !== "")))
-  //   .range([0, width]);
-  // const yScale = d3.scaleLinear().domain();
 
   const render = () => {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    pixels.forEach(({ x, y, rgb }) => {
-      ctx.fillStyle = rgb;
-      ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+    pixels.forEach(({ x, y, w, h, r, g, b, a }) => {
+      ctx.fillStyle = `rgb(${r.value}, ${g.value}, ${b.value}, ${a.value})`;
+      ctx.fillRect(x.value, y.value, w.value, h.value);
     });
+  };
+
+  const interpolate = (pixel, t) => {
+    pixel.value = pixel.origin * (1 - t) + pixel.target * t;
   };
 
   const tick = () => {
     stats.begin();
 
-    render();
     const t = currentFrame / frames;
     pixels
       .filter((d) => d.animate)
       .forEach((pixel) => {
-        pixel.y = pixel.originY * (1 - t) + pixel.targetY * t;
-        pixel.x = pixel.originX * (1 - t) + pixel.targetX * t;
-
-        if (t >= 1) {
-          console.log("done");
-          pixel.animate = false;
-        }
+        pixel.animate.forEach((prop) => interpolate(pixel[prop], t));
       });
+
+    render();
 
     stats.end();
 
@@ -88,16 +61,34 @@
   };
 
   const onClick = () => {
-    // update pixel target destinations
-    pixels.forEach((d) => {
-      d.animate = true;
-      d.targetX = xScale(d.year);
-      d.targetY = 130;
-      d.originX = d.x;
-      d.originY = d.y;
+    pixels.forEach((d, i) => {
+      if (i === 10) {
+        d.animate = ["x", "y", "w", "h"];
+        d.x.target = xScale(d.year);
+        d.w.target = pixelSize * 10;
+        d.h.target = pixelSize * 10;
+        d.y.target = height - d.h.target;
+      } else {
+        d.animate = ["a"];
+        d.a.target = 0;
+      }
     });
-    // start animation
+
+    pixels.sort((a, b) => a.animate - b.animate);
+
     currentFrame = 0;
+    frames = 150;
+    tick();
+  };
+
+  const face = () => {
+    pixels.forEach((d, i) => {
+      d.animate = ["x", "y", "w", "h", "r", "g", "b", "a"];
+      d.animate.forEach((field) => {
+        d[field].target = d[field].origin;
+      });
+    });
+    frames = 1;
     tick();
   };
 
@@ -106,7 +97,34 @@
 
     ctx = canvas.getContext("2d");
     dpr = window.devicePixelRatio;
-    render();
+
+    // join
+    pixels = pixels.map((d, i) => ({
+      ...d,
+      ...data[i]
+    }));
+    // clean
+    pixels.forEach((d) => {
+      d.imageX = d.x;
+      d.imageY = d.y;
+      d.year = +d.year || 1970; // some are ""
+
+      const regex = /rgb\((\d+),(\d+),(\d+)\)/g;
+      const match = [...d.rgb.matchAll(regex)][0];
+
+      const init = { target: undefined, value: undefined };
+      d.x = { origin: d.imageX * pixelSize, ...init };
+      d.y = { origin: d.imageY * pixelSize, ...init };
+      d.w = { origin: pixelSize, ...init };
+      d.h = { origin: pixelSize, ...init };
+      d.r = { origin: +match[1], ...init };
+      d.g = { origin: +match[2], ...init };
+      d.b = { origin: +match[3], ...init };
+      d.a = { origin: 1, ...init };
+      d.animate = [];
+    });
+
+    face();
   });
 </script>
 
@@ -120,10 +138,14 @@
 <button on:click={onClick}>Test</button>
 
 <style>
+  button {
+    position: absolute;
+    z-index: 1000;
+  }
   canvas {
     display: block;
     position: fixed;
-    top: 200px;
+    top: 0;
     left: 0;
   }
   div {
