@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
   import viewport from "$stores/viewport.js";
   import data from "$data/data.csv";
   import _ from "lodash";
@@ -12,18 +12,19 @@
 
   export let pixels = [];
 
+  let offscreenCanvas;
   let canvas;
   let ctx;
-  let dpr = 1; // change with screen
+  let dpr = 1;
   const imageSizePixels = Math.sqrt(pixels.length);
   let frames = 0;
   let currentFrame = 0;
 
   $: width = $viewport.width;
   $: height = $viewport.height;
-  $: pixelSize = Math.floor(Math.min(width, height) / imageSizePixels);
   $: canvasWidth = width * dpr;
   $: canvasHeight = height * dpr;
+  $: pixelSize = Math.floor(Math.min(canvasWidth, canvasHeight) / imageSizePixels);
   $: xScale = d3
     .scaleBand()
     .domain(d3.range(...d3.extent(pixels, (d) => d.year)))
@@ -32,9 +33,10 @@
 
   const render = () => {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    pixels.forEach(({ x, y, w, h, r, g, b, a }) => {
-      ctx.fillStyle = `rgb(${r.value}, ${g.value}, ${b.value}, ${a.value})`;
-      ctx.fillRect(x.value, y.value, w.value, h.value);
+    pixels.forEach(({ imageX, imageY, r, g, b, a, x, y, w, h }) => {
+      // ctx.fillStyle = `rgb(${r.value}, ${g.value}, ${b.value}, ${a.value})`;
+      // ctx.fillRect(x.value, y.value, w.value, h.value);
+      ctx.drawImage(offscreenCanvas, imageX, imageY, 1, 1, x.value, y.value, w.value, h.value);
     });
   };
 
@@ -44,7 +46,7 @@
     pixel.value = ease ? int(ease(t)) : int(t);
   };
 
-  const tick = () => {
+  const frameTick = () => {
     stats.begin();
 
     const t = currentFrame / frames;
@@ -60,7 +62,7 @@
     stats.end();
 
     currentFrame += 1;
-    if (t < 1) window.requestAnimationFrame(tick);
+    if (t < 1) window.requestAnimationFrame(frameTick);
   };
 
   const scatter = () => {
@@ -95,7 +97,7 @@
     });
 
     frames = 200;
-    tick();
+    frameTick();
   };
 
   const fadeAllButOne = () => {
@@ -116,7 +118,7 @@
 
     currentFrame = 0;
     frames = 150;
-    tick();
+    frameTick();
   };
 
   const face = () => {
@@ -127,14 +129,16 @@
       });
     });
     frames = 1;
-    tick();
+    frameTick();
   };
 
-  onMount(() => {
+  onMount(async () => {
     document.body.appendChild(stats.dom);
 
     ctx = canvas.getContext("2d");
     dpr = window.devicePixelRatio;
+
+    await tick();
 
     // join
     pixels = pixels.map((d, i) => ({
@@ -142,6 +146,7 @@
       ...data[i]
     }));
     // clean
+
     pixels.forEach((d) => {
       d.imageX = d.x;
       d.imageY = d.y;
@@ -162,6 +167,12 @@
       d.animate = [];
     });
 
+    const offscreenCtx = offscreenCanvas.getContext("2d");
+    pixels.forEach(({ imageX, imageY, rgb }) => {
+      offscreenCtx.fillStyle = rgb;
+      offscreenCtx.fillRect(imageX, imageY, 1, 1);
+    });
+
     face();
   });
 </script>
@@ -171,6 +182,13 @@
   style="width: {width}px; height: {height}px;"
   width={canvasWidth}
   height={canvasHeight}
+/>
+<canvas
+  bind:this={offscreenCanvas}
+  class="offscreen"
+  width={imageSizePixels}
+  height={imageSizePixels}
+  style="width: {imageSizePixels}; height: {imageSizePixels}px;"
 />
 
 <button on:click={scatter}>Test</button>
@@ -189,5 +207,10 @@
   div {
     border: 1px solid gray;
     width: 100px;
+  }
+  .offscreen {
+    top: 0;
+    left: 500px;
+    z-index: 1000000;
   }
 </style>
