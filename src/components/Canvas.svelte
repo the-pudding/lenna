@@ -4,6 +4,8 @@
   import data from "$data/data.csv";
   import _ from "lodash";
   import Stats from "stats.js";
+  import { tweened } from "svelte/motion";
+  import { cubicOut } from "svelte/easing";
 
   const stats = new Stats();
   stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
@@ -13,17 +15,15 @@
   let canvas;
   let ctx;
   let dpr = 1; // change with screen
-  const imageSize = Math.sqrt(pixels.length);
-
-  $: width = $viewport.width;
-  $: height = $viewport.height;
-  $: pixelSize = Math.floor(Math.min(width, height) / imageSize);
-  $: canvasWidth = width * dpr;
-  $: canvasHeight = height * dpr;
-
+  const imageSizePixels = Math.sqrt(pixels.length);
   let frames = 0;
   let currentFrame = 0;
 
+  $: width = $viewport.width;
+  $: height = $viewport.height;
+  $: pixelSize = Math.floor(Math.min(width, height) / imageSizePixels);
+  $: canvasWidth = width * dpr;
+  $: canvasHeight = height * dpr;
   $: xScale = d3
     .scaleBand()
     .domain(d3.range(...d3.extent(pixels, (d) => d.year)))
@@ -39,15 +39,18 @@
   };
 
   const interpolate = (pixel, t) => {
-    pixel.value = pixel.origin * (1 - t) + pixel.target * t;
+    const { origin, target, ease } = pixel;
+    const int = d3.interpolateNumber(origin, target);
+    pixel.value = ease ? int(ease(t)) : int(t);
   };
 
   const tick = () => {
     stats.begin();
 
     const t = currentFrame / frames;
+
     pixels
-      .filter((d) => d.animate)
+      .filter((d) => d.animate.length > 0)
       .forEach((pixel) => {
         pixel.animate.forEach((prop) => interpolate(pixel[prop], t));
       });
@@ -60,7 +63,42 @@
     if (t < 1) window.requestAnimationFrame(tick);
   };
 
-  const onClick = () => {
+  const scatter = () => {
+    const buffer = 40;
+
+    pixels.forEach((d, i) => {
+      if (i === 10) {
+        d.animate = ["x", "y", "w", "h"];
+        d.x.target = xScale(d.year);
+        d.w.target = pixelSize * 10;
+        d.h.target = pixelSize * 10;
+        d.y.target = height - d.h.target;
+        d.x.ease = d3.easeCubicOut;
+        d.y.ease = d3.easeCubicOut;
+        d.w.ease = d3.easeCubicOut;
+        d.h.ease = d3.easeCubicOut;
+      } else {
+        d.animate = ["x", "y", "a"];
+
+        const goLeft = Math.random() < 0.5;
+        if (goLeft) {
+          d.x.target = -buffer;
+        } else {
+          d.x.target = width + buffer;
+        }
+        d.y.target = d3.randomInt(0, height)();
+        d.a.target = 0;
+        d.x.ease = d3.easeCubicOut;
+        d.y.ease = d3.easeCubicOut;
+        d.a.ease = d3.easeCubicOut;
+      }
+    });
+
+    frames = 200;
+    tick();
+  };
+
+  const fadeAllButOne = () => {
     pixels.forEach((d, i) => {
       if (i === 10) {
         d.animate = ["x", "y", "w", "h"];
@@ -135,7 +173,7 @@
   height={canvasHeight}
 />
 
-<button on:click={onClick}>Test</button>
+<button on:click={scatter}>Test</button>
 
 <style>
   button {
