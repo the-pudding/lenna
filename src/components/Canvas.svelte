@@ -4,17 +4,20 @@
   import data from "$data/data.csv";
   import _ from "lodash";
   import Stats from "stats.js";
-  import { tweened } from "svelte/motion";
-  import { cubicOut } from "svelte/easing";
 
   const stats = new Stats();
   stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
 
   export let pixels = [];
 
-  let offscreenCanvas;
-  let canvas;
-  let ctx;
+  let backgroundCanvas;
+  let foregroundCanvas;
+  let backgroundCtx;
+  let foregroundCtx;
+  let foregroundPixels = [];
+  let backgroundPixels = [];
+  let fadeOutBackground = false;
+
   let dpr = 1;
   const imageSizePixels = Math.sqrt(pixels.length);
   let frames = 0;
@@ -31,12 +34,11 @@
     .range([0, width])
     .padding(0.1);
 
-  const render = () => {
+  const render = (ctx, pixels) => {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    pixels.forEach(({ imageX, imageY, r, g, b, a, x, y, w, h }) => {
-      // ctx.fillStyle = `rgb(${r.value}, ${g.value}, ${b.value}, ${a.value})`;
-      // ctx.fillRect(x.value, y.value, w.value, h.value);
-      ctx.drawImage(offscreenCanvas, imageX, imageY, 1, 1, x.value, y.value, w.value, h.value);
+    pixels.forEach(({ imageX, imageY, rgb, r, g, b, a, x, y, w, h }) => {
+      ctx.fillStyle = rgb;
+      ctx.fillRect(x.value, y.value, w.value, h.value);
     });
   };
 
@@ -46,7 +48,7 @@
     pixel.value = ease ? int(ease(t)) : int(t);
   };
 
-  const frameTick = () => {
+  const frameTick = (ctx, pixels) => {
     stats.begin();
 
     const t = currentFrame / frames;
@@ -57,50 +59,36 @@
         pixel.animate.forEach((prop) => interpolate(pixel[prop], t));
       });
 
-    render();
+    render(ctx, pixels);
 
     stats.end();
 
     currentFrame += 1;
-    if (t < 1) window.requestAnimationFrame(frameTick);
+    if (t < 1) window.requestAnimationFrame(() => frameTick(ctx, pixels));
   };
 
-  const scatter = () => {
+  const scatter = (ctx, pixels) => {
     const buffer = 40;
 
-    pixels.forEach((d, i) => {
-      if (i === 10) {
-        d.animate = ["x", "y", "w", "h"];
-        d.x.target = xScale(d.year);
-        d.w.target = pixelSize * 10;
-        d.h.target = pixelSize * 10;
-        d.y.target = height - d.h.target;
-        d.x.ease = d3.easeCubicOut;
-        d.y.ease = d3.easeCubicOut;
-        d.w.ease = d3.easeCubicOut;
-        d.h.ease = d3.easeCubicOut;
-      } else {
-        d.animate = ["x", "y", "a"];
+    pixels.slice(0, 100).forEach((d, i) => {
+      d.animate = ["x", "y"];
 
-        const goLeft = Math.random() < 0.5;
-        if (goLeft) {
-          d.x.target = -buffer;
-        } else {
-          d.x.target = width + buffer;
-        }
-        d.y.target = d3.randomInt(0, height)();
-        d.a.target = 0;
-        d.x.ease = d3.easeCubicOut;
-        d.y.ease = d3.easeCubicOut;
-        d.a.ease = d3.easeCubicOut;
+      const goLeft = Math.random() < 0.5;
+      if (goLeft) {
+        d.x.target = -buffer;
+      } else {
+        d.x.target = width + buffer;
       }
+      d.y.target = d3.randomInt(0, height)();
+      d.x.ease = d3.easeCubicOut;
+      d.y.ease = d3.easeCubicOut;
     });
 
     frames = 200;
-    frameTick();
+    frameTick(ctx, pixels);
   };
 
-  const fadeAllButOne = () => {
+  /*const fadeAllButOne = () => {
     pixels.forEach((d, i) => {
       if (i === 10) {
         d.animate = ["x", "y", "w", "h"];
@@ -119,9 +107,9 @@
     currentFrame = 0;
     frames = 150;
     frameTick();
-  };
+  };*/
 
-  const face = () => {
+  const face = (ctx, pixels) => {
     pixels.forEach((d, i) => {
       d.animate = ["x", "y", "w", "h", "r", "g", "b", "a"];
       d.animate.forEach((field) => {
@@ -129,13 +117,14 @@
       });
     });
     frames = 1;
-    frameTick();
+    frameTick(ctx, pixels);
   };
 
   onMount(async () => {
     document.body.appendChild(stats.dom);
 
-    ctx = canvas.getContext("2d");
+    backgroundCtx = backgroundCanvas.getContext("2d");
+    foregroundCtx = foregroundCanvas.getContext("2d");
     dpr = window.devicePixelRatio;
 
     await tick();
@@ -152,46 +141,51 @@
       d.imageY = d.y;
       d.year = +d.year || 1970; // some are ""
 
-      const regex = /rgb\((\d+),(\d+),(\d+)\)/g;
-      const match = [...d.rgb.matchAll(regex)][0];
+      // const regex = /rgb\((\d+),(\d+),(\d+)\)/g;
+      // const match = [...d.rgb.matchAll(regex)][0];
 
       const init = { target: undefined, value: undefined };
       d.x = { origin: d.imageX * pixelSize, ...init };
       d.y = { origin: d.imageY * pixelSize, ...init };
       d.w = { origin: pixelSize, ...init };
       d.h = { origin: pixelSize, ...init };
-      d.r = { origin: +match[1], ...init };
-      d.g = { origin: +match[2], ...init };
-      d.b = { origin: +match[3], ...init };
+      d.r = { origin: d.r, ...init };
+      d.g = { origin: d.g, ...init };
+      d.b = { origin: d.b, ...init };
       d.a = { origin: 1, ...init };
       d.animate = [];
     });
 
-    const offscreenCtx = offscreenCanvas.getContext("2d");
-    pixels.forEach(({ imageX, imageY, rgb }) => {
-      offscreenCtx.fillStyle = rgb;
-      offscreenCtx.fillRect(imageX, imageY, 1, 1);
-    });
+    foregroundPixels = pixels.slice(0, 100);
+    backgroundPixels = pixels.slice(100);
 
-    face();
+    face(backgroundCtx, backgroundPixels);
+    face(foregroundCtx, foregroundPixels);
   });
 </script>
 
 <canvas
-  bind:this={canvas}
+  class="background"
+  class:fade-out={fadeOutBackground}
+  bind:this={backgroundCanvas}
   style="width: {width}px; height: {height}px;"
   width={canvasWidth}
   height={canvasHeight}
 />
 <canvas
-  bind:this={offscreenCanvas}
-  class="offscreen"
-  width={imageSizePixels}
-  height={imageSizePixels}
-  style="width: {imageSizePixels}; height: {imageSizePixels}px;"
+  class="foreground"
+  bind:this={foregroundCanvas}
+  style="width: {width}px; height: {height}px;"
+  width={canvasWidth}
+  height={canvasHeight}
 />
 
-<button on:click={scatter}>Test</button>
+<button
+  on:click={() => {
+    scatter(foregroundCtx, foregroundPixels);
+    fadeOutBackground = true;
+  }}>Test</button
+>
 
 <style>
   button {
@@ -208,9 +202,8 @@
     border: 1px solid gray;
     width: 100px;
   }
-  .offscreen {
-    top: 0;
-    left: 500px;
-    z-index: 1000000;
+  .fade-out {
+    opacity: 0;
+    transition: opacity 3s ease-out;
   }
 </style>
