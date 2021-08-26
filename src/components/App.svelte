@@ -22,7 +22,7 @@
 
 <button on:click={() => (step = 1)}>screenshots enter</button>
 <button on:click={() => (step = 2)}>form lenna</button>
-<button on:click={() => (step = 3)}>screenshots enter</button>
+<button on:click={() => (step = 3)}>scatter lenna</button>
 
 <Screenshots
   {step}

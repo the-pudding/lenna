@@ -8,7 +8,7 @@
 </script>
 
 <div class="images">
-  {#if step >= 1}
+  {#if step === 1 || step === 2}
     {#each [1, 2, 3, 4] as i}
       <img
         src={`assets/img/screenshot${i}.png`}

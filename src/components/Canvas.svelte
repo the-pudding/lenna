@@ -17,7 +17,6 @@
   let foregroundCtx;
   let foregroundPixels = [];
   let backgroundPixels = [];
-  let fadeOutBackground = false;
 
   let dpr = 1;
   const imageSizePixels = Math.sqrt(pixels.length);
@@ -68,47 +67,35 @@
     if (t < 1) window.requestAnimationFrame(() => frameTick(ctx, pixels));
   };
 
+  $: if (step === 3) scatter(foregroundCtx, foregroundPixels);
   const scatter = (ctx, pixels) => {
     const buffer = 40;
 
-    pixels.slice(0, 100).forEach((d, i) => {
-      d.animate = ["x", "y"];
-
-      const goLeft = Math.random() < 0.5;
-      if (goLeft) {
-        d.x.target = -buffer;
-      } else {
-        d.x.target = width + buffer;
-      }
-      d.y.target = d3.randomInt(0, height)();
-      d.x.ease = d3.easeCubicOut;
-      d.y.ease = d3.easeCubicOut;
-    });
-
-    frames = 200;
-    frameTick(ctx, pixels);
-  };
-
-  /*const fadeAllButOne = () => {
     pixels.forEach((d, i) => {
-      if (i === 10) {
+      if (i === 50) {
         d.animate = ["x", "y", "w", "h"];
         d.x.target = xScale(d.year);
         d.w.target = pixelSize * 10;
         d.h.target = pixelSize * 10;
         d.y.target = height - d.h.target;
       } else {
-        d.animate = ["a"];
-        d.a.target = 0;
+        d.animate = ["x", "y"];
+
+        const goLeft = Math.random() < 0.5;
+        if (goLeft) {
+          d.x.target = -buffer;
+        } else {
+          d.x.target = width + buffer;
+        }
+        d.y.target = d3.randomInt(0, height)();
+        d.x.ease = d3.easeCubicOut;
+        d.y.ease = d3.easeCubicOut;
       }
     });
 
-    pixels.sort((a, b) => a.animate - b.animate);
-
-    currentFrame = 0;
-    frames = 150;
-    frameTick();
-  };*/
+    frames = 200;
+    frameTick(ctx, pixels);
+  };
 
   const face = (ctx, pixels) => {
     pixels.forEach((d, i) => {
@@ -136,7 +123,6 @@
       ...data[i]
     }));
     // clean
-
     pixels.forEach((d) => {
       d.imageX = d.x;
       d.imageY = d.y;
@@ -154,8 +140,8 @@
       d.animate = [];
     });
 
-    foregroundPixels = pixels.slice(0, 100);
-    backgroundPixels = pixels.slice(100);
+    foregroundPixels = _.sampleSize(pixels, 300);
+    backgroundPixels = pixels.filter((d) => !foregroundPixels.map((p) => p.i).includes(d.i));
 
     face(backgroundCtx, backgroundPixels);
     face(foregroundCtx, foregroundPixels);
@@ -165,6 +151,7 @@
 <canvas
   class="background"
   class:visible={step === 2}
+  class:fade-out={step === 3}
   bind:this={backgroundCanvas}
   style="width: {width}px; height: {height}px;"
   width={canvasWidth}
@@ -172,19 +159,13 @@
 />
 <canvas
   class="foreground"
-  class:visible={step === 2}
+  class:visible={step >= 2}
   bind:this={foregroundCanvas}
   style="width: {width}px; height: {height}px;"
   width={canvasWidth}
   height={canvasHeight}
 />
 
-<!-- <button
-  on:click={() => {
-    scatter(foregroundCtx, foregroundPixels);
-    fadeOutBackground = true;
-  }}>Test</button
-> -->
 <style>
   button {
     position: absolute;
@@ -200,6 +181,10 @@
   .visible {
     opacity: 1;
     transition: opacity 2s 1s ease-in;
+  }
+  .fade-out {
+    opacity: 0;
+    transition: opacity 2s ease-in;
   }
   div {
     border: 1px solid gray;
