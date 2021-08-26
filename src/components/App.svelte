@@ -4,16 +4,31 @@
   import loadPixels from "$utils/loadPixels.js";
   import Canvas from "./Canvas.svelte";
   import Screenshots from "./Screenshots.svelte";
+  import _ from "lodash";
 
-  // let pixels;
+  // 1: screenshots enter
+  // 2: screenshots form lenna image
+  // 3: lenna scatters, single pixel falls
+  let step = 0;
 
-  // onMount(async () => {
-  //   pixels = await loadPixels("assets/img/lenna-84.png");
-  // });
+  $: console.log({ step });
+
+  let pixels;
+
+  onMount(async () => {
+    pixels = await loadPixels("assets/img/lenna-84.png");
+  });
 </script>
 
-<Screenshots />
+<button on:click={() => (step = 1)}>screenshots enter</button>
+<button on:click={() => (step = 2)}>form lenna</button>
+<button on:click={() => (step = 3)}>screenshots enter</button>
 
-<!-- {#if pixels}
-  <Canvas {pixels} />
-{/if} -->
+<Screenshots
+  {step}
+  pixels={pixels ? _.sampleSize(pixels, 4).map(({ x, y, w, h }) => ({ x, y, w, h })) : []}
+/>
+
+{#if pixels}
+  <Canvas bind:pixels {step} />
+{/if}

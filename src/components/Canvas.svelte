@@ -9,6 +9,7 @@
   stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
 
   export let pixels = [];
+  export let step;
 
   let backgroundCanvas;
   let foregroundCanvas;
@@ -23,8 +24,8 @@
   let frames = 0;
   let currentFrame = 0;
 
-  $: width = $viewport.width;
-  $: height = $viewport.height;
+  $: width = $viewport.width * 0.6;
+  $: height = $viewport.height * 0.6;
   $: canvasWidth = width * dpr;
   $: canvasHeight = height * dpr;
   $: pixelSize = Math.floor(Math.min(canvasWidth, canvasHeight) / imageSizePixels);
@@ -141,9 +142,6 @@
       d.imageY = d.y;
       d.year = +d.year || 1970; // some are ""
 
-      // const regex = /rgb\((\d+),(\d+),(\d+)\)/g;
-      // const match = [...d.rgb.matchAll(regex)][0];
-
       const init = { target: undefined, value: undefined };
       d.x = { origin: d.imageX * pixelSize, ...init };
       d.y = { origin: d.imageY * pixelSize, ...init };
@@ -166,7 +164,7 @@
 
 <canvas
   class="background"
-  class:fade-out={fadeOutBackground}
+  class:visible={step === 2}
   bind:this={backgroundCanvas}
   style="width: {width}px; height: {height}px;"
   width={canvasWidth}
@@ -174,19 +172,19 @@
 />
 <canvas
   class="foreground"
+  class:visible={step === 2}
   bind:this={foregroundCanvas}
   style="width: {width}px; height: {height}px;"
   width={canvasWidth}
   height={canvasHeight}
 />
 
-<button
+<!-- <button
   on:click={() => {
     scatter(foregroundCtx, foregroundPixels);
     fadeOutBackground = true;
   }}>Test</button
->
-
+> -->
 <style>
   button {
     position: absolute;
@@ -194,16 +192,17 @@
   }
   canvas {
     display: block;
+    opacity: 0;
     position: fixed;
-    top: 0;
+    top: 200px;
     left: 0;
+  }
+  .visible {
+    opacity: 1;
+    transition: opacity 2s 1s ease-in;
   }
   div {
     border: 1px solid gray;
     width: 100px;
-  }
-  .fade-out {
-    opacity: 0;
-    transition: opacity 3s ease-out;
   }
 </style>

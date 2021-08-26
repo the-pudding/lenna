@@ -1,31 +1,37 @@
 <script>
   import { fly } from "svelte/transition";
 
-  let visible = false;
-  const onClick = () => {
-    visible = true;
-  };
+  export let step;
+  export let pixels;
+
+  $: console.log({ pixels });
 </script>
 
-<button on:click={onClick}>start</button>
-{#if visible}
-  {#each [1, 2, 3, 4] as i}
-    <img
-      src={`assets/img/screenshot${i}.png`}
-      alt="screenshot of lenna"
-      in:fly={{ y: 200, duration: 2000, delay: i * 150 }}
-    />
-  {/each}
-{/if}
+<div class="images">
+  {#if step >= 1}
+    {#each [1, 2, 3, 4] as i}
+      <img
+        src={`assets/img/screenshot${i}.png`}
+        alt="lenna screenshot"
+        in:fly={{ y: 200, duration: 2000, delay: i * 150 }}
+        style={step === 2 &&
+          `transform: translate(${pixels[i - 1].x.value}px, ${pixels[i - 1].y.value}px); height: ${
+            pixels[0].h.value
+          }px; width: ${pixels[0].w.value}px; border: none; left: 0`}
+      />
+    {/each}
+  {/if}
+</div>
 
 <style>
   img {
     width: 40%;
-    top: 20%;
-    border: 2px solid blueviolet;
+    height: 40%;
+    top: 200px;
+    border: 2px solid black;
     position: absolute;
+    transition: height 1s, width 1s, transform 1s 1s, left 1s 1s;
   }
-
   img:nth-child(1) {
     left: 10%;
     transform: rotate(3deg);
