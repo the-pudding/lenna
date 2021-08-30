@@ -68,6 +68,7 @@
   };
 
   $: if (step === 3) scatter(foregroundCtx, foregroundPixels);
+
   const scatter = (ctx, pixels) => {
     const buffer = 40;
 

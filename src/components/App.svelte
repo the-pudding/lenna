@@ -1,34 +1,48 @@
 <script>
-  import { onMount } from "svelte";
-  import Footer from "$components/Footer.svelte";
-  import loadPixels from "$utils/loadPixels.js";
-  import Canvas from "./Canvas.svelte";
-  import Screenshots from "./Screenshots.svelte";
-  import _ from "lodash";
+  // import Sandbox from "$components/Sandbox.svelte";
+  import inView from "$actions/inView.js";
+  import viewport from "$stores/viewport.js";
+  import copy from "$data/doc.json";
 
-  // 1: screenshots enter
-  // 2: screenshots form lenna image
-  // 3: lenna scatters, single pixel falls
-  let step = 0;
+  const steps = copy.steps.map((d, i) => ({ ...d, i, ratio: 0 }));
+  let activeIndex = 0;
+  let activeId = "";
 
-  $: console.log({ step });
+  const setActiveStep = () => {
+    let max = 0;
+    let maxIndex = 0;
+    steps.forEach(({ ratio, i }) => {
+      if (ratio > max) {
+        max = ratio;
+        maxIndex = i;
+      }
+    });
+    activeIndex = maxIndex;
+    activeId = steps[activeIndex].id;
+  };
 
-  let pixels;
-
-  onMount(async () => {
-    pixels = await loadPixels("assets/img/lenna-84.png");
-  });
+  $: steps.map((d) => d.ratio).join(""), setActiveStep();
+  $: console.log({ activeIndex, activeId });
 </script>
 
-<button on:click={() => (step = 1)}>screenshots enter</button>
-<button on:click={() => (step = 2)}>form lenna</button>
-<button on:click={() => (step = 3)}>scatter lenna</button>
+<!-- <Sandbox /> -->
 
-<Screenshots
-  {step}
-  pixels={pixels ? _.sampleSize(pixels, 4).map(({ x, y, w, h }) => ({ x, y, w, h })) : []}
-/>
+{#each steps as { id, text, i }}
+  <div class="step" use:inView on:update={(e) => (steps[i].ratio = e.detail.ratio)}>
+    <p>{text}</p>
+  </div>
+{/each}
 
-{#if pixels}
-  <Canvas bind:pixels {step} />
-{/if}
+<style>
+  .step {
+    height: 100vh;
+    margin: 0;
+    background: pink;
+    font-size: 2em;
+    max-width: 20em;
+  }
+
+  .step:last-of-type {
+    background: lightsteelblue;
+  }
+</style>
