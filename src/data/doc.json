@@ -1,1 +1,24 @@
-{"steps":[{"id":"face","text":"In 2021, sharing content is easier than ever. Our lingua franca is visual: memes, infographics, TikToks. Our references cross borders and platforms, shared and remixed a hundred different ways in minutes. Digital culture is collective by default and has us 😂, 😭, and 😍 together around the world."},{"id":"thirty","text":"But as the Internet Age reaches its Dirty Thirties, what happens when pieces of digital culture that have been saved, screenshotted, and reposted for years need to retire? Let’s dig into the story of one of these artifacts."}]}
+{
+  "steps": [
+    {
+      "id": "lingua-franca",
+      "text": "In 2021, sharing content is easier than ever. Our lingua franca is visual: memes, infographics, TikToks. Our references cross borders and platforms, shared and remixed a hundred different ways in minutes. Digital culture is collective by default and has us 😂, 😭, and 😍 together around the world."
+    },
+    {
+      "id": "artifact",
+      "text": "But as the Internet Age reaches its Dirty Thirties, what happens when pieces of digital culture that have been saved, screenshotted, and reposted for years need to retire? Let’s dig into the story of one of these artifacts."
+    },
+    {
+      "id": "icon",
+      "text": "While the Lenna image may be relatively unknown today in broader pop culture, in the engineering world, she remains an ~icon~. I first encountered Lenna in a class in undergrad… then again in graduate school... then in Silicon Valley… and then all over the sites and software I use everyday as a tech worker."
+    },
+    {
+      "id": "lenna",
+      "text": "This is Lenna."
+    },
+    {
+      "id": "understand",
+      "text": "To understand where Lenna is today, you've got to understand how she got here."
+    }
+  ]
+}

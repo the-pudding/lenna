@@ -67,7 +67,7 @@
     if (t < 1) window.requestAnimationFrame(() => frameTick(ctx, pixels));
   };
 
-  $: if (step === 3) scatter(foregroundCtx, foregroundPixels);
+  $: if (step === "intersectionObserver") scatter(foregroundCtx, foregroundPixels);
 
   const scatter = (ctx, pixels) => {
     const buffer = 40;
@@ -151,8 +151,8 @@
 
 <canvas
   class="background"
-  class:visible={step === 2}
-  class:fade-out={step === 3}
+  class:visible={step === "thirty"}
+  class:fade-out={step === "intersectionObserver"}
   bind:this={backgroundCanvas}
   style="width: {width}px; height: {height}px;"
   width={canvasWidth}
@@ -160,7 +160,7 @@
 />
 <canvas
   class="foreground"
-  class:visible={step >= 2}
+  class:visible={step === "thirty" || step === "intersectionObserver"}
   bind:this={foregroundCanvas}
   style="width: {width}px; height: {height}px;"
   width={canvasWidth}

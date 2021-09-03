@@ -8,7 +8,7 @@
   // 1: screenshots enter
   // 2: screenshots form lenna image
   // 3: lenna scatters, single pixel falls
-  let step = 0;
+  export let step;
 
   $: console.log({ step });
 
@@ -19,15 +19,21 @@
   });
 </script>
 
-<button on:click={() => (step = 1)}>screenshots enter</button>
-<button on:click={() => (step = 2)}>form lenna</button>
-<button on:click={() => (step = 3)}>scatter lenna</button>
+<div>
+  <Screenshots
+    {step}
+    pixels={pixels ? _.sampleSize(pixels, 4).map(({ x, y, w, h }) => ({ x, y, w, h })) : []}
+  />
 
-<Screenshots
-  {step}
-  pixels={pixels ? _.sampleSize(pixels, 4).map(({ x, y, w, h }) => ({ x, y, w, h })) : []}
-/>
+  {#if pixels}
+    <Canvas bind:pixels {step} />
+  {/if}
+</div>
 
-{#if pixels}
-  <Canvas bind:pixels {step} />
-{/if}
+<style>
+  div {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+  }
+</style>

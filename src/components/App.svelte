@@ -1,48 +1,42 @@
 <script>
-  // import Sandbox from "$components/Sandbox.svelte";
+  import Sandbox from "$components/Sandbox.svelte";
+  import Galaxy from "$components/Galaxy.svelte";
+  import Scrolly from "./helpers/Scrolly.svelte";
   import inView from "$actions/inView.js";
-  import viewport from "$stores/viewport.js";
   import copy from "$data/doc.json";
 
-  const steps = copy.steps.map((d, i) => ({ ...d, i, ratio: 0 }));
-  let activeIndex = 0;
-  let activeId = "";
+  let value;
+  $: console.log({ value });
 
-  const setActiveStep = () => {
-    let max = 0;
-    let maxIndex = 0;
-    steps.forEach(({ ratio, i }) => {
-      if (ratio > max) {
-        max = ratio;
-        maxIndex = i;
-      }
-    });
-    activeIndex = maxIndex;
-    activeId = steps[activeIndex].id;
-  };
-
-  $: steps.map((d) => d.ratio).join(""), setActiveStep();
-  $: console.log({ activeIndex, activeId });
+  const steps = copy.steps.map((d) => d.text);
 </script>
 
-<!-- <Sandbox /> -->
+<!-- <Sandbox step={activeId} /> -->
 
-{#each steps as { id, text, i }}
-  <div class="step" use:inView on:update={(e) => (steps[i].ratio = e.detail.ratio)}>
-    <p>{text}</p>
-  </div>
-{/each}
+<Galaxy step={value} />
+
+<div class="spacer" />
+
+<Scrolly bind:value>
+  {#each steps as text, i}
+    <div class="step" class:active={value === i}>
+      <p>{text}</p>
+    </div>
+  {/each}
+</Scrolly>
 
 <style>
   .step {
-    height: 100vh;
-    margin: 0;
-    background: pink;
+    height: 60vh;
+    background: lightsteelblue;
     font-size: 2em;
     max-width: 20em;
+    margin-bottom: 15em;
   }
-
-  .step:last-of-type {
-    background: lightsteelblue;
+  .active {
+    background: gold !important;
+  }
+  .spacer {
+    height: 100vh;
   }
 </style>
