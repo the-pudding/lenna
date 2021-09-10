@@ -1,6 +1,7 @@
 <script>
   import Sandbox from "$components/Sandbox.svelte";
-  import Galaxy from "$components/Galaxy.svelte";
+  import Firework from "$components/Firework.svelte";
+  import Pixels from "$components/Pixels.svelte";
   import Scrolly from "./helpers/Scrolly.svelte";
   import inView from "$actions/inView.js";
   import copy from "$data/doc.json";
@@ -13,7 +14,9 @@
 
 <!-- <Sandbox step={activeId} /> -->
 
-<Galaxy step={value} />
+<!-- <Firework step={value} /> -->
+
+<Pixels step={value} />
 
 <div class="spacer" />
 
