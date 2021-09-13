@@ -22,10 +22,10 @@
 
   // look & feel
   const colors = ["#540045", "#C60052", "#FF714B", "#EAFF87", "#ACFFE9"];
-  const pixelSize = 50;
+  const pixelSize = 30;
   const pixelsShowingFactor = 75;
-  const frames = 100;
-  const timeBetween = 2000;
+  const timeBetween = 700;
+  const frames = timeBetween / 20;
 
   $: numPixels = Math.floor(canvasWidth / pixelSize) * Math.floor(canvasHeight / pixelSize);
   $: pixels = [...new Array(numPixels).keys()].map((i) => {
@@ -74,27 +74,40 @@
     if (t < 1) {
       window.requestAnimationFrame(frameTick);
     } else {
-      console.log("done");
       currentFrame = 0;
     }
   };
 
   const choose = () => {
-    // fade out currently visible ones
-    pixels
-      .filter((d) => d.animate.length > 0)
-      .forEach((pixel) => {
-        pixel.opacity.origin = 0.35;
-        pixel.opacity.target = 0;
-        pixel.opacity.value = 0.35;
-      });
     const chosen = _.sampleSize(pixels, numPixels / pixelsShowingFactor);
 
     // fade new ones in
     chosen.forEach((pixel) => {
+      pixel.opacity.origin = 0;
+      pixel.opacity.value = 0;
       pixel.opacity.target = 1;
       pixel.animate = ["opacity"];
     });
+
+    // fade out currently visible ones
+    pixels
+      .filter((d) => d.opacity.value === 1 && d.opacity.target === 1)
+      .forEach((pixel) => {
+        pixel.opacity.origin = 0.35;
+        pixel.opacity.value = 0.35;
+        pixel.opacity.target = 0;
+        pixel.animate = ["opacity"];
+      });
+
+    // stop animating the rest
+    pixels
+      .filter((d) => d.opacity.value === 0 && d.opacity.target === 0)
+      .forEach((pixel) => {
+        pixel.opacity.origin = 0;
+        pixel.opacity.value = 0;
+        pixel.opacity.target = 0;
+        pixel.animate = [];
+      });
   };
 
   const drawLoop = () => {
