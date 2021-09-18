@@ -26,6 +26,7 @@
   .authors {
     color: var(--color-light);
     margin-left: 110px;
+    font-family: var(--mono);
   }
 
   h1 {
