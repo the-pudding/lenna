@@ -5,30 +5,32 @@
 
 /* colors defined in variables.css */
 :root {
-	/* font */
-	--sans: "National 2 Web", Helvetica, Arial, sans-serif;
-	--serif: "Tiempos Text Web", Georgia, Times, serif;
-	--mono: Menlo, Consolas, Monaco, "Courier New", monospace;
-	
-	/* z-index */
-	--z-bottom: -100;
+  /* font */
+  --sans: "National 2 Web", Helvetica, Arial, sans-serif;
+  --serif: "Tiempos Text Web", Georgia, Times, serif;
+  --mono: Menlo, Consolas, Monaco, "Courier New", monospace;
+
+  /* z-index */
+  --z-bottom: -100;
   --z-middle: 0;
   --z-top: 100;
-	--z-overlay: 1000;
+  --z-overlay: 1000;
 
-	/* presets */
-	--border-radius: 4px;
-	--font-body: var(--sans);
-	--font-form: var(--sans);
-	--background-body: var(--base-white);
-  --background-form: var(--base-off-white);
-	--color-body: var(--base-off-black);
-	--color-placeholder: var(--base-gray-dark);
+  /* presets */
+  --border-radius: 4px;
+  --font-body: var(--sans);
+  --font-form: var(--sans);
+  --background-body: var(--base-dark-purple);
+  --color-body: var(--base-off-black);
+  --color-light: var(--base-white-pink);
+  --scroll-step-background: var(--base-off-white);
+
+  /* --background-form: var(--base-off-white);
+  --color-placeholder: var(--base-gray-dark);
   --color-link: var(--base-purple);
   --color-focus: var(--base-red);
-	--color-form: var(--base-off-black);
-	--color-border: var(--base-gray-light);
-	--color-selection: var(--base-gray-light);
-  --color-highlight: var(--base-yellow);
-	
+  --color-form: var(--base-off-black);
+  --color-border: var(--base-gray-light);
+  --color-selection: var(--base-gray-light);
+  --color-highlight: var(--base-yellow); */
 }

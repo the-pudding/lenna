@@ -1,45 +1,49 @@
 <script>
-  import Sandbox from "$components/Sandbox.svelte";
-  import Firework from "$components/Firework.svelte";
-  import Pixels from "$components/Pixels.svelte";
   import Scrolly from "./helpers/Scrolly.svelte";
-  import inView from "$actions/inView.js";
+  import Hero from "./Hero.svelte";
   import copy from "$data/doc.json";
 
+  const { title, subtitle, bylines } = copy;
   let value;
-  $: console.log({ value });
 
-  const steps = copy.steps.map((d) => d.text);
+  $: console.log({ value });
+  console.log(copy);
+
+  const steps = copy.scrollProse.map((d) => d.value);
 </script>
 
-<!-- <Sandbox step={activeId} /> -->
+<Hero {title} {subtitle} {bylines} />
 
-<!-- <Firework step={value} /> -->
+<div class="scroll-container">
+  <div class="sticky" />
 
-<Pixels step={value} />
-
-<div class="spacer" />
-
-<Scrolly bind:value>
-  {#each steps as text, i}
-    <div class="step" class:active={value === i}>
-      <p>{text}</p>
-    </div>
-  {/each}
-</Scrolly>
+  <Scrolly bind:value>
+    {#each steps as text, i}
+      <div class="step" class:active={value === i}>
+        <p>{text}</p>
+      </div>
+    {/each}
+  </Scrolly>
+</div>
 
 <style>
   .step {
-    height: 60vh;
-    background: lightsteelblue;
-    font-size: 2em;
+    padding: 24px 40px 24px 40px;
+    font-size: 18px;
     max-width: 20em;
-    margin-bottom: 15em;
+    margin-right: 90px;
+    margin-bottom: 60vh;
+    color: var(--color-body);
+    background: var(--scroll-step-background);
+    align-self: flex-end;
   }
-  .active {
-    background: gold !important;
+  .sticky {
+    position: sticky;
+    top: 0px;
+    width: 100%;
   }
-  .spacer {
-    height: 100vh;
+  .scroll-container {
+    width: 100%;
+    height: 100%;
   }
 </style>
