@@ -32,7 +32,8 @@ const config = {
       },
       plugins: [dsv(), svg()],
       paths: {
-        base: dev ? "" : "/lenna"
+        base: dev ? "" : "/lenna",
+        assets: dev ? "" : "/lenna"
       }
     }
   }
