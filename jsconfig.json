@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "lenna",
     "paths": {
       "$actions/*": ["src/actions/*"],
       "$components/*": ["src/components/*"],
