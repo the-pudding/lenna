@@ -1,10 +1,16 @@
 <script>
+  import PixelGalaxy from "./PixelGalaxy.svelte";
+
   export let title;
   export let subtitle;
   export let bylines;
+  export let value;
 </script>
 
-<div class="hero">
+{#if value === undefined}
+  <PixelGalaxy />
+{/if}
+<div class="hero" on:click={() => console.log("hero click")}>
   <h1>{title.toUpperCase()}</h1>
   <h2>{subtitle.toUpperCase()}</h2>
   <div class="authors">
@@ -19,6 +25,7 @@
 <style>
   .hero {
     height: 90vh;
+    pointer-events: none;
   }
 
   h1,

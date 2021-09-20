@@ -1,17 +1,12 @@
 <script>
   import viewport from "$stores/viewport";
   import { onMount, tick } from "svelte";
+  import baseColors from "../../properties/colors/base.json";
   import { fade } from "svelte/transition";
 
-  export let step;
-
-  let visible = true;
-  $: if (step !== undefined) visible = false;
-  $: if (step === undefined) visible = true;
-
   const size = 20;
-  const pixelsToLaunch = 200;
-  const pixelSpreadSpeed = 10;
+  const pixelsToLaunch = 100;
+  const pixelSpreadSpeed = 2;
 
   let canvas;
   let ctx;
@@ -26,7 +21,7 @@
   $: canvasWidth, canvasHeight, update();
 
   const mouseMove = (e) => {
-    mousePosition = { x: e.clientX * dpr, y: e.clientY * dpr - 200 };
+    mousePosition = { x: e.clientX * dpr, y: e.clientY * dpr };
   };
   const randBetween = (min, max) => Math.random() * (max - min) + min;
 
@@ -49,7 +44,13 @@
   };
 
   let coloredPixels = [];
-  let colors = ["#540045", "#C60052", "#FF714B", "#EAFF87", "#ACFFE9"];
+  let colors = [
+    baseColors.base["red"].value,
+    baseColors.base["green-1"].value,
+    baseColors.base["blue-1"].value,
+    baseColors.base["tan-1"].value,
+    baseColors.base["orange-1"].value
+  ];
   const initColoredPixels = () => {
     coloredPixels = [];
     for (var i = 0; i < pixelsToLaunch; i++) {
@@ -64,19 +65,15 @@
     }
   };
 
-  const draw = (centroid) => {
-    //launchPixel();
-    launchPixel(centroid);
+  const draw = () => {
+    launchPixel();
     drawGrid();
-    requestAnimationFrame(() => draw(centroid));
+    requestAnimationFrame(draw);
   };
 
-  const launchPixel = (centroid) => {
-    // coloredPixels[currentPixel].x = mousePosition.x;
-    // coloredPixels[currentPixel].y = mousePosition.y;
-
-    coloredPixels[currentPixel].x = centroid.x;
-    coloredPixels[currentPixel].y = centroid.y;
+  const launchPixel = () => {
+    coloredPixels[currentPixel].x = mousePosition.x;
+    coloredPixels[currentPixel].y = mousePosition.y;
     coloredPixels[currentPixel].alpha = 1;
 
     currentPixel++;
@@ -111,7 +108,7 @@
 
     for (var i = 0, l = pixels.length; i < l; i++) {
       ctx.globalAlpha = 1;
-      ctx.fillStyle = "#101010";
+      ctx.fillStyle = baseColors.base["purple-1"].value;
       ctx.fillRect(pixels[i][0], pixels[i][1], pixels[i][2], pixels[i][3]);
       ctx.globalAlpha = pixels[i][5];
       ctx.fillStyle = pixels[i][4];
@@ -119,57 +116,36 @@
     }
   };
 
-  const onClick = () => {
-    const centroids = [
-      { x: canvasWidth * 0.25, y: canvasHeight * 0.25 },
-      //{ x: canvasWidth * 0.75, y: canvasHeight * 0.25 },
-      { x: canvasWidth * 0.75, y: canvasHeight * 0.75 }
-      //{ x: canvasWidth * 0.25, y: canvasHeight * 0.75 }
-    ];
-    centroids.forEach((c) => {
-      draw(c);
-    });
-  };
-
   onMount(() => {
     dpr = window.devicePixelRatio;
     ctx = canvas.getContext("2d");
-    mousePosition = { x: $viewport.width / 2, y: $viewport.height / 2 };
+    mousePosition = { x: $viewport.width, y: 0 };
     update();
-    // draw();
+    draw();
   });
 </script>
 
-<button on:click={onClick}>start galaxy</button>
-<h1>Lenna</h1>
-{#if visible}
-  <canvas
-    bind:this={canvas}
-    style="width: {width}px; height: {height}px;"
-    width={canvasWidth}
-    height={canvasHeight}
-    on:mousemove={mouseMove}
-    out:fade
-  />
-{/if}
+<div class="overlay" style="width: {width}px; height: {height}px;" on:mousemove={mouseMove} />
+<canvas
+  bind:this={canvas}
+  style="width: {width}px; height: {height}px;"
+  width={canvasWidth}
+  height={canvasHeight}
+  transition:fade
+/>
 
 <style>
   canvas {
-    background: #101010;
     position: fixed;
-    top: 100px;
+    background: var(--base-purple-0);
+    top: 0;
     left: 0;
+    pointer-events: auto;
+    z-index: -1;
   }
-  button {
-    position: absolute;
-    z-index: 1000;
-    top: 20px;
-  }
-  h1 {
-    position: absolute;
-    z-index: 1000;
-    color: white;
-    left: 42.5%;
-    font-size: 5em;
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
   }
 </style>
