@@ -4,11 +4,11 @@
   import copy from "$data/doc.json";
 
   const { title, subtitle, bylines } = copy;
-  let value;
+  let step;
 
-  $: console.log({ value });
+  $: console.log({ step });
 </script>
 
-<Hero {title} {subtitle} {bylines} {value} />
+<Hero {title} {subtitle} {bylines} {step} />
 
-<ScrollController bind:value />
+<ScrollController bind:value={step} />

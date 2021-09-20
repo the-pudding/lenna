@@ -1,11 +1,13 @@
 <script>
   import viewport from "$stores/viewport";
-  import { onMount, tick } from "svelte";
+  import { onMount, tick, beforeUpdate, afterUpdate } from "svelte";
   import baseColors from "../../properties/colors/base.json";
   import { fade } from "svelte/transition";
 
+  export let step;
+
   const size = 20;
-  const pixelsToLaunch = 100;
+  const pixelsToLaunch = 75;
   const pixelSpreadSpeed = 2;
 
   let canvas;
@@ -13,6 +15,8 @@
   let dpr = 1;
   let mousePosition;
   let currentPixel = 0;
+
+  $: animate = step === undefined;
   $: width = $viewport.width;
   $: height = $viewport.height;
   $: canvasWidth = width * dpr;
@@ -68,7 +72,17 @@
   const draw = () => {
     launchPixel();
     drawGrid();
-    requestAnimationFrame(draw);
+    if (animate) requestAnimationFrame(draw);
+    else resetGrid();
+  };
+
+  const resetGrid = () => {
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    for (var i = 0, l = pixels.length; i < l; i++) {
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = baseColors.base["purple-1"].value;
+      ctx.fillRect(pixels[i][0], pixels[i][1], pixels[i][2], pixels[i][3]);
+    }
   };
 
   const launchPixel = () => {
@@ -80,10 +94,6 @@
     if (currentPixel > pixelsToLaunch - 1) currentPixel = 0;
   };
 
-  // 0, 1 - x, y
-  // 2, 3 - w, h
-  // 4 - color
-  // 5 - alpha
   const drawGrid = () => {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
@@ -119,9 +129,16 @@
   onMount(() => {
     dpr = window.devicePixelRatio;
     ctx = canvas.getContext("2d");
-    mousePosition = { x: $viewport.width, y: 0 };
+    mousePosition = { x: $viewport.width - 100, y: 100 };
     update();
-    draw();
+    //draw();
+  });
+  afterUpdate(() => {
+    if (animate) {
+      draw();
+    } else {
+      resetGrid();
+    }
   });
 </script>
 

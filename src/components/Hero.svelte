@@ -4,11 +4,11 @@
   export let title;
   export let subtitle;
   export let bylines;
-  export let value;
+  export let step;
 </script>
 
-{#if value === undefined}
-  <PixelGalaxy />
+{#if step === undefined || step < 3}
+  <PixelGalaxy {step} />
 {/if}
 <div class="hero" on:click={() => console.log("hero click")}>
   <h1>{title.toUpperCase()}</h1>
