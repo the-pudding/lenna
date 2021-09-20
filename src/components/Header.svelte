@@ -25,6 +25,6 @@
   }
 
   :global(.wordmark svg path) {
-    fill: var(--base-off-white);
+    fill: var(--color-body-light);
   }
 </style>

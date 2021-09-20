@@ -24,7 +24,7 @@
   h1,
   h2,
   .authors {
-    color: var(--color-light);
+    color: var(--color-body-light);
     margin-left: 110px;
     font-family: var(--mono);
   }

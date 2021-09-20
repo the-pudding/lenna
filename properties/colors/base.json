@@ -1,31 +1,52 @@
 {
   "base": {
-    "black": {
-      "value": "#000000"
-    },
     "off-black": {
       "value": "#282828"
     },
-    "gray-dark": {
-      "value": "#5b5b5b"
+    "green-1": {
+      "value": "#79A695"
     },
-    "gray-medium": {
-      "value": "#949494"
+    "green-2": {
+      "value": "#A5F2D5"
     },
-    "gray-light": {
-      "value": "#c9c9c9"
+    "blue-1": {
+      "value": "#586FA6"
     },
-    "off-white": {
-      "value": "#FFFAF5"
+    "blue-2": {
+      "value": "#8DABF2"
     },
-    "white-pink": {
+    "red": {
+      "value": "#A64153"
+    },
+    "purple-1": {
+      "value": "#390A29"
+    },
+    "purple-2": {
+      "value": "#440D31"
+    },
+    "purple-3": {
+      "value": "#591642"
+    },
+    "orange-1": {
+      "value": "#D96666"
+    },
+    "orange-2": {
+      "value": "#F29F80"
+    },
+    "tan-1": {
+      "value": "#F2C299"
+    },
+    "tan-2": {
+      "value": "#FEDEC3"
+    },
+    "tan-3": {
       "value": "#FFF2E8"
+    },
+    "tan-4": {
+      "value": "#FFFAF5"
     },
     "white": {
       "value": "#fff"
-    },
-    "dark-purple": {
-      "value": "#390A29"
     }
   }
 }

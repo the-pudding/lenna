@@ -1,18 +1,25 @@
 /**
  * Do not edit directly
- * Generated on Sat, 18 Sep 2021 21:42:15 GMT
+ * Generated on Mon, 20 Sep 2021 19:39:17 GMT
  */
 
 :root {
-  --base-black: #000000;
   --base-off-black: #282828;
-  --base-gray-dark: #5b5b5b;
-  --base-gray-medium: #949494;
-  --base-gray-light: #c9c9c9;
-  --base-off-white: #FFFAF5;
-  --base-white-pink: #FFF2E8;
+  --base-green-1: #79A695;
+  --base-green-2: #A5F2D5;
+  --base-blue-1: #586FA6;
+  --base-blue-2: #8DABF2;
+  --base-red: #A64153;
+  --base-purple-1: #390A29;
+  --base-purple-2: #440D31;
+  --base-purple-3: #591642;
+  --base-orange-1: #D96666;
+  --base-orange-2: #F29F80;
+  --base-tan-1: #F2C299;
+  --base-tan-2: #FEDEC3;
+  --base-tan-3: #FFF2E8;
+  --base-tan-4: #FFFAF5;
   --base-white: #fff;
-  --base-dark-purple: #390A29;
   --categorical-blue: #4477AA;
   --categorical-red: #EE6677;
   --categorical-green: #228833;

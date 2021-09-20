@@ -30,7 +30,7 @@
   .step {
     padding: 24px 40px 24px 40px;
     font-size: 18px;
-    max-width: 20em;
+    width: 20em;
     margin-right: 90px;
     margin-bottom: 60vh;
     color: var(--color-body);

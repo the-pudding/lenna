@@ -1,14 +1,21 @@
 {
   "base": {
-    "black": "#000000",
     "off-black": "#282828",
-    "gray-dark": "#5b5b5b",
-    "gray-medium": "#949494",
-    "gray-light": "#c9c9c9",
-    "off-white": "#FFFAF5",
-    "white-pink": "#FFF2E8",
-    "white": "#fff",
-    "dark-purple": "#390A29"
+    "green-1": "#79A695",
+    "green-2": "#A5F2D5",
+    "blue-1": "#586FA6",
+    "blue-2": "#8DABF2",
+    "red": "#A64153",
+    "purple-1": "#390A29",
+    "purple-2": "#440D31",
+    "purple-3": "#591642",
+    "orange-1": "#D96666",
+    "orange-2": "#F29F80",
+    "tan-1": "#F2C299",
+    "tan-2": "#FEDEC3",
+    "tan-3": "#FFF2E8",
+    "tan-4": "#FFFAF5",
+    "white": "#fff"
   },
   "categorical": {
     "blue": "#4477AA",
