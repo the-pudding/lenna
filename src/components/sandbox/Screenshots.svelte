@@ -6,22 +6,23 @@
 </script>
 
 <div class="images">
-  {#if step === "face" || step === "thirty"}
-    {#each [1, 2, 3, 4] as i}
-      <img
-        src={`assets/img/screenshot${i}.png`}
-        alt="lenna screenshot"
-        in:fly={{ y: 200, duration: 2000, delay: i * 150 }}
-        style={step === "thirty" &&
-          `transform: translate(${pixels[i - 1].x.value}px, ${pixels[i - 1].y.value}px); height: ${
-            pixels[0].h.value
-          }px; width: ${pixels[0].w.value}px; border: none; left: 0`}
-      />
-    {/each}
-  {/if}
+  {#each [1, 2, 3, 4] as i}
+    <img
+      src={`assets/img/screenshot${i}.png`}
+      alt="lenna screenshot"
+      in:fly={{ y: 200, duration: 2000, delay: i * 150 }}
+      style={`transform: translate(${pixels[i - 1].x.value}px, ${
+        pixels[i - 1].y.value
+      }px); height: ${pixels[0].h.value}px; width: ${pixels[0].w.value}px; border: none; left: 0`}
+    />
+  {/each}
 </div>
 
 <style>
+  .images {
+    position: sticky;
+    top: 0;
+  }
   img {
     width: 40%;
     height: 40%;
