@@ -1,26 +1,32 @@
 <script>
   import PixelGalaxy from "./PixelGalaxy.svelte";
+  import { fade } from "svelte/transition";
 
   export let title;
   export let subtitle;
   export let bylines;
   export let step;
+
+  $: titleVisible = step === undefined;
+  $: gridVisible = step === undefined || step < 3;
 </script>
 
-{#if step === undefined || step < 3}
+{#if gridVisible}
   <PixelGalaxy {step} />
 {/if}
-<div class="hero" on:click={() => console.log("hero click")}>
-  <h1>{title.toUpperCase()}</h1>
-  <h2>{subtitle.toUpperCase()}</h2>
-  <div class="authors">
-    <div>By <a href={bylines[0].url}>{bylines[0].author}</a></div>
-    <div>
-      with <a href={bylines[1].url}>{bylines[1].author}</a> and
-      <a href={bylines[2].url}>{bylines[2].author}</a>
+{#if titleVisible}
+  <div class="hero" on:click={() => console.log("hero click")} transition:fade>
+    <h1>{title.toUpperCase()}</h1>
+    <h2>{subtitle.toUpperCase()}</h2>
+    <div class="authors">
+      <div>By <a href={bylines[0].url}>{bylines[0].author}</a></div>
+      <div>
+        with <a href={bylines[1].url}>{bylines[1].author}</a> and
+        <a href={bylines[2].url}>{bylines[2].author}</a>
+      </div>
     </div>
   </div>
-</div>
+{/if}
 
 <style>
   .hero {

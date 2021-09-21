@@ -1,8 +1,11 @@
 <script>
   import baseColors from "../../properties/colors/base.json";
+  import { fade } from "svelte/transition";
 
   export let step;
-  $: visible = step === 1;
+  export let type;
+  export let enter;
+  $: visible = step === enter;
 
   const colors = [
     baseColors.base["green-2"].value,
@@ -11,37 +14,29 @@
     baseColors.base["blue-1"].value,
     baseColors.base["tan-1"].value
   ];
-  const names = [
-    "Grumpy cat",
-    "These are all cakes",
-    "Disaster girl",
-    "Bernie's mittens",
-    "Oregon Trail"
-  ];
+  const names =
+    type === "internet"
+      ? ["Grumpy cat", "These are all cakes", "Disaster girl", "Bernie's mittens", "Oregon Trail"]
+      : ["Lenna 1", "Lenna 2", "Lenna 3", "Lenna 4", "Lenna 5"];
 </script>
 
-<div class="images" style={visible && `height: 100vh`}>
-  {#each [0, 1, 2, 3, 4] as i}
+<div class="images">
+  {#each [...new Array(5).keys()] as i}
     <div class="img-group">
-      <div class="label" class:visible-label={visible}>{names[i]}</div>
+      {#if visible}
+        <div class="label" transition:fade>{names[i]}</div>
+      {/if}
       <img
-        src={`assets/img/internet-screenshots/pic${i + 1}.png`}
-        alt="lenna screenshot"
-        style={visible && `border: 7px solid ${colors[i]}`}
-        class:visible-img={visible}
+        src={`assets/img/${type}-screenshots/pic${i + 1}.png`}
+        alt={type === "internet" ? `${names[i]} meme` : "screenshot of lenna"}
+        style={visible ? `border: 7px solid ${colors[i]}` : ""}
+        class:imageVisible={visible}
       />
     </div>
   {/each}
 </div>
 
 <style>
-  .visible-img {
-    height: 200px;
-    width: 200px;
-  }
-  .visible-label {
-    display: block !important;
-  }
   .img-group {
     position: absolute;
     display: flex;
@@ -49,7 +44,6 @@
     align-items: center;
   }
   .label {
-    display: none;
     font-size: 16px;
     line-height: 32px;
   }
@@ -57,6 +51,10 @@
     height: 0px;
     width: 0px;
     transition: height 1s, width 1s;
+  }
+  .imageVisible {
+    height: 200px;
+    width: 200px;
   }
   .img-group:nth-child(1) {
     left: 10%;

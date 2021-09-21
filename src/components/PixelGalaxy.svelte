@@ -1,6 +1,6 @@
 <script>
   import viewport from "$stores/viewport";
-  import { onMount, tick, beforeUpdate, afterUpdate } from "svelte";
+  import { onMount, tick, afterUpdate } from "svelte";
   import baseColors from "../../properties/colors/base.json";
   import { fade } from "svelte/transition";
 

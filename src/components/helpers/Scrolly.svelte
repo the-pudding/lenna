@@ -17,6 +17,7 @@
   export let bottom = 0;
   export let increments = 100;
   export let value = undefined;
+  export let styles;
 
   const steps = [];
   const threshold = [];
@@ -75,14 +76,6 @@
   });
 </script>
 
-<div bind:this={container}>
+<div bind:this={container} style={styles}>
   <slot />
 </div>
-
-<style>
-  div {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-</style>

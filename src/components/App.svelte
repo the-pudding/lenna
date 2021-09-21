@@ -12,13 +12,14 @@
   const steps = copy.scrollProse.map((d) => d.value);
 </script>
 
-<Hero {title} {subtitle} {bylines} {step} />
 <div class="scroll-container">
   <div class="sticky">
-    <Screenshots {step} />
+    <Hero {title} {subtitle} {bylines} {step} />
+    <Screenshots {step} enter={1} type="internet" />
+    <Screenshots {step} enter={2} type="lenna" />
   </div>
 
-  <Scrolly bind:value={step}>
+  <Scrolly bind:value={step} styles={"display: flex; flex-direction: column; width: 100%;"}>
     {#each steps as text, i}
       <div class="step" class:active={step === i}>
         <p>{text}</p>
@@ -41,9 +42,9 @@
   }
   .sticky {
     position: sticky;
-    top: 0px;
+    top: 0;
     width: 100%;
-    /* height: 100vh; */
+    height: 100vh;
     color: var(--color-body-light);
     font-family: var(--mono);
   }
