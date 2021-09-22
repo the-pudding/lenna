@@ -1,22 +1,32 @@
 <script>
+  import { onMount } from "svelte";
   import Hero from "./Hero.svelte";
   import Scrolly from "./helpers/Scrolly.svelte";
   import Screenshots from "./Screenshots.svelte";
+  import Lenna from "./Lenna.svelte";
   import copy from "$data/doc.json";
+  import loadPixels from "$utils/loadPixels.js";
 
-  const { title, subtitle, bylines } = copy;
   let step;
+  let pixels;
 
   $: console.log({ step });
 
   const steps = copy.scrollProse.map((d) => d.value);
+
+  onMount(async () => {
+    pixels = await loadPixels("assets/img/lenna-84.png");
+  });
 </script>
 
 <div class="scroll-container">
   <div class="sticky">
-    <Hero {title} {subtitle} {bylines} {step} />
+    <Hero {step} />
     <Screenshots {step} enter={1} type="internet" />
-    <Screenshots {step} enter={2} type="lenna" />
+    <Screenshots {step} {pixels} enter={2} type="lenna" />
+    {#if pixels}
+      <Lenna {step} {pixels} />
+    {/if}
   </div>
 
   <Scrolly bind:value={step} styles={"display: flex; flex-direction: column; width: 100%;"}>
@@ -39,6 +49,10 @@
     background: var(--scroll-step-background);
     align-self: flex-end;
     z-index: 1000;
+    opacity: 0.4;
+  }
+  .active {
+    opacity: 1;
   }
   .sticky {
     position: sticky;

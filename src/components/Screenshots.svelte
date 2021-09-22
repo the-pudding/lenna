@@ -1,11 +1,26 @@
 <script>
   import baseColors from "../../properties/colors/base.json";
   import { fade } from "svelte/transition";
+  import { tweened } from "svelte/motion";
+  import { cubicOut } from "svelte/easing";
 
   export let step;
   export let type;
   export let enter;
+  export let pixels = [];
+
   $: visible = step === enter;
+
+  const size = tweened(0, { duration: 1000, easing: cubicOut });
+
+  // when it comes into view
+  $: if (visible && $size !== 200) {
+    size.set(200);
+  }
+  // when it leaves view
+  $: if (!visible) {
+    size.set(0);
+  }
 
   const colors = [
     baseColors.base["green-2"].value,
@@ -29,8 +44,9 @@
       <img
         src={`assets/img/${type}-screenshots/pic${i + 1}.png`}
         alt={type === "internet" ? `${names[i]} meme` : "screenshot of lenna"}
-        style={visible ? `border: 7px solid ${colors[i]}` : ""}
-        class:imageVisible={visible}
+        style={`height: ${$size}px; width: ${$size}px; border: ${
+          visible ? `7px solid ${colors[i]}` : ""
+        }`}
       />
     </div>
   {/each}
@@ -50,11 +66,6 @@
   img {
     height: 0px;
     width: 0px;
-    transition: height 1s, width 1s;
-  }
-  .imageVisible {
-    height: 200px;
-    width: 200px;
   }
   .img-group:nth-child(1) {
     left: 10%;

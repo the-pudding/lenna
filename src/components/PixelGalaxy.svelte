@@ -8,7 +8,7 @@
 
   const size = 20;
   const pixelsToLaunch = 75;
-  const pixelSpreadSpeed = 2;
+  const pixelSpreadSpeed = 3;
 
   let canvas;
   let ctx;
@@ -131,7 +131,6 @@
     ctx = canvas.getContext("2d");
     mousePosition = { x: $viewport.width - 100, y: 100 };
     update();
-    //draw();
   });
   afterUpdate(() => {
     if (animate) {

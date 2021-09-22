@@ -1,11 +1,11 @@
 <script>
   import PixelGalaxy from "./PixelGalaxy.svelte";
   import { fade } from "svelte/transition";
+  import copy from "$data/doc.json";
 
-  export let title;
-  export let subtitle;
-  export let bylines;
   export let step;
+
+  const { title, subtitle, bylines } = copy;
 
   $: titleVisible = step === undefined;
   $: gridVisible = step === undefined || step < 3;
