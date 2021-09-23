@@ -6,6 +6,7 @@
   import Lenna from "./Lenna.svelte";
   import copy from "$data/doc.json";
   import loadPixels from "$utils/loadPixels.js";
+  import _ from "lodash";
 
   let step;
   let pixels;
@@ -22,8 +23,13 @@
 <div class="scroll-container">
   <div class="sticky">
     <Hero {step} />
-    <Screenshots {step} enter={1} type="internet" />
-    <Screenshots {step} {pixels} enter={2} type="lenna" />
+    <Screenshots
+      {step}
+      pixels={pixels ? _.sampleSize(pixels, 4).map(({ x, y }) => ({ x, y })) : []}
+      enter={0}
+      type="internet"
+    />
+    <Screenshots {step} enter={2} type="lenna" />
     {#if pixels}
       <Lenna {step} {pixels} />
     {/if}

@@ -9,6 +9,11 @@
 </header>
 
 <style>
+  header {
+    position: relative;
+    z-index: 1000;
+  }
+
   .wordmark {
     max-width: 10em;
     margin: 0 auto;

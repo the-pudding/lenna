@@ -9,9 +9,13 @@
   export let enter;
   export let pixels = [];
 
+  $: console.log({ pixels });
+
+  const delay = 500;
+
   $: visible = step === enter;
 
-  const size = tweened(0, { duration: 1000, easing: cubicOut });
+  const size = tweened(0, { duration: 1000, easing: cubicOut, delay });
 
   // when it comes into view
   $: if (visible && $size !== 200) {
@@ -39,7 +43,7 @@
   {#each [...new Array(5).keys()] as i}
     <div class="img-group">
       {#if visible}
-        <div class="label" transition:fade>{names[i]}</div>
+        <div class="label" transition:fade={{ delay }}>{names[i]}</div>
       {/if}
       <img
         src={`assets/img/${type}-screenshots/pic${i + 1}.png`}
