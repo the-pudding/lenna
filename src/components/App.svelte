@@ -24,7 +24,7 @@
   <div class="sticky">
     <Hero {step} {pixelSize} />
     <Screenshots {step} enter={0} type="internet" />
-    {#each [...new Array(3).keys()] as i}
+    {#each [...new Array(5).keys()] as i}
       <Screenshots {step} enter={1} type="internet" {i} />
     {/each}
     <!-- <Screenshots {step} enter={2} type="lenna" /> -->

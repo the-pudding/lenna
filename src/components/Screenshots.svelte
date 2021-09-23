@@ -11,12 +11,12 @@
   export let enter;
   export let i = null;
 
-  const delay = 500;
+  const delay = 300;
   const finalSize = 200;
-  const size = tweened(0, { duration: 2000, easing: cubicOut, delay });
+  const size = tweened(0, { duration: 2000, easing: cubicOut, delay: i ? delay * i : delay });
 
   //$: pixelOrigins = pixels ? _.sampleSize(pixels, 5).map(({ x, y }) => ({ x, y })) : null;
-  $: visible = step >= enter;
+  $: visible = step >= enter && step < 3;
 
   // when it comes into view
   $: if (visible && $size !== finalSize) {
