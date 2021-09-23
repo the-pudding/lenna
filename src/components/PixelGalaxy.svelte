@@ -5,8 +5,8 @@
   import { fade } from "svelte/transition";
 
   export let step;
+  export let size;
 
-  const size = 20;
   const pixelsToLaunch = 75;
   const pixelSpreadSpeed = 3;
 

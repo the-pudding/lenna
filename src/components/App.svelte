@@ -10,10 +10,10 @@
 
   let step;
   let pixels;
+  const pixelSize = 20;
+  const steps = copy.scrollProse.map((d) => d.value);
 
   $: console.log({ step });
-
-  const steps = copy.scrollProse.map((d) => d.value);
 
   onMount(async () => {
     pixels = await loadPixels("assets/img/lenna-84.png");
@@ -22,14 +22,12 @@
 
 <div class="scroll-container">
   <div class="sticky">
-    <Hero {step} />
-    <Screenshots
-      {step}
-      pixels={pixels ? _.sampleSize(pixels, 4).map(({ x, y }) => ({ x, y })) : []}
-      enter={0}
-      type="internet"
-    />
-    <Screenshots {step} enter={2} type="lenna" />
+    <Hero {step} {pixelSize} />
+    <Screenshots {step} enter={0} type="internet" />
+    {#each [...new Array(3).keys()] as i}
+      <Screenshots {step} enter={1} type="internet" {i} />
+    {/each}
+    <!-- <Screenshots {step} enter={2} type="lenna" /> -->
     {#if pixels}
       <Lenna {step} {pixels} />
     {/if}

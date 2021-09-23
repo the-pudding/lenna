@@ -4,6 +4,7 @@
   import copy from "$data/doc.json";
 
   export let step;
+  export let pixelSize;
 
   const { title, subtitle, bylines } = copy;
 
@@ -12,7 +13,7 @@
 </script>
 
 {#if gridVisible}
-  <PixelGalaxy {step} />
+  <PixelGalaxy {step} size={pixelSize} />
 {/if}
 {#if titleVisible}
   <div class="hero" on:click={() => console.log("hero click")} transition:fade>
