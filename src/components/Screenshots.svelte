@@ -11,18 +11,18 @@
   export let enter;
   export let i = null;
 
-  const delay = 300;
+  const delay = 500;
   const finalSize = 200;
   const size = tweened(0, { duration: 2000, easing: cubicOut, delay: i ? delay * i : delay });
 
-  //$: pixelOrigins = pixels ? _.sampleSize(pixels, 5).map(({ x, y }) => ({ x, y })) : null;
   $: visible = step >= enter && step < 3;
+  $: leaving = $size > 10 && !visible;
 
-  // when it comes into view
-  $: if (visible && $size !== finalSize) {
+  // growing
+  $: if (visible && $size === 0) {
     size.set(finalSize);
   }
-  // when it leaves view
+  // shrinking
   $: if (!visible) {
     size.set(0);
   }
@@ -68,14 +68,13 @@
   }
 </script>
 
-<!-- {#if pixelOrigins} -->
 <div class="images">
   {#each [...new Array(5).keys()] as i}
     <div
       class="img-group"
       style={`top: ${visible ? destinations[i].y : origins[i].y}px; left: ${
         visible ? destinations[i].x : origins[i].x
-      }px; width: ${finalSize}px`}
+      }px; width: ${finalSize}px;`}
     >
       {#if visible}
         <div class="label" transition:fade={{ delay }}>{names[i]}</div>
@@ -83,15 +82,14 @@
       <img
         src={`assets/img/${type}-screenshots/pic${i + 1}.png`}
         alt={type === "internet" ? `${names[i]} meme` : "screenshot of lenna"}
-        style={`height: ${$size}px; width: ${$size}px; border: ${
-          visible ? `7px solid ${colors[i]}` : ""
-        }`}
+        style={`height: ${$size}px; width: ${$size}px; opacity: ${
+          visible || leaving ? 1 : 0
+        }; border-color: ${colors[i]}`}
       />
     </div>
   {/each}
 </div>
 
-<!-- {/if} -->
 <style>
   .images {
     display: flex;
@@ -109,7 +107,9 @@
     line-height: 32px;
   }
   img {
+    opacity: 0;
     height: 0px;
     width: 0px;
+    border: 7px solid;
   }
 </style>
