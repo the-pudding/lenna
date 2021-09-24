@@ -84,7 +84,7 @@
         src={`assets/img/${type}-screenshots/pic${i + 1}.png`}
         alt={type === "internet" ? `${names[i]} meme` : "screenshot of lenna"}
         style={`height: ${$size}px; width: ${$size}px; border: ${
-          $size > 8 ? `7px solid ${colors[i]}` : ""
+          visible ? `7px solid ${colors[i]}` : ""
         }`}
       />
     </div>

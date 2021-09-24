@@ -27,7 +27,6 @@
     {#each [...new Array(5).keys()] as i}
       <Screenshots {step} enter={1} type="internet" {i} />
     {/each}
-    <!-- <Screenshots {step} enter={2} type="lenna" /> -->
     {#if pixels}
       <Lenna {step} {pixels} />
     {/if}
