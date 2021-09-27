@@ -23,10 +23,13 @@
 <div class="scroll-container">
   <div class="sticky">
     <Hero {step} {pixelSize} />
-    <Screenshots enter={step === 0} exit={step === 3} key="original-memes" />
-    <!-- {#each [...new Array(5).keys()] as i}
-      <Screenshots enter={step === 1} exit={step === 3} key={`memes-${i}`} />
-    {/each} -->
+    <Screenshots visible={step >= 0 && step < 3} count={5} key="memes-0" />
+    {#each [...new Array(5).keys()] as i}
+      <Screenshots visible={step >= 1 && step < 3} count={5} key={`memes-${i + 1}`} />
+    {/each}
+
+    <Screenshots visible={step >= 2 && step < 3} count={5} key="lennas" />
+
     {#if pixels}
       <Lenna {step} {pixels} />
     {/if}
