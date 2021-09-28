@@ -13,26 +13,33 @@
 
   export let key;
   export let visible = false;
+  export let faded = false;
   export let count = 0;
-  export let i = null;
+  export let pixels;
 
   const labels = getLabels(key);
-  $: origins = getOrigins(key, $viewport.width, $viewport.height, finalSize);
+  $: origins = getOrigins(key, $viewport.width, $viewport.height, finalSize, pixels);
   $: destinations = getDestinations(key, $viewport.width, $viewport.height, finalSize);
 
   const delay = 600;
   const finalSize = 200;
-  const size = tweened(0, { duration: 2000, easing: cubicOut, delay: i ? delay * i : delay });
+  const size = tweened(0, { duration: 2000, easing: cubicOut });
+  const opacity = tweened(0, { duration: 2000, easing: cubicOut });
 
-  $: leaving = !visible && $size > 10;
+  // $: leaving = !visible && $size > 2;
 
-  // growing
   $: if (visible && $size === 0) {
     size.set(finalSize);
   }
-  // shrinking
   $: if (!visible) {
     size.set(0);
+    opacity.set(0);
+  }
+  $: if (faded && visible) {
+    opacity.set(0.25);
+  }
+  $: if (visible && !faded) {
+    opacity.set(1);
   }
 </script>
 
@@ -42,18 +49,13 @@
       class="img-group"
       style={`top: ${visible ? destinations[i].y : origins[i].y}px; left: ${
         visible ? destinations[i].x : origins[i].x
-      }px; width: ${finalSize}px; transition-delay: ${delay}ms`}
+      }px; width: ${finalSize}px;`}
     >
-      {#if visible}
-        <div class="label" transition:fade={{ delay }}>{labels[i]}</div>
-      {/if}
+      <div class="label" style={`opacity: ${$opacity}`}>{labels[i]}</div>
       <img
         src={`assets/img/${key.includes("memes") ? "memes" : key}/pic${i + 1}.png`}
         alt={key}
-        style={`height: ${$size}px; width: ${$size}px; opacity: ${
-          visible || leaving ? 1 : 0
-        }; border: 7px solid ${colors[i]}`}
-        transition:fade
+        style={`height: ${$size}px; width: ${$size}px; opacity: ${$opacity}; border: 7px solid ${colors[i]}`}
       />
     </div>
   {/each}

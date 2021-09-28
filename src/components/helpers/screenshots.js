@@ -1,6 +1,9 @@
 import _ from "lodash";
 import baseColors from "../../../properties/colors/base.json";
 
+const pixelSize = 20;
+const offset = 200;
+
 export const colors = [
   baseColors.base["green-2"].value,
   baseColors.base["orange-1"].value,
@@ -9,11 +12,8 @@ export const colors = [
   baseColors.base["tan-1"].value
 ];
 
-export const getOrigins = (key, width, height, finalSize) => {
-  const type = key.split("-")[0];
-  const i = parseInt(key.split("-")[1]);
-
-  if (type === "memes" && i === 0) {
+export const getOrigins = (key, width, height, finalSize, pixels) => {
+  if (!pixels) {
     return [
       { x: 300, y: 200 },
       { x: 534, y: 67 },
@@ -21,12 +21,28 @@ export const getOrigins = (key, width, height, finalSize) => {
       { x: 111, y: 45 },
       { x: 56, y: 230 }
     ];
-  } else if (type === "memes" || type === "lennas") {
-    return [...new Array(5).keys()].map((d) => ({
-      x: _.random(0, width - finalSize),
-      y: _.random(0, height - finalSize)
-    }));
   }
+  const chosen = _.sampleSize(pixels, 5).map((p) => ({ x: p.x + offset, y: p.y + offset }));
+
+  return chosen;
+
+  // const type = key.split("-")[0];
+  // const i = parseInt(key.split("-")[1]);
+
+  // if (type === "memes" && i === 0) {
+  //   return [
+  //     { x: 300, y: 200 },
+  //     { x: 534, y: 67 },
+  //     { x: 199, y: 600 },
+  //     { x: 111, y: 45 },
+  //     { x: 56, y: 230 }
+  //   ];
+  // } else if (type === "memes" || type === "lennas") {
+  //   return [...new Array(5).keys()].map((d) => ({
+  //     x: _.random(0, width - finalSize),
+  //     y: _.random(0, height - finalSize)
+  //   }));
+  // }
 };
 
 export const getDestinations = (key, width, height, finalSize) => {

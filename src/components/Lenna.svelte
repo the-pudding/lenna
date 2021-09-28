@@ -1,11 +1,9 @@
 <script>
-  import { onMount, tick } from "svelte";
+  import { onMount } from "svelte";
   import viewport from "$stores/viewport";
 
-  export let step;
+  export let visible;
   export let pixels;
-
-  $: visible = step === 3;
 
   let canvas;
   let ctx;

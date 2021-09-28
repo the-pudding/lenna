@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, setContext } from "svelte";
   import Hero from "./Hero.svelte";
   import Scrolly from "./helpers/Scrolly.svelte";
   import Screenshots from "./Screenshots.svelte";
@@ -23,15 +23,33 @@
 <div class="scroll-container">
   <div class="sticky">
     <Hero {step} {pixelSize} />
-    <Screenshots visible={step >= 0 && step < 3} count={5} key="memes-0" />
+    <Screenshots
+      visible={step >= 0 && step < 3}
+      faded={step >= 1 && step < 3}
+      count={5}
+      key="memes-0"
+      {pixels}
+    />
     {#each [...new Array(5).keys()] as i}
-      <Screenshots visible={step >= 1 && step < 3} count={5} key={`memes-${i + 1}`} />
+      <Screenshots
+        visible={step >= 1 && step < 3}
+        faded={step >= 2 && step < 3}
+        count={5}
+        key={`memes-${i + 1}`}
+        {pixels}
+      />
     {/each}
 
-    <Screenshots visible={step >= 2 && step < 3} count={5} key="lennas" />
+    <Screenshots
+      visible={step >= 2 && step < 3}
+      faded={step >= 3 && step < 3}
+      count={5}
+      key="lennas"
+      {pixels}
+    />
 
     {#if pixels}
-      <Lenna {step} {pixels} />
+      <Lenna {pixels} visible={step === 3} />
     {/if}
   </div>
 
