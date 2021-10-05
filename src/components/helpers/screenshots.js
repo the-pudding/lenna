@@ -1,7 +1,6 @@
 import _ from "lodash";
 import baseColors from "../../../properties/colors/base.json";
 
-const pixelSize = 20;
 const offset = 200;
 
 export const colors = [

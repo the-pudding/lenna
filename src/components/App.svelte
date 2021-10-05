@@ -4,6 +4,7 @@
   import Scrolly from "./helpers/Scrolly.svelte";
   import Screenshots from "./Screenshots.svelte";
   import Lenna from "./Lenna.svelte";
+  import BarChart from "./BarChart.svelte";
   import copy from "$data/doc.json";
   import loadPixels from "$utils/loadPixels.js";
   import _ from "lodash";
@@ -51,6 +52,8 @@
     {#if pixels}
       <Lenna {pixels} visible={step === 3} />
     {/if}
+
+    <BarChart {step} />
   </div>
 
   <Scrolly bind:value={step} styles={"display: flex; flex-direction: column; width: 100%;"}>
