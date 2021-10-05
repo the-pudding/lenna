@@ -24,6 +24,7 @@
   --color-body: var(--base-off-black);
   --color-body-light: var(--base-tan-3);
   --scroll-step-background: var(--base-tan-4);
+  --chart-text: var(--base-tan-1);
 
   /* --background-form: var(--base-off-white);
   --color-placeholder: var(--base-gray-dark);
