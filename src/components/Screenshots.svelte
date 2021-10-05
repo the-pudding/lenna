@@ -1,10 +1,5 @@
 <script>
-  import {
-    getOrigins,
-    getDestinations,
-    getLabels,
-    colors
-  } from "$components/helpers/screenshots.js";
+  import { getOrigins, getDestinations, getLabels, colors } from "$utils/screenshots.js";
   import viewport from "$stores/viewport.js";
   import { fade } from "svelte/transition";
   import { tweened } from "svelte/motion";
@@ -18,7 +13,7 @@
   export let pixels;
 
   const labels = getLabels(key);
-  $: origins = getOrigins(key, $viewport.width, $viewport.height, finalSize, pixels);
+  $: origins = getOrigins(pixels);
   $: destinations = getDestinations(key, $viewport.width, $viewport.height, finalSize);
 
   const delay = 600;

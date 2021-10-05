@@ -2,8 +2,11 @@
   import { onMount } from "svelte";
   import viewport from "$stores/viewport";
 
-  export let visible;
+  export let step;
   export let pixels;
+
+  $: visible = step === 3;
+  let leaving = false;
 
   let canvas;
   let ctx;
@@ -21,6 +24,10 @@
 
   $: canvasWidth, canvasHeight, face(); // redraw on resize
   $: if (visible) fadeIn(); // fade whenever it enters
+  $: if (step === 4) {
+    leaving = true;
+    fadeOut();
+  }
 
   const render = () => {
     if (ctx) {
@@ -51,6 +58,7 @@
 
     currentFrame += 1;
     if (t < 1) window.requestAnimationFrame(frameTick);
+    if (t === 1) leaving = false;
   };
 
   const fadeIn = () => {
@@ -58,6 +66,23 @@
       pixels.forEach((d) => {
         d.animate = ["x", "y", "w", "h", "r", "g", "b", "a"];
         d.a = { origin: 0, target: 1, value: undefined };
+        d.animate
+          .filter((field) => field !== "a")
+          .forEach((field) => {
+            d[field].target = d[field].origin;
+          });
+      });
+      frames = 100;
+      currentFrame = 0;
+      frameTick();
+    }
+  };
+
+  const fadeOut = () => {
+    if (ctx && pixels) {
+      pixels.forEach((d) => {
+        d.animate = ["x", "y", "w", "h", "r", "g", "b", "a"];
+        d.a = { origin: d.a.value, target: 0, value: undefined };
         d.animate
           .filter((field) => field !== "a")
           .forEach((field) => {
@@ -113,10 +138,10 @@
 
 <canvas
   bind:this={canvas}
-  class:visible
   style="width: {width}px; height: {height}px;"
   width={canvasWidth}
   height={canvasHeight}
+  class:visible={visible || leaving}
 />
 
 <style>

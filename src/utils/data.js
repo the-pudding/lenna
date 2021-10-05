@@ -2,8 +2,6 @@ import _ from "lodash";
 import raw from "$data/data.csv";
 
 export const barChartData = () => {
-  console.log(raw.length);
-
   const counts = raw
     .filter((d) => d.year)
     .reduce((acc, currentValue) => {

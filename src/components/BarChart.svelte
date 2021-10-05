@@ -2,9 +2,10 @@
   import { onMount } from "svelte";
   import _ from "lodash";
   import viewport from "$stores/viewport";
-  import { barChartData } from "./helpers/data";
+  import { barChartData } from "$utils/data.js";
 
   export let step;
+  $: visible = step >= 5 && step < 8;
 
   const margin = { left: 50, right: 50, top: 100, bottom: 100 };
   $: width = $viewport.width;
@@ -63,7 +64,7 @@
   });
 </script>
 
-<svg {width} {height}>
+<svg {width} {height} class:visible>
   <g>
     <g id="x-axis" transform={`translate(0, ${height - margin.bottom})`} />
     <g id="y-axis" transform={`translate(${margin.left}, 0)`} />
@@ -81,6 +82,12 @@
 </svg>
 
 <style>
+  .visible {
+    display: block;
+  }
+  svg {
+    display: none;
+  }
   rect {
     fill: var(--base-purple-3);
   }

@@ -4,6 +4,7 @@
   import Scrolly from "./helpers/Scrolly.svelte";
   import Screenshots from "./Screenshots.svelte";
   import Lenna from "./Lenna.svelte";
+  import Playboy from "./Playboy.svelte";
   import BarChart from "./BarChart.svelte";
   import copy from "$data/doc.json";
   import loadPixels from "$utils/loadPixels.js";
@@ -50,8 +51,10 @@
     />
 
     {#if pixels}
-      <Lenna {pixels} visible={step === 3} />
+      <Lenna {pixels} {step} />
     {/if}
+
+    <Playboy {pixelSize} {step} />
 
     <BarChart {step} />
   </div>
