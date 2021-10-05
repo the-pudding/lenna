@@ -2,14 +2,15 @@
   import { onMount } from "svelte";
   import _ from "lodash";
   import viewport from "$stores/viewport";
+  import { barChartData } from "./helpers/data";
 
   export let step;
 
-  const margin = { left: 50, right: 50, top: 10, bottom: 100 };
+  const margin = { left: 50, right: 50, top: 100, bottom: 100 };
   $: width = $viewport.width;
   $: height = $viewport.height;
 
-  const fakeData = _.times(20, (i) => ({ year: 1800 + i * 10, value: _.random(100) }));
+  const data = barChartData();
 
   let xScale;
   let yScale;
@@ -21,7 +22,8 @@
   const drawAxes = () => {
     if (xScale && yScale) {
       drawXAxis = (g) => g.call(d3.axisBottom(xScale));
-      drawYAxis = (g) => g.call(d3.axisLeft(yScale));
+      drawYAxis = (g) =>
+        g.call(d3.axisLeft(yScale).tickSize(-1 * (width - margin.left - margin.right)));
       d3.select("#x-axis").call(drawXAxis);
       d3.select("#y-axis").call(drawYAxis);
     }
@@ -45,9 +47,8 @@
       .scaleBand()
       .domain(
         d3.range(
-          d3.min(fakeData, (d) => d.year),
-          d3.max(fakeData, (d) => d.year) + 10,
-          10
+          d3.min(data, (d) => d.year),
+          d3.max(data, (d) => d.year) + 1
         )
       )
       .range([margin.left, width - margin.right])
@@ -55,7 +56,7 @@
 
     yScale = d3
       .scaleLinear()
-      .domain([0, d3.max(fakeData, (d) => d.value)])
+      .domain([0, d3.max(data, (d) => d.value)])
       .range([height - margin.bottom, margin.top]);
 
     drawAxes();
@@ -63,16 +64,16 @@
 </script>
 
 <svg {width} {height}>
-  <g transform={`translate(${margin.left}, ${margin.top})`}>
+  <g>
     <g id="x-axis" transform={`translate(0, ${height - margin.bottom})`} />
     <g id="y-axis" transform={`translate(${margin.left}, 0)`} />
     {#if xScale && yScale}
-      {#each fakeData as d}
+      {#each data as d}
         <rect
           x={xScale(xAccessor(d))}
-          y={height - margin.bottom - yScale(yAccessor(d))}
+          y={yScale(yAccessor(d))}
           width={xScale.bandwidth()}
-          height={yScale(yAccessor(d))}
+          height={height - yScale(yAccessor(d)) - margin.bottom}
         />
       {/each}
     {/if}
@@ -89,9 +90,16 @@
     fill: var(--chart-text);
   }
   :global(line) {
-    display: none;
+    color: var(--base-purple-2);
   }
   :global(path) {
     display: none;
+  }
+  :global(#x-axis .tick:nth-child(odd)) {
+    display: none;
+  }
+  .highlight {
+    stroke: var(--base-green-2);
+    stroke-width: 3px;
   }
 </style>
