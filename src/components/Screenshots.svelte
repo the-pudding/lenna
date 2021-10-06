@@ -6,7 +6,7 @@
   import { cubicOut } from "svelte/easing";
   import _ from "lodash";
 
-  export let key;
+  export let key = "";
   export let visible = false;
   export let faded = false;
   export let count = 0;
@@ -21,8 +21,6 @@
   const size = tweened(0, { duration: 2000, easing: cubicOut });
   const opacity = tweened(0, { duration: 2000, easing: cubicOut });
 
-  // $: leaving = !visible && $size > 2;
-
   $: if (visible && $size === 0) {
     size.set(finalSize);
   }
@@ -36,6 +34,8 @@
   $: if (visible && !faded) {
     opacity.set(1);
   }
+
+  console.log(`assets/img/${key.includes("memes") ? "memes" : "lennas"}/pic1.png`);
 </script>
 
 <div class="images">
@@ -48,7 +48,7 @@
     >
       <div class="label" style={`opacity: ${$opacity}`}>{labels[i]}</div>
       <img
-        src={`assets/img/${key.includes("memes") ? "memes" : key}/pic${i + 1}.png`}
+        src={`assets/img/memes/pic${i + 1}.png`}
         alt={key}
         style={`height: ${$size}px; width: ${$size}px; opacity: ${$opacity}; border: 7px solid ${colors[i]}`}
       />

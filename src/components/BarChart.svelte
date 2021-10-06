@@ -2,10 +2,16 @@
   import { onMount } from "svelte";
   import _ from "lodash";
   import viewport from "$stores/viewport";
-  import { barChartData } from "$utils/data.js";
+  import { fade } from "svelte/transition";
+  import { barChartData, showUntilYear } from "$utils/barChart.js";
 
   export let step;
-  $: visible = step >= 5 && step < 8;
+  export let playboyDestination;
+
+  $: playboyDestination = { x: xScale ? xScale(1972) : 0, y: yScale ? yScale(0) : 0 };
+
+  $: visible = step >= 6 && step < 9;
+  $: showUntil = showUntilYear(step);
 
   const margin = { left: 50, right: 50, top: 100, bottom: 100 };
   $: width = $viewport.width;
@@ -69,12 +75,14 @@
     <g id="x-axis" transform={`translate(0, ${height - margin.bottom})`} />
     <g id="y-axis" transform={`translate(${margin.left}, 0)`} />
     {#if xScale && yScale}
-      {#each data as d}
+      {#each data.filter((d) => d.year <= showUntil) as d}
         <rect
           x={xScale(xAccessor(d))}
           y={yScale(yAccessor(d))}
           width={xScale.bandwidth()}
           height={height - yScale(yAccessor(d)) - margin.bottom}
+          class:highlight={d.year === showUntil}
+          transition:fade
         />
       {/each}
     {/if}

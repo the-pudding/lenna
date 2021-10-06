@@ -12,6 +12,7 @@
 
   let step;
   let pixels;
+  let playboyDestination;
   const pixelSize = 20;
   const steps = copy.scrollProse.map((d) => d.value);
 
@@ -54,9 +55,9 @@
       <Lenna {pixels} {step} />
     {/if}
 
-    <Playboy {pixelSize} {step} />
+    <Playboy {step} {playboyDestination} />
 
-    <BarChart {step} />
+    <BarChart {step} bind:playboyDestination />
   </div>
 
   <Scrolly bind:value={step} styles={"display: flex; flex-direction: column; width: 100%;"}>

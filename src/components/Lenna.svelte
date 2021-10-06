@@ -72,7 +72,7 @@
             d[field].target = d[field].origin;
           });
       });
-      frames = 100;
+      frames = 60;
       currentFrame = 0;
       frameTick();
     }
@@ -89,7 +89,7 @@
             d[field].target = d[field].origin;
           });
       });
-      frames = 100;
+      frames = 60;
       currentFrame = 0;
       frameTick();
     }
