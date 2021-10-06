@@ -38,6 +38,7 @@
     "subdirectory": "lenna"
   },
   "dependencies": {
+    "indian-ocean": "^4.0.2",
     "lodash": "^4.17.21",
     "stats.js": "^0.17.0"
   }

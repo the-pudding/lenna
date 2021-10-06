@@ -34,8 +34,6 @@
   $: if (visible && !faded) {
     opacity.set(1);
   }
-
-  console.log(`assets/img/${key.includes("memes") ? "memes" : "lennas"}/pic1.png`);
 </script>
 
 <div class="images">
@@ -48,7 +46,7 @@
     >
       <div class="label" style={`opacity: ${$opacity}`}>{labels[i]}</div>
       <img
-        src={`assets/img/memes/pic${i + 1}.png`}
+        src={`assets/img/${key.includes("meme") ? "memes" : "lennas"}/pic${i + 1}.png`}
         alt={key}
         style={`height: ${$size}px; width: ${$size}px; opacity: ${$opacity}; border: 7px solid ${colors[i]}`}
       />
