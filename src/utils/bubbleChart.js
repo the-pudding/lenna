@@ -12,6 +12,8 @@ export const formatData = (startYear, endYear) => {
     (d) => d.year && parseInt(d.year) >= startYear && parseInt(d.year) <= endYear
   );
 
+  const groupNumbers = { ".com": 0, ".edu": 1, ".org": 2, other: 3 };
+
   const result = filtered.reduce(
     (acc, currentValue) => {
       let group;
@@ -35,7 +37,11 @@ export const formatData = (startYear, endYear) => {
             name: group,
             children: [
               ...myGroup.filter((d) => d.domain !== currentValue.domain),
-              { group, domain: currentValue.domain, value: myDomainEntry[0].value + 1 }
+              {
+                group: groupNumbers[group],
+                domain: currentValue.domain,
+                value: myDomainEntry[0].value + 1
+              }
             ]
           }
         ];
@@ -45,7 +51,10 @@ export const formatData = (startYear, endYear) => {
         ...acc.filter((d) => d.name !== group),
         {
           name: group,
-          children: [...myGroup, { group, domain: currentValue.domain, value: 1 }]
+          children: [
+            ...myGroup,
+            { group: groupNumbers[group], domain: currentValue.domain, value: 1 }
+          ]
         }
       ];
     },
@@ -57,5 +66,5 @@ export const formatData = (startYear, endYear) => {
     ]
   );
 
-  return result;
+  return { name: "root", children: result };
 };
