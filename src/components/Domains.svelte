@@ -13,7 +13,7 @@
     baseColors.base["green-2"].value,
     baseColors.base["blue-2"].value,
     baseColors.base["orange-1"].value,
-    "lightgrey"
+    baseColors.base["tan-3"].value
   ];
 
   const margin = { left: 0, right: 0, top: 100, bottom: 100 };
@@ -24,8 +24,6 @@
 
   $: yearRange = getYearRange(step);
   $: data = yearRange && yearRange.length ? formatData(yearRange[0], yearRange[1]) : {};
-
-  $: console.log({ data, nodes });
 
   $: width, height, data, updateNodes();
 
@@ -150,5 +148,8 @@
   }
   svg {
     display: none;
+  }
+  rect {
+    stroke: none;
   }
 </style>
