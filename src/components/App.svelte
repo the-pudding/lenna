@@ -6,6 +6,7 @@
   import Lenna from "./Lenna.svelte";
   import Playboy from "./Playboy.svelte";
   import BarChart from "./BarChart.svelte";
+  import Domains from "./Domains.svelte";
   import copy from "$data/doc.json";
   import loadPixels from "$utils/loadPixels.js";
   import _ from "lodash";
@@ -58,6 +59,8 @@
     <Playboy {step} {playboyDestination} />
 
     <BarChart {step} bind:playboyDestination />
+
+    <Domains {step} />
   </div>
 
   <Scrolly bind:value={step} styles={"display: flex; flex-direction: column; width: 100%;"}>
