@@ -108,8 +108,7 @@
     display: none;
   }
   rect {
-    /* fill: var(--base-purple-3); */
-    fill: white;
+    fill: var(--base-purple-3);
   }
   :global(text) {
     font-family: var(--mono);
