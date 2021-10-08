@@ -22,3 +22,37 @@ export const showUntilYear = (step) => {
   if (step === 7) return 1991;
   return 2022;
 };
+
+const getDomain = (str) => {
+  if (_.endsWith(str, ".com")) {
+    return ".com";
+  } else if (_.endsWith(str, ".edu")) {
+    return ".edu";
+  } else if (_.endsWith(str, ".org")) {
+    return ".org";
+  }
+  return "other";
+};
+
+export const domainData = () => {
+  const colors = raw
+    .filter((d) => d.year)
+    .reduce((acc, currentValue) => {
+      const domain = getDomain(currentValue.domain);
+      const year = parseInt(currentValue.year);
+      const existing = acc.filter((d) => d.year === year);
+      if (existing.length) {
+        const myDomainCount = existing[0][domain];
+        if (myDomainCount) {
+          return [
+            ...acc.filter((d) => d.year !== year),
+            { ...existing[0], [domain]: myDomainCount + 1 }
+          ];
+        }
+        return [...acc.filter((d) => d.year !== year), { ...existing[0], [domain]: 1 }];
+      }
+      return [...acc, { year, [domain]: 1 }];
+    }, []);
+  const sorted = _.sortBy(colors, (d) => d.year);
+  return sorted;
+};

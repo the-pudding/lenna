@@ -60,7 +60,7 @@
 
     <BarChart {step} bind:playboyDestination />
 
-    <Domains {step} />
+    <!-- <Domains {step} /> -->
   </div>
 
   <Scrolly bind:value={step} styles={"display: flex; flex-direction: column; width: 100%;"}>
