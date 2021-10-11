@@ -83,7 +83,7 @@
     <g id="y-axis" transform={`translate(${margin.left}, 0)`} />
     {#if xScale && yScale}
       {#if domains}
-        <DomainBars {domains} {xScale} {yScale} {height} {margin} />
+        <DomainBars {domains} {xScale} {yScale} />
       {:else}
         {#each data.filter((d) => d.year <= showUntil) as d}
           <rect
