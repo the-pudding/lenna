@@ -4,7 +4,8 @@
   import viewport from "$stores/viewport";
   import { fade } from "svelte/transition";
   import DomainBars from "./DomainBars.svelte";
-  import { barChartData, showUntilYear, domainData } from "$utils/barChart.js";
+  import Legend from "./Legend.svelte";
+  import { barChartData, showUntilYear, domainData, barColors } from "$utils/barChart.js";
 
   export let step;
   export let playboyDestination;
@@ -83,7 +84,8 @@
     <g id="y-axis" transform={`translate(${margin.left}, 0)`} />
     {#if xScale && yScale}
       {#if domains}
-        <DomainBars {domains} {xScale} {yScale} />
+        <DomainBars {domains} {xScale} {yScale} {barColors} />
+        <Legend {barColors} x={xScale(1975)} y={yScale(280)} />
       {:else}
         {#each data.filter((d) => d.year <= showUntil) as d}
           <rect

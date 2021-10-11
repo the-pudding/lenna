@@ -1,5 +1,4 @@
 <script>
-  import baseColors from "../../properties/colors/base.json";
   import { fade } from "svelte/transition";
   import _ from "lodash";
   import { onMount } from "svelte";
@@ -7,13 +6,7 @@
   export let domains;
   export let xScale;
   export let yScale;
-
-  const colors = {
-    ".org": baseColors.base["green-2"].value,
-    ".edu": baseColors.base["blue-2"].value,
-    ".com": baseColors.base["orange-1"].value,
-    other: baseColors.base["tan-3"].value
-  };
+  export let barColors;
 
   let stackData;
   $: console.log({ stackData });
@@ -34,7 +27,7 @@
         y={yScale(minibar[1])}
         width={xScale.bandwidth()}
         height={yScale(minibar[0]) - yScale(minibar[1])}
-        fill={colors[minibar.key]}
+        fill={barColors[minibar.key]}
         transition:fade
       />
     {/each}
