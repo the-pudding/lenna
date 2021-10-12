@@ -6,7 +6,8 @@
   import Lenna from "./Lenna.svelte";
   import Playboy from "./Playboy.svelte";
   import BarChart from "./BarChart.svelte";
-  import Domains from "./Domains.svelte";
+  import Conclusion from "./Conclusion.svelte";
+  import Footer from "./Footer.svelte";
   import copy from "$data/doc.json";
   import loadPixels from "$utils/loadPixels.js";
   import _ from "lodash";
@@ -18,6 +19,7 @@
   const steps = copy.scrollProse.map((d) => d.value);
 
   $: console.log({ step });
+  $: console.log(copy);
 
   onMount(async () => {
     pixels = await loadPixels("assets/img/lenna-84.png");
@@ -59,18 +61,19 @@
     <Playboy {step} {playboyDestination} />
 
     <BarChart {step} bind:playboyDestination />
-
-    <!-- <Domains {step} /> -->
   </div>
 
   <Scrolly bind:value={step} styles={"display: flex; flex-direction: column; width: 100%;"}>
     {#each steps as text, i}
       <div class="step" class:active={step === i}>
-        <p>{text}</p>
+        <p>{@html text}</p>
       </div>
     {/each}
   </Scrolly>
 </div>
+
+<Conclusion {step} />
+<Footer />
 
 <style>
   .step {

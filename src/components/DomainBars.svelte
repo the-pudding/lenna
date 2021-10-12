@@ -9,7 +9,6 @@
   export let barColors;
 
   let stackData;
-  $: console.log({ stackData });
   onMount(() => {
     stackData = d3
       .stack()

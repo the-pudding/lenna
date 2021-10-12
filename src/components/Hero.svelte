@@ -9,7 +9,7 @@
   const { title, subtitle, bylines } = copy;
 
   $: titleVisible = step === undefined;
-  $: gridVisible = step === undefined || step < 3;
+  $: gridVisible = step === undefined || (step >= 0 && step < 3);
 </script>
 
 {#if gridVisible}

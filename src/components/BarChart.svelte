@@ -12,7 +12,7 @@
 
   $: playboyDestination = { x: xScale ? xScale(1972) : 0, y: yScale ? yScale(0) : 0 };
 
-  $: visible = step >= 6 && step < 12;
+  $: visible = step >= 5 || step === -1;
   $: showUntil = showUntilYear(step);
 
   const margin = { left: 50, right: 50, top: 100, bottom: 100 };
@@ -22,8 +22,8 @@
   const data = barChartData();
 
   let domains = null;
-  $: if (step >= 9) domains = domainData();
-  $: if (step < 9) domains = null;
+  $: if (step >= 11) domains = domainData();
+  $: if (step < 11) domains = null;
 
   $: console.log({ data, domains });
 

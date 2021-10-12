@@ -7,8 +7,8 @@
 
   const opacity = tweened(0, { duration: 3000, easing: cubicOut });
 
-  $: visible = step === 5;
-  $: shrinking = step === 6;
+  $: visible = step === 4;
+  $: shrinking = step === 5;
 
   $: if (visible && $opacity === 0) {
     opacity.set(1);
