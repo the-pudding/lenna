@@ -3,10 +3,10 @@ import raw from "$data/data.csv";
 import baseColors from "../../properties/colors/base.json";
 
 export const barColors = {
-  ".org": baseColors.base["green-2"].value,
-  ".com": baseColors.base["orange-1"].value,
-  ".edu": baseColors.base["blue-2"].value,
-  other: baseColors.base["tan-3"].value
+  ".org": baseColors.base["blue-1"].value,
+  ".edu": baseColors.base["orange-1"].value,
+  ".com": baseColors.base["red"].value,
+  other: baseColors.base["orange-2"].value
 };
 
 export const barChartData = () => {

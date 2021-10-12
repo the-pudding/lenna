@@ -13,7 +13,7 @@
   onMount(() => {
     stackData = d3
       .stack()
-      .keys([".edu", ".com", ".org", "other"])(domains)
+      .keys([".org", ".edu", ".com", "other"])(domains)
       .map((d) => (d.forEach((m) => (m.key = d.key)), d))
       .map((d) => d.filter((m) => !Number.isNaN(m[0]) && !Number.isNaN(m[1])));
   });
