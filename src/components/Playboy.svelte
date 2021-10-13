@@ -5,7 +5,7 @@
   export let step;
   export let playboyDestination;
 
-  const opacity = tweened(0, { duration: 3000, easing: cubicOut });
+  const opacity = tweened(0, { duration: 2000, easing: cubicOut });
 
   $: visible = step === 4;
   $: shrinking = step === 5;

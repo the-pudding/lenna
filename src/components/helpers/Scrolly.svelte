@@ -43,6 +43,7 @@
       }
     }
 
+    //console.log({ steps });
     if (maxRatio > 0) value = maxIndex;
     else {
       if (value > 0) value = -1;

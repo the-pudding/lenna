@@ -34,6 +34,20 @@
   const xAccessor = (d) => d.year;
   const yAccessor = (d) => d.value;
 
+  $: showUntil, updateTicks();
+
+  const updateTicks = () => {
+    if (xScale && yScale) {
+      d3.selectAll("#x-axis .tick text")
+        .filter((d) => d === showUntil)
+        .attr("class", "highlight-label");
+
+      d3.selectAll("#x-axis .tick text")
+        .filter((d) => d !== showUntil)
+        .attr("class", "");
+    }
+  };
+
   const drawAxes = () => {
     if (xScale && yScale) {
       drawXAxis = (g) => g.call(d3.axisBottom(xScale));
@@ -129,5 +143,10 @@
   .highlight {
     stroke: var(--base-green-2);
     stroke-width: 3px;
+  }
+  :global(.highlight-label) {
+    fill: var(--base-tan-3);
+    font-weight: bold;
+    font-size: 18px;
   }
 </style>
