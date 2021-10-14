@@ -44,12 +44,10 @@
     }
 
     if (maxRatio > 0) value = maxIndex;
-    //else {
-    //return undefined;
-    // if (value > 0) value = -1;
-    // // finished
-    else value = undefined; // hasn't started
-    //}
+    else {
+      if (value > 0) value = -1;
+      else value = undefined;
+    }
   };
 
   const createObserver = (node, index) => {

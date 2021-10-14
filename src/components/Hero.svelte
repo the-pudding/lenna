@@ -2,17 +2,26 @@
   import PixelGalaxy from "./PixelGalaxy.svelte";
   import { fade } from "svelte/transition";
   import copy from "$data/doc.json";
+  import { onMount } from "svelte";
 
   export let step;
-  export let pixelSize;
+
+  let dpr = 1;
+  $: pixelSize = 15 * dpr;
 
   const { title, subtitle, bylines } = copy;
 
   $: titleVisible = step === undefined;
   $: gridVisible = step === undefined || (step >= 0 && step < 3);
+
+  let ready = false;
+  onMount(() => {
+    dpr = window.devicePixelRatio;
+    ready = true;
+  });
 </script>
 
-{#if gridVisible}
+{#if gridVisible && ready}
   <PixelGalaxy {step} size={pixelSize} />
 {/if}
 {#if titleVisible}

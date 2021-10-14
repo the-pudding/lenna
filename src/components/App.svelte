@@ -14,23 +14,20 @@
 
   let step;
   let pixels;
-  let dpr = 1;
   let playboyDestination;
-  const pixelSize = 20;
   const steps = copy.scrollProse.map((d) => d.value);
 
   $: console.log({ step });
   $: console.log(copy);
 
   onMount(async () => {
-    dpr = window.devicePixelRatio;
     pixels = await loadPixels("assets/img/lenna-84.png");
   });
 </script>
 
 <div class="scroll-container">
   <div class="sticky">
-    <Hero {step} {pixelSize} />
+    <Hero {step} />
     <Screenshots
       visible={step >= 0 && step < 3}
       faded={step >= 1 && step < 3}

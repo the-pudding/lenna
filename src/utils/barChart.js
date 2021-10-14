@@ -11,7 +11,7 @@ export const barColors = {
 
 export const barChartData = () => {
   const counts = raw
-    .filter((d) => d.year)
+    .filter((d) => d.year && d.year >= 1972)
     .reduce((acc, currentValue) => {
       const year = parseInt(currentValue.year);
       const existing = acc.filter((d) => d.year === year);
@@ -45,7 +45,7 @@ const getDomain = (str) => {
 
 export const domainData = () => {
   const colors = raw
-    .filter((d) => d.year)
+    .filter((d) => d.year && d.year >= 1972)
     .reduce((acc, currentValue) => {
       const domain = getDomain(currentValue.domain);
       const year = parseInt(currentValue.year);

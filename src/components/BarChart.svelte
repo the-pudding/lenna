@@ -25,8 +25,6 @@
   $: if (step >= 11) domains = domainData();
   $: if (step < 11) domains = null;
 
-  $: console.log({ data, domains });
-
   let xScale;
   let yScale;
   let drawXAxis;

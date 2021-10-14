@@ -22,8 +22,6 @@
   $: canvasHeight = height * dpr;
   $: pixelSize = Math.floor((canvasWidth / imageSizePixels) * 0.33);
 
-  $: console.log({ dpr, canvasWidth, width, imageSizePixels, pixelSize });
-
   $: canvasWidth, canvasHeight, face(); // redraw on resize
   $: if (visible) fadeIn(); // fade whenever it enters
   $: if (step === 4) {
@@ -32,7 +30,7 @@
   }
 
   const render = () => {
-    if (ctx) {
+    if (ready) {
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
       pixels.forEach(({ r, g, b, a, x, y, w, h }) => {
         ctx.fillStyle = `rgb(${r.value}, ${g.value}, ${b.value}, ${a.value})`;
