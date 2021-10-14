@@ -14,6 +14,7 @@
 
   let step;
   let pixels;
+  let dpr = 1;
   let playboyDestination;
   const pixelSize = 20;
   const steps = copy.scrollProse.map((d) => d.value);
@@ -22,6 +23,7 @@
   $: console.log(copy);
 
   onMount(async () => {
+    dpr = window.devicePixelRatio;
     pixels = await loadPixels("assets/img/lenna-84.png");
   });
 </script>

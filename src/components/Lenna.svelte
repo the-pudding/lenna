@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
   import viewport from "$stores/viewport";
 
   export let step;
@@ -13,14 +13,16 @@
   let dpr = 1;
   let frames = 0;
   let currentFrame = 0;
-  const offset = 200;
+  $: offset = 200 * dpr;
 
   $: imageSizePixels = Math.sqrt(pixels.length);
   $: width = $viewport.width;
   $: height = $viewport.height;
   $: canvasWidth = width * dpr;
   $: canvasHeight = height * dpr;
-  $: pixelSize = Math.floor(500 / imageSizePixels);
+  $: pixelSize = Math.floor((canvasWidth / imageSizePixels) * 0.33);
+
+  $: console.log({ dpr, canvasWidth, width, imageSizePixels, pixelSize });
 
   $: canvasWidth, canvasHeight, face(); // redraw on resize
   $: if (visible) fadeIn(); // fade whenever it enters
@@ -34,7 +36,7 @@
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
       pixels.forEach(({ r, g, b, a, x, y, w, h }) => {
         ctx.fillStyle = `rgb(${r.value}, ${g.value}, ${b.value}, ${a.value})`;
-        ctx.fillRect(x.value + offset, y.value + offset, w.value, h.value);
+        ctx.fillRect(x.value + offset, y.value + offset, w.value * dpr, h.value * dpr);
       });
     }
   };
@@ -62,7 +64,7 @@
   };
 
   const fadeIn = () => {
-    if (ctx && pixels) {
+    if (ready) {
       pixels.forEach((d) => {
         d.animate = ["x", "y", "w", "h", "r", "g", "b", "a"];
         d.a = { origin: 0, target: 1, value: undefined };
@@ -79,7 +81,7 @@
   };
 
   const fadeOut = () => {
-    if (ctx && pixels) {
+    if (ready) {
       pixels.forEach((d) => {
         d.animate = ["x", "y", "w", "h", "r", "g", "b", "a"];
         d.a = { origin: d.a.value, target: 0, value: undefined };
@@ -96,7 +98,7 @@
   };
 
   const face = () => {
-    if (ctx && pixels) {
+    if (ready) {
       pixels.forEach((d) => {
         d.animate = ["x", "y", "w", "h", "r", "g", "b", "a"];
         d.a = { origin: 1, target: 1, value: undefined };
@@ -112,9 +114,12 @@
     }
   };
 
+  let ready = false;
   onMount(async () => {
     dpr = window.devicePixelRatio;
     ctx = canvas.getContext("2d");
+
+    await tick();
 
     pixels.forEach((d) => {
       d.imageX = d.x;
@@ -132,6 +137,7 @@
       d.animate = [];
     });
 
+    ready = true;
     fadeIn();
   });
 </script>

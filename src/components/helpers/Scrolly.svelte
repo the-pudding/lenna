@@ -43,13 +43,13 @@
       }
     }
 
-    //console.log({ steps });
     if (maxRatio > 0) value = maxIndex;
-    else {
-      if (value > 0) value = -1;
-      // finished
-      else value = undefined; // hasn't started
-    }
+    //else {
+    //return undefined;
+    // if (value > 0) value = -1;
+    // // finished
+    else value = undefined; // hasn't started
+    //}
   };
 
   const createObserver = (node, index) => {
