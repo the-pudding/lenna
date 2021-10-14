@@ -18,6 +18,14 @@
   const margin = { left: 50, right: 50, top: 100, bottom: 100 };
   $: width = $viewport.width;
   $: height = $viewport.height;
+  $: screenType = width ? getScreen(width) : "desktop";
+
+  const getScreen = (w) => {
+    if (w <= 480) return "mobile-small";
+    else if (w <= 680) return "mobile-large";
+    else if (w < 980) return "desktop-small";
+    else return "desktop-large";
+  };
 
   const data = barChartData();
 
@@ -32,17 +40,36 @@
   const xAccessor = (d) => d.year;
   const yAccessor = (d) => d.value;
 
-  $: showUntil, updateTicks();
+  $: showUntil, width, updateTicks();
 
   const updateTicks = () => {
     if (xScale && yScale) {
+      // highlight label
       d3.selectAll("#x-axis .tick text")
         .filter((d) => d === showUntil)
         .attr("class", "highlight-label");
 
+      // hide x-axis labels based on screen size
+      let n = 0;
+      if (screenType === "desktop-large") n = 2;
+      else if (screenType === "desktop-small") n = 5;
+      else if (screenType === "mobile-large") n = 5;
+      else if (screenType === "mobile-small") n = 6;
+
       d3.selectAll("#x-axis .tick text")
-        .filter((d) => d !== showUntil)
+        .filter((d) => (d - 1972) % n !== 0 && d !== showUntil)
+        .attr("class", "hide");
+
+      d3.selectAll("#x-axis .tick text")
+        .filter((d) => d !== showUntil && (d - 1972) % n === 0)
         .attr("class", "");
+
+      // prevent overlap
+      if (showUntil % 2 === 1) {
+        d3.selectAll("#x-axis .tick text")
+          .filter((d) => d === showUntil - 1 || d === showUntil + 1)
+          .attr("class", "hide");
+      }
     }
   };
 
@@ -87,13 +114,14 @@
       .range([height - margin.bottom, margin.top]);
 
     drawAxes();
+    updateTicks();
   });
 </script>
 
 <svg {width} {height} class:visible>
   <g>
     <g id="x-axis" transform={`translate(0, ${height - margin.bottom})`} />
-    <g id="y-axis" transform={`translate(${margin.left}, 0)`} />
+    <g id="y-axis" transform={`translate(${margin.left - 5}, 0)`} />
     {#if xScale && yScale}
       {#if domains}
         <DomainBars {domains} {xScale} {yScale} {barColors} />
@@ -135,7 +163,10 @@
   :global(path) {
     display: none;
   }
-  :global(#x-axis .tick:nth-child(odd)) {
+  /* :global(#x-axis .tick:nth-child(odd) text) {
+    display: none;
+  } */
+  :global(#x-axis .tick line) {
     display: none;
   }
   .highlight {
@@ -143,8 +174,12 @@
     stroke-width: 3px;
   }
   :global(.highlight-label) {
+    display: block !important;
     fill: var(--base-tan-3);
     font-weight: bold;
     font-size: 18px;
+  }
+  :global(.hide) {
+    display: none;
   }
 </style>

@@ -26,9 +26,6 @@
     shrinking ? playboyDestination.y - 14 : 200
   }px)`}
 />
-{#if shrinking && $opacity < 0.6}
-  <div style={`transform: translate(${playboyDestination.x}px, ${playboyDestination.y - 14}px)`} />
-{/if}
 
 <style>
   img {
@@ -36,12 +33,6 @@
     border: 7px solid var(--base-green-2);
     height: 0px;
     transition: height 2s, width 2s, transform 2s;
-  }
-  div {
-    position: absolute;
-    height: 14px;
-    width: 14px;
-    border: 3px solid var(--base-green-2);
   }
   .big {
     height: 375px;
