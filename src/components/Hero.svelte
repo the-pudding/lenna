@@ -21,9 +21,9 @@
   });
 </script>
 
-{#if gridVisible && ready}
+<!-- {#if gridVisible && ready}
   <PixelGalaxy {step} size={pixelSize} />
-{/if}
+{/if} -->
 {#if titleVisible}
   <div class="hero" on:click={() => console.log("hero click")} transition:fade>
     <h1>{title.toUpperCase()}</h1>
@@ -40,31 +40,54 @@
 
 <style>
   .hero {
+    max-width: 800px;
     height: 90vh;
     pointer-events: none;
+    margin-left: 110px;
+    margin-right: 110px;
   }
 
   h1,
   h2,
   .authors {
     color: var(--color-body-light);
-    margin-left: 110px;
     font-family: var(--mono);
   }
 
   h1 {
     font-size: 150px;
-    width: 400px;
     line-height: 150px;
+    max-width: 400px;
   }
 
   h2 {
     font-size: 40px;
     line-height: 45px;
-    width: 700px;
   }
 
   .authors {
     margin-top: 60px;
+  }
+
+  @media (max-width: 700px) {
+    h1 {
+      font-size: 100px;
+      line-height: 100px;
+    }
+    h2 {
+      font-size: 30px;
+      line-height: 32px;
+    }
+    .hero {
+      margin-left: 80px;
+      margin-right: 80px;
+    }
+  }
+
+  @media (max-width: 475px) {
+    .hero {
+      margin-left: 50px;
+      margin-right: 50px;
+    }
   }
 </style>

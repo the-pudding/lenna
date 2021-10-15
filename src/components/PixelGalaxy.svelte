@@ -21,6 +21,7 @@
   $: height = $viewport.height;
   $: canvasWidth = width * dpr;
   $: canvasHeight = height * dpr;
+  $: pixelGap = dpr;
 
   $: canvasWidth, canvasHeight, update();
 
@@ -42,7 +43,7 @@
     pixels = [];
     for (var y = 0; y < canvasHeight / size; y++) {
       for (var x = 0; x < canvasWidth / size; x++) {
-        pixels.push([x * size, y * size, size - 2, size - 2, "#222", 1]);
+        pixels.push([x * size, y * size, size - pixelGap, size - pixelGap, "#222", 1]);
       }
     }
   };
