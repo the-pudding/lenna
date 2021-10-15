@@ -83,7 +83,9 @@
     }
   };
 
-  const resetGrid = () => {
+  const resetGrid = async () => {
+    await setPixels();
+    console.log("resetGrid", pixels.length);
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     for (var i = 0, l = pixels.length; i < l; i++) {
       ctx.globalAlpha = 1;
@@ -151,11 +153,11 @@
     setPixels();
   });
 
-  afterUpdate(() => {
+  afterUpdate(async () => {
     if (animate && !playing) {
       drawLoop();
     } else {
-      resetGrid();
+      await resetGrid();
     }
   });
 </script>

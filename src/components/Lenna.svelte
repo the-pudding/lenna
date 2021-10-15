@@ -16,7 +16,7 @@
   let frames = 0;
   let currentFrame = 0;
 
-  $: yOffset = $viewport.height / 2 - (imageSizePixels * pixelSize) / 2;
+  $: yOffset = canvasHeight / 2 - (imageSizePixels * pixelSize) / 2;
   $: xOffset = $viewport.width > 900 ? 200 * dpr : 80 * dpr;
   $: imageSizePixels = Math.sqrt(pixelsCopy.length);
   $: width = $viewport.width;
