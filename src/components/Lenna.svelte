@@ -15,14 +15,18 @@
   let dpr = 1;
   let frames = 0;
   let currentFrame = 0;
-  $: offset = 200 * dpr;
 
+  $: yOffset = $viewport.height / 2 - (imageSizePixels * pixelSize) / 2;
+  $: xOffset = $viewport.width > 900 ? 200 * dpr : 80 * dpr;
   $: imageSizePixels = Math.sqrt(pixelsCopy.length);
   $: width = $viewport.width;
   $: height = $viewport.height;
   $: canvasWidth = width * dpr;
   $: canvasHeight = height * dpr;
-  $: pixelSize = Math.floor((canvasWidth / imageSizePixels) * 0.33);
+  $: pixelSize =
+    $viewport.width > 900
+      ? Math.floor((canvasWidth / imageSizePixels) * 0.4)
+      : Math.floor((canvasWidth / imageSizePixels) * 0.66);
 
   $: canvasWidth, canvasHeight, face(); // redraw on resize
   $: if (visible) fadeIn(); // fade whenever it enters
@@ -36,7 +40,7 @@
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
       pixelsCopy.forEach(({ r, g, b, a, x, y, w, h }) => {
         ctx.fillStyle = `rgb(${r.value}, ${g.value}, ${b.value}, ${a.value})`;
-        ctx.fillRect(x.value + offset, y.value + offset, w.value * dpr, h.value * dpr);
+        ctx.fillRect(x.value + xOffset, y.value + yOffset, w.value * dpr, h.value * dpr);
       });
     }
   };
@@ -100,13 +104,14 @@
   const face = () => {
     if (ready) {
       pixelsCopy.forEach((d) => {
-        d.animate = ["x", "y", "w", "h", "r", "g", "b", "a"];
         d.a = { origin: 1, target: 1, value: undefined };
-        d.animate
-          .filter((field) => field !== "a")
-          .forEach((field) => {
-            d[field].target = d[field].origin;
-          });
+        d.x = { origin: d.imageX * pixelSize, target: d.imageX * pixelSize, value: undefined };
+        d.y = { origin: d.imageY * pixelSize, target: d.imageY * pixelSize, value: undefined };
+        d.w = { origin: pixelSize, target: pixelSize, value: undefined };
+        d.h = { origin: pixelSize, target: pixelSize, value: undefined };
+        d.r = { origin: d.r.origin, target: d.r.origin, value: undefined };
+        d.g = { origin: d.g.origin, target: d.g.origin, value: undefined };
+        d.b = { origin: d.b.origin, target: d.b.origin, value: undefined };
       });
       frames = 1;
       currentFrame = 0;
