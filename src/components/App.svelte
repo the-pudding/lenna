@@ -31,26 +31,24 @@
     <Screenshots
       visible={step >= 0 && step < 3}
       faded={step >= 1 && step < 3}
-      count={5}
+      showLabels={true}
       key="memes-0"
-      {pixels}
     />
     {#each [...new Array(5).keys()] as i}
       <Screenshots
         visible={step >= 1 && step < 3}
         faded={step >= 2 && step < 3}
-        count={5}
+        showLabels={false}
+        delay={200 * i}
         key={`memes-${i + 1}`}
-        {pixels}
       />
     {/each}
 
     <Screenshots
       visible={step >= 2 && step < 3}
       faded={step >= 3 && step < 3}
-      count={5}
+      showLabels={false}
       key="lennas"
-      {pixels}
     />
 
     {#if pixels}

@@ -1,9 +1,11 @@
 <script>
+  import _ from "lodash";
   import { onMount, tick } from "svelte";
   import viewport from "$stores/viewport";
 
   export let step;
   export let pixels;
+  $: pixelsCopy = _.cloneDeep(pixels);
 
   $: visible = step === 3;
   let leaving = false;
@@ -15,7 +17,7 @@
   let currentFrame = 0;
   $: offset = 200 * dpr;
 
-  $: imageSizePixels = Math.sqrt(pixels.length);
+  $: imageSizePixels = Math.sqrt(pixelsCopy.length);
   $: width = $viewport.width;
   $: height = $viewport.height;
   $: canvasWidth = width * dpr;
@@ -32,7 +34,7 @@
   const render = () => {
     if (ready) {
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-      pixels.forEach(({ r, g, b, a, x, y, w, h }) => {
+      pixelsCopy.forEach(({ r, g, b, a, x, y, w, h }) => {
         ctx.fillStyle = `rgb(${r.value}, ${g.value}, ${b.value}, ${a.value})`;
         ctx.fillRect(x.value + offset, y.value + offset, w.value * dpr, h.value * dpr);
       });
@@ -48,7 +50,7 @@
   const frameTick = () => {
     const t = currentFrame / frames;
 
-    pixels
+    pixelsCopy
       .filter((d) => d.animate.length > 0)
       .forEach((pixel) => {
         pixel.animate.forEach((prop) => interpolate(pixel[prop], t));
@@ -63,7 +65,7 @@
 
   const fadeIn = () => {
     if (ready) {
-      pixels.forEach((d) => {
+      pixelsCopy.forEach((d) => {
         d.animate = ["x", "y", "w", "h", "r", "g", "b", "a"];
         d.a = { origin: 0, target: 1, value: undefined };
         d.animate
@@ -80,7 +82,7 @@
 
   const fadeOut = () => {
     if (ready) {
-      pixels.forEach((d) => {
+      pixelsCopy.forEach((d) => {
         d.animate = ["x", "y", "w", "h", "r", "g", "b", "a"];
         d.a = { origin: d.a.value, target: 0, value: undefined };
         d.animate
@@ -97,7 +99,7 @@
 
   const face = () => {
     if (ready) {
-      pixels.forEach((d) => {
+      pixelsCopy.forEach((d) => {
         d.animate = ["x", "y", "w", "h", "r", "g", "b", "a"];
         d.a = { origin: 1, target: 1, value: undefined };
         d.animate
@@ -119,7 +121,7 @@
 
     await tick();
 
-    pixels.forEach((d) => {
+    pixelsCopy.forEach((d) => {
       d.imageX = d.x;
       d.imageY = d.y;
 

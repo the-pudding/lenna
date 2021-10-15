@@ -1,8 +1,6 @@
 import _ from "lodash";
 import baseColors from "../../properties/colors/base.json";
 
-const offset = 200;
-
 export const colors = [
   baseColors.base["green-2"].value,
   baseColors.base["orange-1"].value,
@@ -11,32 +9,30 @@ export const colors = [
   baseColors.base["tan-1"].value
 ];
 
-export const getOrigins = (pixels) => {
-  if (!pixels) {
-    return [
-      { x: 300, y: 200 },
-      { x: 534, y: 67 },
-      { x: 199, y: 600 },
-      { x: 111, y: 45 },
-      { x: 56, y: 230 }
-    ];
-  }
-  const chosen = _.sampleSize(pixels, 5).map((p) => ({ x: p.x + offset, y: p.y + offset }));
-
-  return chosen;
+export const getOrigins = (width, height) => {
+  const randomSpots = _.times(5, (d) => {
+    const pixelSize = 15;
+    const x = _.random(pixelSize, Math.floor(width / pixelSize) - 1);
+    const y = _.random(pixelSize, Math.floor(height / pixelSize) - 1);
+    return { x: x * pixelSize - 3.5, y: y * pixelSize - 2 };
+  });
+  return randomSpots;
 };
 
 export const getDestinations = (key, width, height, finalSize) => {
   const type = key.split("-")[0];
   const i = parseInt(key.split("-")[1]);
 
+  const widthAvailable = width * 0.7;
+  const imageSpace = finalSize / 2;
+
   if (type === "memes" && i === 0) {
     return [
-      { x: 100, y: 100 },
-      { x: 600, y: 50 },
-      { x: 350, y: 350 },
-      { x: 20, y: 600 },
-      { x: 650, y: 650 }
+      { x: widthAvailable / 5 - imageSpace + 50, y: height / 5 - imageSpace - 50 },
+      { x: widthAvailable * (4 / 5) - imageSpace, y: height / 5 - imageSpace },
+      { x: widthAvailable / 2 - imageSpace, y: height / 2 - imageSpace },
+      { x: widthAvailable / 5 - imageSpace, y: height * (4 / 5) - imageSpace },
+      { x: widthAvailable * (4 / 5) - imageSpace + 50, y: height * (4 / 5) - imageSpace - 50 }
     ];
   } else if (type === "memes" || type === "lennas") {
     return [...new Array(5).keys()].map((d) => ({
