@@ -21,9 +21,9 @@
   });
 </script>
 
-<!-- {#if gridVisible && ready}
+{#if gridVisible && ready}
   <PixelGalaxy {step} size={pixelSize} />
-{/if} -->
+{/if}
 {#if titleVisible}
   <div class="hero" on:click={() => console.log("hero click")} transition:fade>
     <h1>{title.toUpperCase()}</h1>

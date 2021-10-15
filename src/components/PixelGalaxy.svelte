@@ -9,12 +9,14 @@
 
   const pixelsToLaunch = 75;
   const pixelSpreadSpeed = 3;
+  const fadeSpeed = 0.01;
 
   let canvas;
   let ctx;
   let dpr = 1;
   let mousePosition;
   let currentPixel = 0;
+  let playing = false;
 
   $: animate = step === undefined;
   $: width = $viewport.width;
@@ -23,20 +25,20 @@
   $: canvasHeight = height * dpr;
   $: pixelGap = dpr;
 
-  $: canvasWidth, canvasHeight, update();
+  $: canvasWidth, canvasHeight, setPixels();
 
-  const mouseMove = (e) => {
-    mousePosition = { x: e.clientX * dpr, y: e.clientY * dpr };
-  };
-  const randBetween = (min, max) => Math.random() * (max - min) + min;
-
-  const update = async () => {
+  const setPixels = async () => {
     if (ctx) {
       initPixels();
       initColoredPixels();
       await tick();
     }
   };
+
+  const mouseMove = (e) => {
+    mousePosition = { x: e.clientX * dpr, y: e.clientY * dpr };
+  };
+  const randBetween = (min, max) => Math.random() * (max - min) + min;
 
   let pixels = [];
   const initPixels = () => {
@@ -70,11 +72,15 @@
     }
   };
 
-  const draw = () => {
+  const drawLoop = () => {
+    playing = true;
     launchPixel();
-    drawGrid();
-    if (animate) requestAnimationFrame(draw);
-    else resetGrid();
+    render();
+    if (animate) requestAnimationFrame(drawLoop);
+    else {
+      playing = false;
+      resetGrid();
+    }
   };
 
   const resetGrid = () => {
@@ -95,35 +101,46 @@
     if (currentPixel > pixelsToLaunch - 1) currentPixel = 0;
   };
 
-  const drawGrid = () => {
+  const render = () => {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
+    // reset all color
     for (var i = 0, l = pixels.length; i < l; i++) {
       pixels[i][4] = 0;
     }
 
+    // set a color/alpha on a certain # of pixels
     for (var i = 0, l = coloredPixels.length; i < l; i++) {
+      // find pixel index that corresponds with mousePosition
       var pixelIndex =
         Math.floor(coloredPixels[i].y / size) * (Math.floor(canvasWidth / size) + 1) +
         Math.floor(coloredPixels[i].x / size);
+
+      // set its color and alpha 0 -> 1
       if (pixels[pixelIndex]) {
         pixels[pixelIndex][4] = coloredPixels[i].color;
         pixels[pixelIndex][5] = coloredPixels[i].alpha;
       }
 
-      if (coloredPixels[i].alpha > 0) coloredPixels[i].alpha -= 0.008;
+      // slowly fade it out
+      if (coloredPixels[i].alpha > 0) coloredPixels[i].alpha -= fadeSpeed;
       if (coloredPixels[i].alpha < 0) coloredPixels[i].alpha = 0;
+      // move the x/y slightly, so next time we'll get a new pixelIndex
       coloredPixels[i].x += coloredPixels[i].vx;
       coloredPixels[i].y += coloredPixels[i].vy;
     }
 
     for (var i = 0, l = pixels.length; i < l; i++) {
+      // draw a purple background pixel
       ctx.globalAlpha = 1;
       ctx.fillStyle = baseColors.base["purple-1"].value;
       ctx.fillRect(pixels[i][0], pixels[i][1], pixels[i][2], pixels[i][3]);
-      ctx.globalAlpha = pixels[i][5];
-      ctx.fillStyle = pixels[i][4];
-      ctx.fillRect(pixels[i][0], pixels[i][1], pixels[i][2], pixels[i][3]);
+      // draw a colored pixel
+      if (pixels[i][5] > 0) {
+        ctx.globalAlpha = pixels[i][5];
+        ctx.fillStyle = pixels[i][4];
+        ctx.fillRect(pixels[i][0], pixels[i][1], pixels[i][2], pixels[i][3]);
+      }
     }
   };
 
@@ -131,11 +148,12 @@
     dpr = window.devicePixelRatio;
     ctx = canvas.getContext("2d");
     mousePosition = { x: $viewport.width - 100, y: 100 };
-    update();
+    setPixels();
   });
+
   afterUpdate(() => {
-    if (animate) {
-      draw();
+    if (animate && !playing) {
+      drawLoop();
     } else {
       resetGrid();
     }
