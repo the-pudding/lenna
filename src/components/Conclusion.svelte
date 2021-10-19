@@ -6,10 +6,16 @@
   {#each copy["post-prose"] as paragraph}
     <p>{@html paragraph.value}</p>
   {/each}
+  <ul>
+    {#each copy["post-prose-bullets"] as bullet}
+      <li>{bullet.value}</li>
+    {/each}
+  </ul>
 </div>
 
 <style>
-  p {
+  p,
+  ul {
     color: var(--base-tan-4);
     max-width: 560px;
   }

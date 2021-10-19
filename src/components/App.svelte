@@ -15,7 +15,7 @@
   let step;
   let pixels;
   let playboyDestination;
-  const steps = copy.scrollProse.map((d) => d.value);
+  const steps = copy.scrollProse.map((d) => d.text);
 
   $: console.log({ step });
   $: console.log(copy);

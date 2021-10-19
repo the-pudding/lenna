@@ -53,7 +53,7 @@
       <img
         src={`assets/img/${key.includes("meme") ? "memes" : "screenshots"}/pic${i + 1}.png`}
         alt={key}
-        style={`height: ${$size}px; width: ${$size}px; opacity: ${$opacity}; border: 7px solid ${colors[i]}`}
+        style={`height: ${$size}px; width: ${$size}px; opacity: ${$opacity}`}
       />
     </div>
   {/each}
@@ -79,6 +79,7 @@
   img {
     height: 0px;
     width: 0px;
+    border: 7px solid var(--base-green-2);
   }
   .hidden {
     opacity: 0;

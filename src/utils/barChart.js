@@ -27,9 +27,13 @@ export const barChartData = () => {
 
 export const showUntilYear = (step) => {
   if (step === -1) return 2022;
+
   if (step < 5) return 0;
   if (step === 5) return 1972;
-  if (step === 6) return 1991;
+  if (step === 6 || step === 7) return 1991;
+  if (step === 8) return 1995;
+  if (step === 9) return 2014;
+  if (step === 10) return 2019;
   return 2022;
 };
 

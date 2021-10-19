@@ -30,8 +30,8 @@
   const data = barChartData();
 
   let domains = null;
-  $: if (step >= 11) domains = domainData();
-  $: if (step < 11) domains = null;
+  $: if (step >= 12) domains = domainData();
+  $: if (step < 12) domains = null;
 
   let xScale;
   let yScale;
