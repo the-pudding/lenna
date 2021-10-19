@@ -10,6 +10,7 @@
   export let faded = false;
   export let showLabels;
   export let delay = 600;
+  export let picNums = [1, 2, 3, 4, 5];
 
   const count = 5;
   const labels = getLabels(key);
@@ -51,7 +52,7 @@
         </div>
       {/if}
       <img
-        src={`assets/img/${key.includes("meme") ? "memes" : "screenshots"}/pic${i + 1}.png`}
+        src={`assets/img/${key.includes("meme") ? "memes" : "screenshots"}/pic${picNums[i]}.jpg`}
         alt={key}
         style={`height: ${$size}px; width: ${$size}px; opacity: ${$opacity}`}
       />

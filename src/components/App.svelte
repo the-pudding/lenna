@@ -34,12 +34,13 @@
       showLabels={true}
       key="memes-0"
     />
-    {#each [...new Array(5).keys()] as i}
+    {#each [...new Array(4).keys()] as i}
       <Screenshots
         visible={step >= 1 && step < 3}
         faded={step >= 2 && step < 3}
         showLabels={false}
         delay={200 * i}
+        picNums={[1 + i * 5, 2 + i * 5, 3 + i * 5, 4 + i * 5, 5 + i * 5]}
         key={`memes-${i + 1}`}
       />
     {/each}
