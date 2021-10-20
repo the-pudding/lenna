@@ -26,13 +26,19 @@ export const barChartData = () => {
 };
 
 export const showUntilYear = (step) => {
-  if (step < 5 && step >= 0) return 0;
-  if (step === 5) return 1972;
-  if (step === 6 || step === 7) return 1991;
-  if (step === 8) return 1995;
-  if (step === 9) return 2014;
-  if (step === 10) return 2019;
-  return 2022;
+  let year;
+  if ((step < 5 && step >= 0) || step === undefined) year = 0;
+  else if (step === 5) year = 1972;
+  else if (step === 6 || step === 7) year = 1991;
+  else if (step === 8) year = 1995;
+  else if (step === 9) year = 2014;
+  else if (step === 10) year = 2019;
+  else year = 2022;
+
+  const data = barChartData();
+  const numBarsShowing = data.filter((d) => d.year <= year).length;
+
+  return [year, numBarsShowing];
 };
 
 const getDomain = (str) => {

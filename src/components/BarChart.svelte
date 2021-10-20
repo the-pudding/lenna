@@ -13,7 +13,9 @@
   $: playboyDestination = { x: xScale ? xScale(1972) : 0, y: yScale ? yScale(0) : 0 };
 
   $: visible = step >= 5 || step === -1;
-  $: showUntil = showUntilYear(step);
+  $: [showUntil, barsShowing] = showUntilYear(step);
+
+  $: console.log({ showUntil, barsShowing });
 
   const margin = { left: 50, right: 50, top: 100, bottom: 100 };
   $: width = $viewport.width;
@@ -117,6 +119,8 @@
     drawAxes();
     updateTicks();
   });
+
+  $: console.log({ data });
 </script>
 
 <svg {width} {height} class:visible>
@@ -131,7 +135,7 @@
           width={xScale.bandwidth()}
           height={height - yScale(yAccessor(d)) - margin.bottom}
           class:highlight={d.year === showUntil}
-          transition:fade={{ delay: 70 * i }}
+          transition:fade
         />
       {/each}
 
