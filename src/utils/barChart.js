@@ -26,9 +26,7 @@ export const barChartData = () => {
 };
 
 export const showUntilYear = (step) => {
-  if (step === -1) return 2022;
-
-  if (step < 5) return 0;
+  if (step < 5 && step >= 0) return 0;
   if (step === 5) return 1972;
   if (step === 6 || step === 7) return 1991;
   if (step === 8) return 1995;
@@ -48,7 +46,9 @@ const getDomain = (str) => {
   return "other";
 };
 
-export const domainData = () => {
+export const domainData = (step) => {
+  if (step < 12) return null;
+
   const colors = raw
     .filter((d) => d.year && d.year >= 1972)
     .reduce((acc, currentValue) => {

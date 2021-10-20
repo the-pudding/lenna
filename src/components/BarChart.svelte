@@ -28,10 +28,7 @@
   };
 
   const data = barChartData();
-
-  let domains = null;
-  $: if (step >= 12) domains = domainData();
-  $: if (step < 12) domains = null;
+  $: domains = domainData(step);
 
   let xScale;
   let yScale;
@@ -127,20 +124,20 @@
     <g id="x-axis" transform={`translate(0, ${height - margin.bottom})`} />
     <g id="y-axis" transform={`translate(${margin.left - 5}, 0)`} />
     {#if xScale && yScale}
+      {#each data.filter((d) => d.year <= showUntil) as d, i}
+        <rect
+          x={xScale(xAccessor(d))}
+          y={yScale(yAccessor(d))}
+          width={xScale.bandwidth()}
+          height={height - yScale(yAccessor(d)) - margin.bottom}
+          class:highlight={d.year === showUntil}
+          transition:fade={{ delay: 70 * i }}
+        />
+      {/each}
+
       {#if domains}
-        <DomainBars {domains} {xScale} {yScale} {barColors} />
-        <Legend {barColors} x={xScale(1975)} y={yScale(280)} />
-      {:else}
-        {#each data.filter((d) => d.year <= showUntil) as d, i}
-          <rect
-            x={xScale(xAccessor(d))}
-            y={yScale(yAccessor(d))}
-            width={xScale.bandwidth()}
-            height={height - yScale(yAccessor(d)) - margin.bottom}
-            class:highlight={d.year === showUntil}
-            transition:fade={{ delay: 70 * i }}
-          />
-        {/each}
+        <DomainBars {domains} {xScale} {yScale} {barColors} {step} />
+        <Legend {barColors} x={xScale(1975)} y={yScale(250)} {step} />
       {/if}
     {/if}
   </g>
@@ -167,9 +164,6 @@
   :global(path) {
     display: none;
   }
-  /* :global(#x-axis .tick:nth-child(odd) text) {
-    display: none;
-  } */
   :global(#x-axis .tick line) {
     display: none;
   }

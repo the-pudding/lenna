@@ -7,6 +7,7 @@
   export let xScale;
   export let yScale;
   export let barColors;
+  export let step;
 
   let stackData;
   onMount(() => {
@@ -16,10 +17,19 @@
       .map((d) => (d.forEach((m) => (m.key = d.key)), d))
       .map((d) => d.filter((m) => !Number.isNaN(m[0]) && !Number.isNaN(m[1])));
   });
+
+  $: dataToShow = filterData(stackData, step);
+
+  const filterData = (stackData, step) => {
+    if (!stackData) return null;
+    if (step === 12) return [stackData[0]]; // only show .org
+    if (step === 13) return stackData;
+    return null;
+  };
 </script>
 
-{#if stackData}
-  {#each stackData as domain}
+{#if dataToShow}
+  {#each dataToShow as domain}
     {#each domain as minibar}
       <rect
         x={xScale(minibar.data.year)}
