@@ -131,14 +131,14 @@
         <DomainBars {domains} {xScale} {yScale} {barColors} />
         <Legend {barColors} x={xScale(1975)} y={yScale(280)} />
       {:else}
-        {#each data.filter((d) => d.year <= showUntil) as d}
+        {#each data.filter((d) => d.year <= showUntil) as d, i}
           <rect
             x={xScale(xAccessor(d))}
             y={yScale(yAccessor(d))}
             width={xScale.bandwidth()}
             height={height - yScale(yAccessor(d)) - margin.bottom}
             class:highlight={d.year === showUntil}
-            transition:fade
+            transition:fade={{ delay: 70 * i }}
           />
         {/each}
       {/if}
