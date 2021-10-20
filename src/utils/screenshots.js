@@ -2,7 +2,8 @@ import _ from "lodash";
 import baseColors from "../../properties/colors/base.json";
 
 export const colors = [
-  baseColors.base["green-2"].value,
+  baseColors.base["orange-2"].value,
+  //baseColors.base["green-2"].value,
   baseColors.base["orange-1"].value,
   baseColors.base["red"].value,
   baseColors.base["blue-1"].value,
@@ -10,9 +11,11 @@ export const colors = [
 ];
 
 export const getOrigins = (width, height) => {
+  const widthAvailable = width * 0.7;
+
   const randomSpots = _.times(5, (d) => {
     const pixelSize = 15;
-    const x = _.random(pixelSize, Math.floor(width / pixelSize) - 1);
+    const x = _.random(pixelSize, Math.floor(widthAvailable / pixelSize) - 1);
     const y = _.random(pixelSize, Math.floor(height / pixelSize) - 1);
     return { x: x * pixelSize - 3.5, y: y * pixelSize - 2 };
   });
@@ -36,7 +39,7 @@ export const getDestinations = (key, width, height, finalSize) => {
     ];
   } else if (type === "memes" || type === "lennas") {
     return [...new Array(5).keys()].map((d) => ({
-      x: _.random(0, width - finalSize),
+      x: _.random(0, width * 0.8 - finalSize),
       y: _.random(0, height - finalSize)
     }));
   }

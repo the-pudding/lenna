@@ -80,6 +80,10 @@
         g.call(d3.axisLeft(yScale).tickSize(-1 * (width - margin.left - margin.right)));
       d3.select("#x-axis").call(drawXAxis);
       d3.select("#y-axis").call(drawYAxis);
+
+      d3.selectAll("#y-axis .tick:last-child text")
+        .attr("x", "167")
+        .text((d) => `${d} instances of the image`);
     }
   };
 

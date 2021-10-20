@@ -9,7 +9,7 @@
   export let visible = false;
   export let faded = false;
   export let showLabels;
-  export let delay = 600;
+  export let delay = 650;
   export let picNums = [1, 2, 3, 4, 5];
 
   const count = 5;
@@ -54,7 +54,9 @@
       <img
         src={`assets/img/${key.includes("meme") ? "memes" : "screenshots"}/pic${picNums[i]}.jpg`}
         alt={key}
-        style={`height: ${$size}px; width: ${$size}px; opacity: ${$opacity}`}
+        style={`height: ${$size}px; width: ${$size}px; opacity: ${$opacity}; border: 7px solid ${
+          key.includes("meme") ? colors[i] : "var(--base-green-2)"
+        }`}
       />
     </div>
   {/each}
