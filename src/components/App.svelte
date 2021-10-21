@@ -48,7 +48,7 @@
     <Screenshots
       visible={step >= 2 && step < 3}
       faded={step >= 3 && step < 3}
-      showLabels={false}
+      showLabels={true}
       key="lennas"
     />
 

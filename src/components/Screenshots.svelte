@@ -9,7 +9,7 @@
   export let visible = false;
   export let faded = false;
   export let showLabels;
-  export let delay = 650;
+  export let delay = 600;
   export let picNums = [1, 2, 3, 4, 5];
 
   const count = 5;
@@ -88,6 +88,6 @@
     opacity: 0;
   }
   .faded {
-    opacity: 0.25;
+    opacity: 0.2;
   }
 </style>

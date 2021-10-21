@@ -70,7 +70,7 @@
 
 <style>
   footer {
-    background-color: var(--scroll-step-background);
+    background-color: var(--base-tan-3);
     color: var(--color-body);
     font-family: var(--sans);
     padding: 3em 1em;

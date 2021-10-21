@@ -81,8 +81,8 @@
       d3.select("#y-axis").call(drawYAxis);
 
       d3.selectAll("#y-axis .tick:last-child text")
-        .attr("x", "167")
-        .text((d) => `${d} instances of the image`);
+        .attr("x", "181")
+        .text((d) => `${d} instances of Lenna image`);
     }
   };
 

@@ -11,12 +11,15 @@ export const colors = [
 ];
 
 export const getOrigins = (width, height) => {
-  const widthAvailable = width * 0.7;
+  const startX = width * 0.2;
+  const endX = width * 0.4;
+  const startY = height * 0.3;
+  const endY = height * 0.7;
 
   const randomSpots = _.times(5, (d) => {
     const pixelSize = 15;
-    const x = _.random(pixelSize, Math.floor(widthAvailable / pixelSize) - 1);
-    const y = _.random(pixelSize, Math.floor(height / pixelSize) - 1);
+    const x = _.random(Math.floor(startX / pixelSize), Math.floor(endX / pixelSize));
+    const y = _.random(Math.floor(startY / pixelSize), Math.floor(endY / pixelSize));
     return { x: x * pixelSize - 3.5, y: y * pixelSize - 2 };
   });
   return randomSpots;
@@ -37,11 +40,19 @@ export const getDestinations = (key, width, height, finalSize) => {
       { x: widthAvailable / 5 - imageSpace, y: height * (4 / 5) - imageSpace },
       { x: widthAvailable * (4 / 5) - imageSpace + 50, y: height * (4 / 5) - imageSpace - 50 }
     ];
-  } else if (type === "memes" || type === "lennas") {
+  } else if (type === "memes") {
     return [...new Array(5).keys()].map((d) => ({
       x: _.random(0, width * 0.8 - finalSize),
       y: _.random(0, height - finalSize)
     }));
+  } else if (type === "lennas") {
+    return [
+      { x: widthAvailable / 5 - imageSpace, y: height / 5 - imageSpace },
+      { x: widthAvailable * (4 / 5) - imageSpace + 50, y: height / 5 - imageSpace - 50 },
+      { x: widthAvailable / 2 - imageSpace, y: height / 2 - imageSpace },
+      { x: widthAvailable / 5 - imageSpace + 50, y: height * (4 / 5) - imageSpace - 50 },
+      { x: widthAvailable * (4 / 5) - imageSpace, y: height * (4 / 5) - imageSpace }
+    ];
   }
 };
 
@@ -55,6 +66,6 @@ export const getLabels = (key) => {
       "Oregon Trail"
     ];
   } else if (key === "lennas") {
-    return ["Lenna 1", "Lenna 2", "Lenna 3", "Lenna 4", "Lenna 5"];
+    return ["GitHub", "JS", "Homework assignment", "Stack Overflow", "Quora"];
   }
 };
