@@ -42,6 +42,7 @@
   .hero {
     max-width: 800px;
     height: 90vh;
+    position: relative;
     pointer-events: none;
     margin-left: 110px;
     margin-right: 110px;
@@ -67,6 +68,7 @@
 
   .authors {
     margin-top: 60px;
+    pointer-events: auto;
   }
 
   @media (max-width: 700px) {

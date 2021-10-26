@@ -13,9 +13,9 @@
   $: playboyDestination = { x: xScale ? xScale(1972) : 0, y: yScale ? yScale(0) : 0 };
 
   $: visible = step >= 5 || step === -1;
-  $: [showUntil, barsShowing] = showUntilYear(step);
+  $: [showUntil, previousShowUntil] = showUntilYear(step, showUntil);
 
-  $: console.log({ showUntil, barsShowing });
+  $: console.log({ showUntil, previousShowUntil });
 
   const margin = { left: 50, right: 50, top: 100, bottom: 100 };
   $: width = $viewport.width;
@@ -120,10 +120,13 @@
     updateTicks();
   });
 
-  $: console.log({ data });
+  const getDelay = (i, previousShowUntil) => {
+    const index = data.findIndex((d) => d.year === previousShowUntil);
+    return (i - index) * 100;
+  };
 </script>
 
-<svg {width} {height} class:visible>
+<svg {width} {height} class:visible class="bar-chart">
   <g>
     <g id="x-axis" transform={`translate(0, ${height - margin.bottom})`} />
     <g id="y-axis" transform={`translate(${margin.left - 5}, 0)`} />
@@ -135,7 +138,8 @@
           width={xScale.bandwidth()}
           height={height - yScale(yAccessor(d)) - margin.bottom}
           class:highlight={d.year === showUntil}
-          transition:fade
+          in:fade={{ delay: getDelay(i, previousShowUntil) }}
+          out:fade
         />
       {/each}
 
@@ -157,15 +161,15 @@
   rect {
     fill: var(--base-purple-3);
   }
-  :global(text) {
+  :global(.bar-chart text) {
     font-family: var(--mono);
     font-size: 12px;
     fill: var(--chart-text);
   }
-  :global(line) {
+  :global(.bar-chart line) {
     color: var(--base-purple-2);
   }
-  :global(path) {
+  :global(.bar-chart path) {
     display: none;
   }
   :global(#x-axis .tick line) {

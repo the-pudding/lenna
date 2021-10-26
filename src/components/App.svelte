@@ -15,7 +15,7 @@
   let step;
   let pixels;
   let playboyDestination;
-  const steps = copy.scrollProse.map((d) => d.text);
+  const steps = copy.scrollProse;
 
   $: console.log({ step });
   $: console.log(copy);
@@ -31,7 +31,7 @@
     <Screenshots
       visible={step >= 0 && step < 3}
       faded={step >= 1 && step < 3}
-      showLabels={true}
+      showLabels={step >= 0 && step < 3}
       key="memes-0"
     />
     {#each [...new Array(4).keys()] as i}
@@ -62,8 +62,11 @@
   </div>
 
   <Scrolly bind:value={step} styles={"display: flex; flex-direction: column; width: 100%;"}>
-    {#each steps as text, i}
+    {#each steps as { text, image }, i}
       <div class="step" class:active={step === i}>
+        {#if image}
+          <img src={`assets/img/story/${image}.jpg`} alt={image} />
+        {/if}
         <p>{@html text}</p>
       </div>
     {/each}
@@ -75,7 +78,6 @@
 
 <style>
   .step {
-    padding: 24px 40px 24px 40px;
     font-size: 18px;
     width: 20em;
     margin-right: 90px;
@@ -86,9 +88,9 @@
     z-index: 1000;
     opacity: 0.4;
   }
-
   .step p {
     line-height: 1.65;
+    padding: 24px 40px 24px 40px;
   }
 
   :global(.step a) {
@@ -121,7 +123,6 @@
     background: var(--base-orange-2);
     outline: none;
   }
-
   .active {
     opacity: 1;
   }
