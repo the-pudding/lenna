@@ -2,22 +2,77 @@
   import copy from "$data/doc.json";
 </script>
 
-<div>
-  {#each copy["post-prose"] as paragraph}
+<div class="conclusion">
+  {#each copy.postProse as paragraph}
     <p>{@html paragraph.value}</p>
   {/each}
-  <ul>
-    {#each copy["post-prose-bullets"] as bullet}
-      <li>{bullet.value}</li>
-    {/each}
-  </ul>
+
+  <h3>{copy.readingHeader}</h3>
+
+  {#each copy.readingLists as list}
+    <p class="list-header">{@html list.header}</p>
+    <ul>
+      {#each list.links as link}
+      <li>{@html link.value}</li>
+      {/each}
+    </ul>
+  {/each}
+
+  <h3>Methods & Notes</h3>
+  {#each copy.methods as paragraph}
+    <p class="methods">{@html paragraph.value}</p>
+  {/each}
 </div>
 
+
 <style>
+  .conclusion {
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
   p,
-  ul {
+  ul,
+  h3 {
     color: var(--base-tan-4);
-    max-width: 560px;
+    width: 100%;
+    font-size: 18px;
+    line-height: 1.65;
+    text-align: left;
+  }
+
+  .list-header {
+    color: var(--chart-text);
+    font-family: var(--mono);
+    font-size: 16px;
+  }
+
+  h3 {
+    width: 100%;
+    text-align: left;
+    font-family: var(--mono);
+    text-transform: uppercase;
+    font-size: 28px;
+    border-top: 1px solid var(--base-purple-3);
+    margin-top: 4rem;
+  }
+
+  ul {
+    margin-bottom: 3rem;
+    list-style: none;
+  }
+
+  li {
+    font-size: 18px;
+  }
+
+  li::before {
+    content: "";  
+    background: var(--base-green-2); 
+    display: inline-block; 
+    width: 0.5rem; 
+    height: 0.5rem;
+    margin: 0 0.5rem 0.125rem -1rem; 
   }
 
   div {
@@ -27,5 +82,18 @@
     align-items: center;
     margin-top: 100px;
     margin-bottom: 100px;
+  }
+
+  .methods {
+    font-size: 14px;
+  }
+
+  :global(.conclusion a) {
+    text-decoration: none;
+    border-bottom: 1px solid var(--chart-text);
+  }
+
+  :global(.conclusion a:hover) {
+    border-bottom: 2px solid var(--base-green-2);
   }
 </style>
