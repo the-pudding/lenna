@@ -9,8 +9,8 @@
   $: itemsToShow = filterItems(step);
 
   const filterItems = (step) => {
-    if (step === 12) return [".org"];
-    if (step === 13) return _.keys(barColors);
+    if (step === 11) return [".org"];
+    if (step === 12) return _.keys(barColors);
     return null;
   };
 

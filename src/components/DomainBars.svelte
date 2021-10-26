@@ -22,8 +22,8 @@
 
   const filterData = (stackData, step) => {
     if (!stackData) return null;
-    if (step === 12) return [stackData[0]]; // only show .org
-    if (step === 13) return stackData;
+    if (step === 11) return [stackData[0]]; // only show .org
+    if (step === 12) return stackData;
     return null;
   };
 </script>

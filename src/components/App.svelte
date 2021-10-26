@@ -56,7 +56,7 @@
       <Lenna {pixels} {step} />
     {/if}
 
-    <Playboy {step} {playboyDestination} />
+    <!-- <Playboy {step} {playboyDestination} /> -->
 
     <BarChart {step} bind:playboyDestination />
   </div>
@@ -90,7 +90,7 @@
   }
   .step p {
     line-height: 1.65;
-    padding: 24px 40px 24px 40px;
+    padding: 18px 32px 18px 32px;
   }
 
   :global(.step a) {

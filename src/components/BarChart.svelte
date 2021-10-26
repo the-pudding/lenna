@@ -12,7 +12,7 @@
 
   $: playboyDestination = { x: xScale ? xScale(1972) : 0, y: yScale ? yScale(0) : 0 };
 
-  $: visible = step >= 5 || step === -1;
+  $: visible = step >= 4 || step === -1;
   $: [showUntil, previousShowUntil] = showUntilYear(step, showUntil);
 
   $: console.log({ showUntil, previousShowUntil });
@@ -181,9 +181,9 @@
   }
   :global(.highlight-label) {
     display: block !important;
-    fill: var(--base-tan-3);
+    fill: var(--base-tan-3) !important;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 18px !important;
   }
   :global(.hide) {
     display: none;
