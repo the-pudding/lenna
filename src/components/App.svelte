@@ -15,7 +15,7 @@
   let step;
   let pixels;
   let playboyDestination;
-  const steps = copy.scrollProse.map((d) => d.text);
+  const steps = copy.scrollProse;
 
   $: console.log({ step });
   $: console.log(copy);
@@ -62,9 +62,14 @@
   </div>
 
   <Scrolly bind:value={step} styles={"display: flex; flex-direction: column; width: 100%;"}>
-    {#each steps as text, i}
+    {#each steps as { text, image }, i}
       <div class="step" class:active={step === i}>
         <p>{@html text}</p>
+
+        {#if image}
+          <p>{image}</p>
+          <img src={`assets/img/story/${image}.jpg`} alt={image} />
+        {/if}
       </div>
     {/each}
   </Scrolly>
@@ -100,5 +105,8 @@
   .scroll-container {
     width: 100%;
     position: relative;
+  }
+  img {
+    height: 50px;
   }
 </style>
