@@ -37,16 +37,15 @@
       .on("mouseleave", mouseLeave);
   });
 
-  $: dataToShow = filterData(stackData, step);
-  $: console.log({ dataToShow });
+  //$: dataToShow = filterData(stackData, step);
 
-  const filterData = (stackData, step) => {
-    if (!stackData) return null;
-    return stackData;
-    // if (step === 11) return [stackData[0]]; // only show .org
-    // if (step === 12) return stackData;
-    // return null;
-  };
+  // const filterData = (stackData, step) => {
+  //   if (!stackData) return null;
+  //   return stackData;
+  //   // if (step === 11) return [stackData[0]]; // only show .org
+  //   // if (step === 12) return stackData;
+  //   // return null;
+  // };
 
   let hovered = null;
   const mouseEnter = (e) => {
@@ -57,8 +56,8 @@
   };
 </script>
 
-{#if dataToShow}
-  {#each dataToShow as domain}
+{#if stackData}
+  {#each stackData as domain}
     {#each domain as minibar}
       <rect
         x={xScale(minibar.data.year)}

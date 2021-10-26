@@ -35,6 +35,7 @@ export const showUntilYear = (step, showUntil) => {
   else if (step === 7) year = 1995;
   else if (step === 8) year = 2014;
   else if (step === 9) year = 2019;
+  else if (step === 10) year = 2021;
   else year = 2022;
 
   return [year, previous];
