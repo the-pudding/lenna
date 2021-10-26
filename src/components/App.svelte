@@ -112,16 +112,19 @@
   :global(.step .org-span) {
     background: var(--base-blue-2);
     outline: none;
+    cursor: default;
   }
 
   :global(.step .edu-span) {
     background: var(--base-orange-1);
     outline: none;
+    cursor: default;
   }
 
   :global(.step .com-span) {
     background: var(--base-orange-2);
     outline: none;
+    cursor: default;
   }
   .active {
     opacity: 1;

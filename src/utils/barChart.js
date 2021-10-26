@@ -4,8 +4,8 @@ import baseColors from "../../properties/colors/base.json";
 
 export const barColors = {
   ".org": baseColors.base["blue-1"].value,
-  ".edu": baseColors.base["orange-1"].value,
-  ".com": baseColors.base["red"].value,
+  ".edu": baseColors.base["red"].value,
+  ".com": baseColors.base["orange-1"].value,
   other: baseColors.base["orange-2"].value
 };
 

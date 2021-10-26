@@ -66,6 +66,7 @@
   .images {
     display: flex;
     flex-direction: column;
+    pointer-events: none;
   }
   .img-group {
     position: absolute;
