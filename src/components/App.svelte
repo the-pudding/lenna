@@ -64,12 +64,10 @@
   <Scrolly bind:value={step} styles={"display: flex; flex-direction: column; width: 100%;"}>
     {#each steps as { text, image }, i}
       <div class="step" class:active={step === i}>
-        <p>{@html text}</p>
-
         {#if image}
-          <p>{image}</p>
           <img src={`assets/img/story/${image}.jpg`} alt={image} />
         {/if}
+        <p>{@html text}</p>
       </div>
     {/each}
   </Scrolly>
@@ -80,7 +78,6 @@
 
 <style>
   .step {
-    padding: 24px 40px 24px 40px;
     font-size: 18px;
     width: 20em;
     margin-right: 90px;
@@ -90,6 +87,9 @@
     align-self: flex-end;
     z-index: 1000;
     opacity: 0.4;
+  }
+  p {
+    padding: 24px 40px 24px 40px;
   }
   .active {
     opacity: 1;
@@ -105,8 +105,5 @@
   .scroll-container {
     width: 100%;
     position: relative;
-  }
-  img {
-    height: 50px;
   }
 </style>
