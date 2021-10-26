@@ -13,9 +13,9 @@
   $: playboyDestination = { x: xScale ? xScale(1972) : 0, y: yScale ? yScale(0) : 0 };
 
   $: visible = step >= 5 || step === -1;
-  $: [showUntil, barsShowing] = showUntilYear(step);
+  $: [showUntil, previousShowUntil] = showUntilYear(step, showUntil);
 
-  $: console.log({ showUntil, barsShowing });
+  $: console.log({ showUntil, previousShowUntil });
 
   const margin = { left: 50, right: 50, top: 100, bottom: 100 };
   $: width = $viewport.width;
@@ -120,7 +120,10 @@
     updateTicks();
   });
 
-  $: console.log({ data });
+  const getDelay = (i, previousShowUntil) => {
+    const index = data.findIndex((d) => d.year === previousShowUntil);
+    return (i - index) * 100;
+  };
 </script>
 
 <svg {width} {height} class:visible class="bar-chart">
@@ -135,7 +138,8 @@
           width={xScale.bandwidth()}
           height={height - yScale(yAccessor(d)) - margin.bottom}
           class:highlight={d.year === showUntil}
-          transition:fade
+          in:fade={{ delay: getDelay(i, previousShowUntil) }}
+          out:fade
         />
       {/each}
 

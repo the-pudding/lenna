@@ -25,7 +25,9 @@ export const barChartData = () => {
   return sorted;
 };
 
-export const showUntilYear = (step) => {
+export const showUntilYear = (step, showUntil) => {
+  const previous = showUntil;
+
   let year;
   if ((step < 5 && step >= 0) || step === undefined) year = 0;
   else if (step === 5) year = 1972;
@@ -35,10 +37,7 @@ export const showUntilYear = (step) => {
   else if (step === 10) year = 2019;
   else year = 2022;
 
-  const data = barChartData();
-  const numBarsShowing = data.filter((d) => d.year <= year).length;
-
-  return [year, numBarsShowing];
+  return [year, previous];
 };
 
 const getDomain = (str) => {
