@@ -31,7 +31,7 @@
     <Screenshots
       visible={step >= 0 && step < 3}
       faded={step >= 1 && step < 3}
-      showLabels={true}
+      showLabels={step >= 0 && step < 3}
       key="memes-0"
     />
     {#each [...new Array(4).keys()] as i}
