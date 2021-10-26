@@ -74,7 +74,7 @@
     color: var(--color-body);
     font-family: var(--sans);
     padding: 3em 1em;
-    margin-top: 3em;
+    margin-top: 10em;
   }
 
   a,

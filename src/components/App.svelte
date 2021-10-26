@@ -88,8 +88,40 @@
     z-index: 1000;
     opacity: 0.4;
   }
-  p {
+  .step p {
+    line-height: 1.65;
     padding: 24px 40px 24px 40px;
+  }
+
+  :global(.step a) {
+    text-decoration: none;
+    border-bottom: 1px solid var(--base-purple-3);
+  }
+
+  :global(.step a:hover) {
+    border-bottom: 2px solid var(--base-green-2);
+  }
+
+  :global(.step span) {
+    font-weight: 700;
+    font-family: var(--mono);
+    outline: 2px solid var(--base-green-2);
+    padding: 0.125rem 0.25rem;
+  }
+
+  :global(.step .org-span) {
+    background: var(--base-blue-2);
+    outline: none;
+  }
+
+  :global(.step .edu-span) {
+    background: var(--base-orange-1);
+    outline: none;
+  }
+
+  :global(.step .com-span) {
+    background: var(--base-orange-2);
+    outline: none;
   }
   .active {
     opacity: 1;
