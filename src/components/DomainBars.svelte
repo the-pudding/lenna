@@ -31,6 +31,10 @@
       .attr("id", ".com")
       .on("mouseenter", mouseEnter)
       .on("mouseleave", mouseLeave);
+    d3.selectAll(".step .other-span")
+      .attr("id", "other")
+      .on("mouseenter", mouseEnter)
+      .on("mouseleave", mouseLeave);
   });
 
   $: dataToShow = filterData(stackData, step);

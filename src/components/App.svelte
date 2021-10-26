@@ -126,6 +126,13 @@
     outline: none;
     cursor: default;
   }
+
+  :global(.step .other-span) {
+    background: var(--base-tan-1);
+    outline: none;
+    cursor: default;
+  }
+
   .active {
     opacity: 1;
   }
