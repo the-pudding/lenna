@@ -130,20 +130,21 @@
     <g id="x-axis" transform={`translate(0, ${height - margin.bottom})`} />
     <g id="y-axis" transform={`translate(${margin.left - 5}, 0)`} />
     {#if xScale && yScale}
+      {#each data.filter((d) => d.year <= showUntil) as d, i}
+        <rect
+          x={xScale(xAccessor(d))}
+          y={yScale(yAccessor(d))}
+          width={xScale.bandwidth()}
+          height={height - yScale(yAccessor(d)) - margin.bottom}
+          class:highlight={d.year === showUntil}
+          class:hide={domains}
+          in:fade={{ delay: getDelay(i, previousShowUntil) }}
+          out:fade
+        />
+      {/each}
+
       {#if domains}
         <DomainBars {domains} {xScale} {yScale} {barColors} {step} />
-      {:else}
-        {#each data.filter((d) => d.year <= showUntil) as d, i}
-          <rect
-            x={xScale(xAccessor(d))}
-            y={yScale(yAccessor(d))}
-            width={xScale.bandwidth()}
-            height={height - yScale(yAccessor(d)) - margin.bottom}
-            class:highlight={d.year === showUntil}
-            in:fade={{ delay: getDelay(i, previousShowUntil) }}
-            out:fade
-          />
-        {/each}
       {/if}
     {/if}
   </g>
