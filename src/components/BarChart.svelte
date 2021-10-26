@@ -123,7 +123,7 @@
   $: console.log({ data });
 </script>
 
-<svg {width} {height} class:visible>
+<svg {width} {height} class:visible class="bar-chart">
   <g>
     <g id="x-axis" transform={`translate(0, ${height - margin.bottom})`} />
     <g id="y-axis" transform={`translate(${margin.left - 5}, 0)`} />
@@ -157,15 +157,15 @@
   rect {
     fill: var(--base-purple-3);
   }
-  :global(text) {
+  :global(.bar-chart text) {
     font-family: var(--mono);
     font-size: 12px;
     fill: var(--chart-text);
   }
-  :global(line) {
+  :global(.bar-chart line) {
     color: var(--base-purple-2);
   }
-  :global(path) {
+  :global(.bar-chart path) {
     display: none;
   }
   :global(#x-axis .tick line) {
