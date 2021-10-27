@@ -18,7 +18,7 @@
     </ul>
   {/each}
 
-  <h3>Methods & Notes</h3>
+  <h3 id="methods">Methods & Notes</h3>
   {#each copy.methods as paragraph}
     <p class="methods">{@html paragraph.value}</p>
   {/each}

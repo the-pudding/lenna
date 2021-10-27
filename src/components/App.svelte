@@ -80,7 +80,7 @@
   .step {
     font-size: 18px;
     width: 20em;
-    margin-right: 90px;
+    margin-right: 120px;
     margin-bottom: 60vh;
     color: var(--color-body);
     background: var(--scroll-step-background);
@@ -90,7 +90,7 @@
   }
   .step p {
     line-height: 1.65;
-    padding: 18px 32px 18px 32px;
+    padding: 0.75rem 1.75rem;
   }
 
   :global(.step a) {
@@ -104,9 +104,13 @@
 
   :global(.step span) {
     font-weight: 700;
-    font-family: var(--mono);
     outline: 2px solid var(--base-green-2);
     padding: 0.125rem 0.25rem;
+  }
+
+  :global(.step .bolded) {
+    font-weight: 700;
+    outline: none;
   }
 
   :global(.step .org-span) {
