@@ -3,7 +3,6 @@ import baseColors from "../../properties/colors/base.json";
 
 export const colors = [
   baseColors.base["orange-2"].value,
-  //baseColors.base["green-2"].value,
   baseColors.base["orange-1"].value,
   baseColors.base["red"].value,
   baseColors.base["blue-1"].value,
@@ -31,7 +30,6 @@ export const getDestinations = (key, width, height, finalSize) => {
 
   const widthAvailable = width * 0.7;
   const imageSpace = finalSize / 2;
-  console.log({ finalSize });
 
   if (type === "memes" && i === 0) {
     return [

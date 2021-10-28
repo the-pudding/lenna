@@ -68,6 +68,7 @@
   };
 
   const fadeIn = () => {
+    console.log("fadein!");
     if (ready) {
       pixelsCopy.forEach((d) => {
         d.animate = ["x", "y", "w", "h", "r", "g", "b", "a"];
