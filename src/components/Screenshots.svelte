@@ -46,11 +46,6 @@
         visible ? destinations[i].x : origins[i].x
       }px; width: ${finalSize}px; transition: left ${duration}ms ${delay}ms, top ${duration}ms ${delay}ms`}
     >
-      {#if showLabels}
-        <div class="label" class:hidden={finalSize - $size > 10} class:faded>
-          {labels[i]}
-        </div>
-      {/if}
       <img
         src={`assets/img/${key.includes("meme") ? "memes" : "screenshots"}/pic${picNums[i]}.jpg`}
         alt={key}

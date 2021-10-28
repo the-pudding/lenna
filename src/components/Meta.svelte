@@ -1,7 +1,7 @@
 <script>
-  export let title = "Title TK";
-  export let description = "Description TK";
-  export let url = "https://pudding.cool";
+  export let title = "Can Data Die? Examining the Lenna Image";
+  export let description = "Why One of the Internet’s Oldest Images Lives On Without Its Subject’s Consent";
+  export let url = "https://pudding.cool/2021/10/lenna";
 </script>
 
 <svelte:head>
@@ -20,7 +20,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:locale" content="en_US" />
 
-  <meta property="og:image" content="{url}/assets/social-facebook.jpg" />
+  <meta property="og:image" content="{url}/static/assets/img/social/social-facebook.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="600" />
@@ -30,7 +30,7 @@
   <meta name="twitter:creator" content="@puddingviz" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image:src" content="{url}/assets/social-twitter.jpg" />
+  <meta name="twitter:image:src" content="{url}/static/assets/img/social/social-twitter.jpg" />
 
   <meta name="robots" content="max-image-preview:large" />
 
