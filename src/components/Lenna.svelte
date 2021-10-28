@@ -65,6 +65,7 @@
   height={canvasHeight}
   class:visible
   class:delayed-fade={visible}
+  class:get-out={step >= 5}
 />
 
 <style>
@@ -80,5 +81,8 @@
   }
   .delayed-fade {
     transition: opacity 2s 1.5s;
+  }
+  .get-out {
+    display: none;
   }
 </style>
