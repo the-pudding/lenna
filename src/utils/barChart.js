@@ -29,13 +29,13 @@ export const showUntilYear = (step, showUntil) => {
   const previous = showUntil;
 
   let year;
-  if ((step < 4 && step >= 0) || step === undefined) year = 0;
-  else if (step === 4) year = 1972;
-  else if (step === 5 || step === 6) year = 1991;
-  else if (step === 7) year = 1995;
-  else if (step === 8) year = 2014;
-  else if (step === 9) year = 2019;
-  else if (step === 10) year = 2021;
+  if ((step < 5 && step >= 0) || step === undefined) year = 0;
+  else if (step === 5 || step === 6) year = 1972;
+  else if (step === 7 || step === 8) year = 1991;
+  else if (step === 9) year = 1995;
+  else if (step === 10) year = 2014;
+  else if (step === 11 || step === 12 || step === 13 || step === 14) year = 2019;
+  else if (step === 15) year = 2021;
   else year = 2022;
 
   return [year, previous];
@@ -53,7 +53,7 @@ const getDomain = (str) => {
 };
 
 export const domainData = (step) => {
-  if (step < 11) return null;
+  if (step < 16) return null;
 
   const colors = raw
     .filter((d) => d.year && d.year >= 1972)

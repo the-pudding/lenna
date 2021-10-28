@@ -27,7 +27,7 @@
 {#if titleVisible}
   <div class="hero" on:click={() => console.log("hero click")} transition:fade>
     <h1>{title.toUpperCase()}</h1>
-    <h2>{subtitle.toUpperCase()}</h2>
+    <h2>{subtitle}</h2>
     <div class="authors">
       <div>By <a href={bylines[0].url}>{bylines[0].author}</a></div>
       <div>
@@ -56,19 +56,31 @@
   }
 
   h1 {
-    font-size: 150px;
-    line-height: 150px;
+    font-size: 135px;
+    line-height: 125px;
     max-width: 400px;
   }
 
   h2 {
-    font-size: 40px;
-    line-height: 45px;
+    font-size: 28px;
+    line-height: 36px;
+    font-weight: 400;
+    max-width: 700px;
   }
 
   .authors {
-    margin-top: 60px;
+    margin-top: 3rem;
     pointer-events: auto;
+    line-height: 1.65;
+  }
+
+  :global(.authors a) {
+    text-decoration: none;
+    border-bottom: 1px solid var(--chart-text);
+  }
+
+  :global(.authors a:hover) {
+    border-bottom: 2px solid var(--base-green-2);
   }
 
   @media (max-width: 700px) {
