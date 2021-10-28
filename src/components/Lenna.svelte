@@ -2,6 +2,7 @@
   import _ from "lodash";
   import { onMount, tick } from "svelte";
   import viewport from "$stores/viewport";
+  import { pixelSize } from "$stores/misc";
 
   export let step;
   export let pixels;
@@ -16,20 +17,26 @@
   let frames = 0;
   let currentFrame = 0;
 
-  $: yOffset = canvasHeight / 2 - (imageSizePixels * pixelSize) / 2;
+  $: yOffset = canvasHeight / 2 - (imageSizePixels * $pixelSize) / 2;
   $: xOffset = $viewport.width > 900 ? 200 * dpr : 80 * dpr;
   $: imageSizePixels = Math.sqrt(pixelsCopy.length);
   $: width = $viewport.width;
   $: height = $viewport.height;
   $: canvasWidth = width * dpr;
   $: canvasHeight = height * dpr;
-  $: pixelSize =
+  $: $pixelSize =
     $viewport.width > 900
       ? Math.floor((canvasWidth / imageSizePixels) * 0.4)
       : Math.floor((canvasWidth / imageSizePixels) * 0.66);
 
   $: canvasWidth, canvasHeight, face(); // redraw on resize
-  $: if (visible) fadeIn(); // fade whenever it enters
+  $: if (visible) enter();
+
+  const enter = () => {
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    setTimeout(fadeIn, 1700); // fade whenever it enters
+  };
+
   $: if (step === 4) {
     leaving = true;
     fadeOut();
@@ -68,8 +75,7 @@
   };
 
   const fadeIn = () => {
-    console.log("fadein!");
-    if (ready) {
+    if (ready && visible) {
       pixelsCopy.forEach((d) => {
         d.animate = ["x", "y", "w", "h", "r", "g", "b", "a"];
         d.a = { origin: 0, target: 1, value: undefined };
@@ -106,10 +112,10 @@
     if (ready) {
       pixelsCopy.forEach((d) => {
         d.a = { origin: 1, target: 1, value: undefined };
-        d.x = { origin: d.imageX * pixelSize, target: d.imageX * pixelSize, value: undefined };
-        d.y = { origin: d.imageY * pixelSize, target: d.imageY * pixelSize, value: undefined };
-        d.w = { origin: pixelSize, target: pixelSize, value: undefined };
-        d.h = { origin: pixelSize, target: pixelSize, value: undefined };
+        d.x = { origin: d.imageX * $pixelSize, target: d.imageX * $pixelSize, value: undefined };
+        d.y = { origin: d.imageY * $pixelSize, target: d.imageY * $pixelSize, value: undefined };
+        d.w = { origin: $pixelSize, target: $pixelSize, value: undefined };
+        d.h = { origin: $pixelSize, target: $pixelSize, value: undefined };
         d.r = { origin: d.r.origin, target: d.r.origin, value: undefined };
         d.g = { origin: d.g.origin, target: d.g.origin, value: undefined };
         d.b = { origin: d.b.origin, target: d.b.origin, value: undefined };
@@ -132,10 +138,10 @@
       d.imageY = d.y;
 
       const init = { target: undefined, value: undefined };
-      d.x = { origin: d.imageX * pixelSize, ...init };
-      d.y = { origin: d.imageY * pixelSize, ...init };
-      d.w = { origin: pixelSize, ...init };
-      d.h = { origin: pixelSize, ...init };
+      d.x = { origin: d.imageX * $pixelSize, ...init };
+      d.y = { origin: d.imageY * $pixelSize, ...init };
+      d.w = { origin: $pixelSize, ...init };
+      d.h = { origin: $pixelSize, ...init };
       d.r = { origin: d.r, ...init };
       d.g = { origin: d.g, ...init };
       d.b = { origin: d.b, ...init };
@@ -144,7 +150,7 @@
     });
 
     ready = true;
-    fadeIn();
+    //fadeIn();
   });
 </script>
 

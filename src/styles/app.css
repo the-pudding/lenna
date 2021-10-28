@@ -28,12 +28,11 @@
 
   --color-selection: var(--base-green-2);
 
-  /* --background-form: var(--base-off-white);
+  --background-form: var(--base-off-white);
   --color-placeholder: var(--base-gray-dark);
   --color-link: var(--base-purple);
   --color-focus: var(--base-red);
   --color-form: var(--base-off-black);
   --color-border: var(--base-gray-light);
-  --color-selection: var(--base-gray-light);
-  --color-highlight: var(--base-yellow); */
+  --color-highlight: var(--base-yellow);
 }
