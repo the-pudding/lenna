@@ -1,40 +1,48 @@
 <script>
   import { tweened } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
+  import viewport from "$stores/viewport";
+  import { pixelSize } from "$stores/misc";
 
   export let step;
   export let playboyDestination;
 
   const opacity = tweened(0, { duration: 2000, easing: cubicOut });
 
+  $: shrinking = step === 5;
   $: visible = step === 5;
-  $: shrinking = step === 6;
 
-  $: if (visible && $opacity === 0) {
-    opacity.set(1);
-  }
-  $: if (!visible && $opacity === 1) {
-    opacity.set(0);
-  }
+  // $: if (visible && $opacity === 0) {
+  //   opacity.set(1);
+  // }
+  // $: if (!visible && $opacity === 1) {
+  //   opacity.set(0);
+  // }
 </script>
 
-<img
-  src={`assets/img/playboy.png`}
-  alt="playboy"
-  class:big={visible && !shrinking}
-  style={`opacity: ${$opacity}; transform: translate(${shrinking ? playboyDestination.x : 200}px, ${
-    shrinking ? playboyDestination.y - 14 : 200
-  }px)`}
+<div
+  style={`transform: translate(${shrinking ? playboyDestination.x : $viewport.width * 0.3}px, ${
+    shrinking ? playboyDestination.y - 14 : $viewport.height * 0.5
+  }px); height: ${shrinking ? playboyDestination.h : $pixelSize}px; width: ${
+    shrinking ? playboyDestination.w : $pixelSize
+  }px`}
+  class:hidden-delayed={shrinking}
+  class:hidden-behind={step !== 5}
 />
 
 <style>
-  img {
-    position: absolute;
-    border: 7px solid var(--base-green-2);
-    height: 0px;
-    transition: height 2s, width 2s, transform 2s;
+  div {
+    background: var(--base-tan-2);
+    transition: opacity 2s, transform 2s;
   }
-  .big {
-    height: 375px;
+
+  .hidden-delayed {
+    opacity: 0;
+    transition: opacity 2s 2s, transform 2s;
+    visibility: visible;
+  }
+  .hidden-behind {
+    opacity: 1;
+    visibility: hidden;
   }
 </style>

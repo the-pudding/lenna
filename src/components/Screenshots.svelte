@@ -13,31 +13,11 @@
   export let picNums = [1, 2, 3, 4, 5];
 
   const count = 5;
-  const labels = getLabels(key);
   const duration = 2000;
-  const size = tweened(0, { duration, easing: cubicOut, delay });
-  const opacity = tweened(0, { duration, easing: cubicOut });
 
   $: origins = getOrigins($viewport.width, $viewport.height);
   $: destinations = getDestinations(key, $viewport.width, $viewport.height, finalSize);
   $: finalSize = $viewport.width > 700 ? 200 : 120;
-  $: finalSize, visible && size.set(finalSize);
-
-  $: console.log($pixelSize);
-
-  // $: if (visible && $size === 0) {
-  //   size.set(finalSize);
-  // }
-  // $: if (!visible) {
-  //   size.set(0);
-  //   opacity.set(0);
-  // }
-  // $: if (faded && visible) {
-  //   opacity.set(0.25);
-  // }
-  // $: if (visible && !faded) {
-  //   opacity.set(1);
-  // }
 
   const getColor = (i) => {
     if (key.includes("meme")) return colors[i];

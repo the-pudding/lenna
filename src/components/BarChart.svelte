@@ -9,7 +9,12 @@
   export let step;
   export let playboyDestination;
 
-  $: playboyDestination = { x: xScale ? xScale(1972) : 0, y: yScale ? yScale(0) : 0 };
+  $: playboyDestination = {
+    x: xScale ? xScale(1972) : 0,
+    y: yScale ? yScale(0) + 15 : 0,
+    w: xScale ? xScale.bandwidth() : 0,
+    h: yScale ? height - yScale(3) - margin.bottom : 0
+  };
 
   $: visible = step >= 5 || step === -1;
   $: [showUntil, previousShowUntil] = showUntilYear(step, showUntil);
