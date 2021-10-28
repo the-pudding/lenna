@@ -95,6 +95,9 @@
       margin-left: 80px;
       margin-right: 80px;
     }
+    .authors {
+      font-size: 14px;
+    }
   }
 
   @media (max-width: 475px) {

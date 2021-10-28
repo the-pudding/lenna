@@ -29,6 +29,7 @@
   .conclusion {
     max-width: 620px;
     margin: 0 auto;
+    padding: 0 1.5rem;
   }
 
   p,
@@ -95,5 +96,15 @@
 
   :global(.conclusion a:hover) {
     border-bottom: 2px solid var(--base-green-2);
+  }
+
+  @media only screen and (max-width: 700px) {
+    p, ul, li {
+      font-size: 16px;
+    }
+
+    li::before {
+      margin: 0 0.5rem 0.125rem 0rem; 
+    }
   }
 </style>

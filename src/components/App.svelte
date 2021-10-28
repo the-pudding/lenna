@@ -107,25 +107,33 @@
   :global(.step .org-span) {
     background: var(--base-blue-2);
     outline: none;
-    cursor: default;
+    cursor: pointer;
+    display: inline-block;
   }
 
   :global(.step .edu-span) {
     background: var(--base-orange-1);
     outline: none;
-    cursor: default;
+    cursor: pointer;
+    display: inline-block;
   }
 
   :global(.step .com-span) {
     background: var(--base-orange-2);
     outline: none;
-    cursor: default;
+    cursor: pointer;
+    display: inline-block;
   }
 
   :global(.step .other-span) {
     background: var(--base-tan-1);
     outline: none;
     cursor: default;
+    display: inline-block;
+  }
+
+  :global(.step .org-span:hover, .step .edu-span:hover, .step .com-span:hover, .step .other-span:hover) {
+    outline: 2px solid #282828;
   }
 
   .active {
@@ -142,5 +150,12 @@
   .scroll-container {
     width: 100%;
     position: relative;
+  }
+
+  @media only screen and (max-width: 700px) {
+    .step {
+      margin: 0 auto 60vh auto;
+      font-size: 16px;
+    }
   }
 </style>
