@@ -121,7 +121,7 @@
 
   const getDelay = (i, previousShowUntil) => {
     const index = data.findIndex((d) => d.year === previousShowUntil);
-    return (i - index) * 100;
+    return (i - index) * 80;
   };
 </script>
 
