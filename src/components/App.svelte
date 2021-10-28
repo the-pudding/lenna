@@ -42,7 +42,7 @@
 
     <Screenshots visible={step >= 2 && step < 3} faded={step >= 3 && step < 3} key="lennas" />
 
-    {#if pixels}
+    {#if pixels && step > 1}
       <Lenna {pixels} {step} />
     {/if}
 
@@ -132,7 +132,8 @@
     display: inline-block;
   }
 
-  :global(.step .org-span:hover, .step .edu-span:hover, .step .com-span:hover, .step .other-span:hover) {
+  :global(.step .org-span:hover, .step .edu-span:hover, .step .com-span:hover, .step
+      .other-span:hover) {
     outline: 2px solid #282828;
   }
 

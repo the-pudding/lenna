@@ -157,10 +157,11 @@
 
 <style>
   .visible {
-    display: block;
+    opacity: 1;
   }
   svg {
-    display: none;
+    opacity: 0;
+    transition: opacity 0.75s;
   }
   rect {
     fill: var(--base-purple-3);
