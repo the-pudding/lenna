@@ -25,7 +25,7 @@
   <PixelGalaxy {step} size={pixelSize} />
 {/if}
 {#if titleVisible}
-  <div class="hero" on:click={() => console.log("hero click")} transition:fade>
+  <div class="hero" transition:fade>
     <h1>{title.toUpperCase()}</h1>
     <h2>{subtitle}</h2>
     <div class="authors">
@@ -41,7 +41,6 @@
 <style>
   .hero {
     max-width: 800px;
-    height: 90vh;
     position: relative;
     pointer-events: none;
     margin-left: 110px;
@@ -102,6 +101,22 @@
     .hero {
       margin-left: 50px;
       margin-right: 50px;
+    }
+
+    h1 {
+      font-size: 80px;
+      line-height: 80px;
+    }
+    h2 {
+      font-size: 20px;
+      line-height: 22px;
+    }
+  }
+
+  @media (max-width: 300px) {
+    h1 {
+      font-size: 40px;
+      line-height: 40px;
     }
   }
 </style>

@@ -25,32 +25,22 @@
   });
 </script>
 
+<Hero {step} />
+
 <div class="scroll-container">
   <div class="sticky">
-    <Hero {step} />
-    <Screenshots
-      visible={step >= 0 && step < 3}
-      faded={step >= 1 && step < 3}
-      showLabels={step >= 0 && step < 3}
-      key="memes-0"
-    />
+    <Screenshots visible={step >= 0 && step < 3} faded={step >= 1 && step < 3} key="memes-0" />
     {#each [...new Array(4).keys()] as i}
       <Screenshots
         visible={step >= 1 && step < 3}
         faded={step >= 2 && step < 3}
-        showLabels={false}
         delay={200 * i}
         picNums={[1 + i * 5, 2 + i * 5, 3 + i * 5, 4 + i * 5, 5 + i * 5]}
         key={`memes-${i + 1}`}
       />
     {/each}
 
-    <Screenshots
-      visible={step >= 2 && step < 3}
-      faded={step >= 3 && step < 3}
-      showLabels={true}
-      key="lennas"
-    />
+    <Screenshots visible={step >= 2 && step < 3} faded={step >= 3 && step < 3} key="lennas" />
 
     {#if pixels}
       <Lenna {pixels} {step} />
@@ -88,6 +78,7 @@
     z-index: 1000;
     opacity: 0.4;
   }
+
   .step p {
     line-height: 1.65;
     padding: 0.75rem 1.75rem;

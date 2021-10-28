@@ -8,7 +8,6 @@
   export let key = "";
   export let visible = false;
   export let faded = false;
-  export let showLabels;
   export let delay = 600;
   export let picNums = [1, 2, 3, 4, 5];
 
@@ -20,7 +19,7 @@
 
   $: origins = getOrigins($viewport.width, $viewport.height);
   $: destinations = getDestinations(key, $viewport.width, $viewport.height, finalSize);
-  $: finalSize = $viewport.width > 700 ? 200 : 100;
+  $: finalSize = $viewport.width > 700 ? 200 : 120;
   $: finalSize, visible && size.set(finalSize);
 
   $: if (visible && $size === 0) {
@@ -49,9 +48,9 @@
       <img
         src={`assets/img/${key.includes("meme") ? "memes" : "screenshots"}/pic${picNums[i]}.jpg`}
         alt={key}
-        style={`height: ${$size}px; width: ${$size}px; opacity: ${$opacity}; border: 7px solid ${
-          key.includes("meme") ? colors[i] : "var(--base-green-2)"
-        }`}
+        style={`height: ${$size}px; width: ${$size}px; opacity: ${$opacity}; border: ${
+          finalSize === 200 ? 7 : 5
+        }px solid ${key.includes("meme") ? colors[i] : "var(--base-green-2)"}`}
       />
     </div>
   {/each}
