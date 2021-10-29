@@ -1,12 +1,12 @@
 import _ from "lodash";
-import baseColors from "../../properties/colors/base.json";
+import baseColors from "$data/variables.json";
 
 export const colors = [
-  baseColors.base["orange-2"].value,
-  baseColors.base["orange-1"].value,
-  baseColors.base["red"].value,
-  baseColors.base["blue-1"].value,
-  baseColors.base["tan-1"].value
+  baseColors.base["orange-2"],
+  baseColors.base["orange-1"],
+  baseColors.base["red"],
+  baseColors.base["blue-1"],
+  baseColors.base["tan-1"]
 ];
 
 export const getOrigins = (width, height) => {

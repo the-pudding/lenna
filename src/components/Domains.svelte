@@ -1,6 +1,6 @@
 <script>
   import { onMount, tick } from "svelte";
-  import baseColors from "../../properties/colors/base.json";
+  import baseColors from "$data/variables.json";
   import { formatData, getYearRange } from "$utils/bubbleChart";
   import viewport from "$stores/viewport";
 
@@ -10,10 +10,10 @@
   $: visible = step >= 9;
 
   const colors = [
-    baseColors.base["green-2"].value,
-    baseColors.base["blue-2"].value,
-    baseColors.base["orange-1"].value,
-    baseColors.base["tan-3"].value
+    baseColors.base["green-2"],
+    baseColors.base["blue-2"],
+    baseColors.base["orange-1"],
+    baseColors.base["tan-3"]
   ];
 
   const margin = { left: 0, right: 0, top: 100, bottom: 100 };

@@ -1,12 +1,12 @@
 import _ from "lodash";
 import raw from "$data/data.csv";
-import baseColors from "../../properties/colors/base.json";
+import baseColors from "$data/variables.json";
 
 export const barColors = {
-  ".org": baseColors.base["blue-1"].value,
-  ".edu": baseColors.base["red"].value,
-  ".com": baseColors.base["orange-1"].value,
-  other: baseColors.base["orange-2"].value
+  ".org": baseColors.base["blue-1"],
+  ".edu": baseColors.base["red"],
+  ".com": baseColors.base["orange-1"],
+  other: baseColors.base["orange-2"]
 };
 
 export const barChartData = () => {

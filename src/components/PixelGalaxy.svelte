@@ -1,7 +1,7 @@
 <script>
   import viewport from "$stores/viewport";
   import { onMount, tick, afterUpdate } from "svelte";
-  import baseColors from "../../properties/colors/base.json";
+  import baseColors from "$data/variables.json";
   import { fade } from "svelte/transition";
 
   export let step;
@@ -51,11 +51,11 @@
 
   let coloredPixels = [];
   let colors = [
-    baseColors.base["red"].value,
-    baseColors.base["green-1"].value,
-    baseColors.base["blue-1"].value,
-    baseColors.base["tan-1"].value,
-    baseColors.base["orange-1"].value
+    baseColors.base["red"],
+    baseColors.base["green-1"],
+    baseColors.base["blue-1"],
+    baseColors.base["tan-1"],
+    baseColors.base["orange-1"]
   ];
   const initColoredPixels = () => {
     coloredPixels = [];
@@ -87,7 +87,7 @@
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     for (var i = 0, l = pixels.length; i < l; i++) {
       ctx.globalAlpha = 1;
-      ctx.fillStyle = baseColors.base["purple-1"].value;
+      ctx.fillStyle = baseColors.base["purple-1"];
       ctx.fillRect(pixels[i][0], pixels[i][1], pixels[i][2], pixels[i][3]);
     }
   };
@@ -133,7 +133,7 @@
     for (var i = 0, l = pixels.length; i < l; i++) {
       // draw a purple background pixel
       ctx.globalAlpha = 1;
-      ctx.fillStyle = baseColors.base["purple-1"].value;
+      ctx.fillStyle = baseColors.base["purple-1"];
       ctx.fillRect(pixels[i][0], pixels[i][1], pixels[i][2], pixels[i][3]);
 
       // draw a colored pixel
