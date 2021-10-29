@@ -1,26 +1,26 @@
-import { browser } from '$app/env';
+import { browser } from "$app/env";
 import { readable } from "svelte/store";
 
 export default readable(0, (set) => {
-	let ticking = false;
-	let lastScrollY = 0;
+  let ticking = false;
+  let lastScrollY = 0;
 
-	const updateScrollY = () => {
-		set(lastScrollY);
-		ticking = false;
-	};
+  const updateScrollY = () => {
+    set(lastScrollY);
+    ticking = false;
+  };
 
-	const onScroll = () => {
-		lastScrollY = window.scrollY;
-		if (!ticking) {
-			requestAnimationFrame(updateScrollY);
-			ticking = true;
-		}
-	};
+  const onScroll = () => {
+    lastScrollY = window.scrollY;
+    if (!ticking) {
+      requestAnimationFrame(updateScrollY);
+      ticking = true;
+    }
+  };
 
-	if (browser) document.addEventListener('scroll', onScroll);
+  if (browser) document.addEventListener("scroll", onScroll);
 
-	return () => {
-		if (browser) document.removeEventListener("scroll", onScroll);
-	};
+  return () => {
+    if (browser) document.removeEventListener("scroll", onScroll);
+  };
 });

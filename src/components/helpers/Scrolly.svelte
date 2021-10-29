@@ -12,6 +12,7 @@
    * <Scrolly root={null} top={0} bottom={0} increments={100}>
    */
   import { onMount } from "svelte";
+
   export let root = null;
   export let top = 0;
   export let bottom = 0;
@@ -44,9 +45,9 @@
 
     if (maxRatio > 0) value = maxIndex;
     else {
-      if (value > 0) value = -1;
-      else value = undefined;
-      //value = undefined;
+      // if (value > 0) value = -1;
+      // else value = undefined;
+      value = undefined;
     }
   };
 

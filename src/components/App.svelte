@@ -9,10 +9,30 @@
   import copy from "$data/doc.json";
   import lennaPixels from "$data/lennaPixels.json";
   import _ from "lodash";
+  import { onMount } from "svelte";
 
+  let mounted = false;
   let step;
   let playboyDestination;
+  let scrollY = 0;
   const steps = copy.scrollProse;
+
+  $: step, adjustStep();
+
+  const adjustStep = () => {
+    if (mounted) {
+      scrollY = window.scrollY;
+      if (step === undefined && scrollY > 10000) {
+        step = -1;
+      }
+    }
+  };
+
+  onMount(() => {
+    mounted = true;
+    scrollY = window.scrollY;
+    adjustStep();
+  });
 
   // $: console.log({ step });
 </script>
