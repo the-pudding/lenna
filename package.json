@@ -35,7 +35,7 @@
   },
   "browserslist": "> 0.5%, last 4 versions, not ie <= 11, not ie_mob <= 11",
   "pudding": {
-    "subdirectory": "lenna"
+    "subdirectory": "2021/10/lenna"
   },
   "dependencies": {
     "indian-ocean": "^4.0.2",
