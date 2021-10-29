@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte";
   import { getOrigins, getDestinations, colors } from "$utils/screenshots.js";
   import viewport from "$stores/viewport.js";
   import { pixelSize, gridPixelSize } from "$stores/misc";
@@ -9,6 +10,7 @@
   export let faded = false;
   export let delay = 600;
   export let picNums = [1, 2, 3, 4, 5];
+  export let step;
 
   const count = 5;
   const duration = 2000;
@@ -24,52 +26,38 @@
     if (i % 2 === 1) return "var(--base-purple-3)";
     return "var(--base-tan-1)";
   };
+
+  let dpr = 1;
+  onMount(() => {
+    dpr = window.devicePixelRatio;
+  });
 </script>
 
 <div class="images">
   {#each [...new Array(count).keys()] as i}
-    <div
-      class="img-group"
-      style={`top: ${visible ? destinations[i].y : origins[i].y}px; left: ${
+    <img
+      src={`assets/img/${key.includes("meme") ? "memes" : "screenshots"}/pic${picNums[i]}.jpg`}
+      alt={key}
+      style={`--border: ${
+        visible ? Math.ceil($gridPixelSize / (2 * dpr)) : Math.ceil($pixelSize / 2)
+      }px; color: ${getColor(i)}; top: ${visible ? destinations[i].y : origins[i].y}px; left: ${
         visible ? destinations[i].x : origins[i].x
-      }px; width: ${finalSize}px; transition: left ${duration}ms ${delay}ms, top ${duration}ms ${delay}ms`}
-    >
-      <img
-        src={`assets/img/${key.includes("meme") ? "memes" : "screenshots"}/pic${picNums[i]}.jpg`}
-        alt={key}
-        style={`--border: ${Math.ceil($pixelSize / (visible ? 0.8 : 2))}px; color: ${getColor(i)}`}
-        class:big={visible}
-        class:opaque={visible && !faded}
-        class:faded={faded && visible}
-        class:hidden={!visible}
-        class:delayed-opacity={key === "lennas" && !visible}
-        class:delayed-growth={visible}
-      />
-    </div>
+      }px;`}
+      class:big={visible}
+      class:opaque={visible && !faded}
+      class:faded={faded && visible}
+      class:hidden={!visible}
+      class:delayed-opacity={key === "lennas" && !visible}
+      class:delayed-growth={visible}
+    />
   {/each}
 </div>
 
 <style>
-  .images {
-    display: flex;
-    flex-direction: column;
-    pointer-events: none;
-  }
-  .img-group {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .label {
-    font-size: 16px;
-    line-height: 32px;
-    opacity: 1;
-    transition: opacity 0.5s;
-  }
   img {
+    position: absolute;
     --dur: 1.5s;
-    --del: 1.5s;
+    --del: 1s;
     height: 0px;
     width: 0px;
     background-color: currentColor;
@@ -83,11 +71,12 @@
   }
   img.delayed-opacity {
     transition: width var(--dur), height var(--dur), border-color var(--dur),
-      border-width var(--dur), opacity var(--dur) var(--del);
+      border-width var(--dur), opacity var(--dur) var(--del), left var(--dur) var(--del),
+      top var(--dur) var(--del);
   }
   img.delayed-growth {
     transition: width var(--dur) var(--del), height var(--dur) var(--del), opacity var(--dur),
-      border-color var(--dur);
+      border-color var(--dur), left var(--dur) var(--del), top var(--dur) var(--del);
   }
   img.hidden {
     opacity: 0;
@@ -98,5 +87,11 @@
   img.big {
     width: 200px;
     height: 200px;
+  }
+  @media (max-width: 700px) {
+    img.big {
+      width: 120px;
+      height: 120px;
+    }
   }
 </style>

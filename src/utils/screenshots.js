@@ -34,10 +34,10 @@ export const getDestinations = (key, width, height, finalSize) => {
   if (type === "memes" && i === 0) {
     return [
       { x: widthAvailable / 5 - imageSpace + 50, y: height / 5 - imageSpace - 50 },
-      { x: widthAvailable * (4 / 5) - imageSpace, y: height / 5 - imageSpace },
-      { x: widthAvailable / 2 - imageSpace, y: height / 2 - imageSpace },
-      { x: widthAvailable / 5 - imageSpace, y: height * (4 / 5) - imageSpace },
-      { x: widthAvailable * (4 / 5) - imageSpace + 50, y: height * (4 / 5) - imageSpace - 50 }
+      { x: widthAvailable * (4 / 5) - imageSpace / 2, y: height / 5 - imageSpace },
+      { x: widthAvailable / 2 - imageSpace / 2, y: height / 2 - imageSpace },
+      { x: widthAvailable / 5 - imageSpace / 2, y: height * (4 / 5) - imageSpace },
+      { x: widthAvailable * (4 / 5) - imageSpace / 2 + 50, y: height * (4 / 5) - imageSpace - 50 }
     ];
   } else if (type === "memes") {
     return [...new Array(5).keys()].map((d) => ({
