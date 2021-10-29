@@ -1,5 +1,4 @@
 <script>
-  import { onMount, setContext } from "svelte";
   import Hero from "./Hero.svelte";
   import Scrolly from "./helpers/Scrolly.svelte";
   import Screenshots from "./Screenshots.svelte";
@@ -9,20 +8,14 @@
   import Conclusion from "./Conclusion.svelte";
   import Footer from "./Footer.svelte";
   import copy from "$data/doc.json";
-  import loadPixels from "$utils/loadPixels.js";
+  import lennaPixels from "$data/lennaPixels.json";
   import _ from "lodash";
 
   let step;
-  let pixels;
   let playboyDestination;
   const steps = copy.scrollProse;
 
   $: console.log({ step });
-  $: console.log(copy);
-
-  onMount(async () => {
-    pixels = await loadPixels("assets/img/lenna-84.png");
-  });
 </script>
 
 <Hero {step} />
@@ -52,8 +45,8 @@
       key="lennas"
     />
 
-    {#if pixels && step !== undefined}
-      <Lenna {pixels} {step} />
+    {#if step !== undefined}
+      <Lenna pixels={lennaPixels} {step} />
     {/if}
 
     <BarChart {step} bind:playboyDestination />
