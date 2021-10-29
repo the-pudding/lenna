@@ -12,8 +12,8 @@
   },
   "devDependencies": {
     "@rollup/plugin-dsv": "2.0.2",
-    "@sveltejs/adapter-static": "1.0.0-next.20",
-    "@sveltejs/kit": "1.0.0-next.173",
+    "@sveltejs/adapter-static": "1.0.0-next.21",
+    "@sveltejs/kit": "1.0.0-next.192",
     "archieml": "0.4.2",
     "autoprefixer": "10.3.5",
     "d3": "7.0.3",
@@ -25,7 +25,7 @@
     "prettier-plugin-svelte": "2.4.0",
     "rollup-plugin-svg": "2.0.0",
     "style-dictionary": "3.0.2",
-    "svelte": "3.43.0",
+    "svelte": "3.44.0",
     "svelte-preprocess": "4.9.5",
     "vite-plugin-svgstring": "1.0.0"
   },

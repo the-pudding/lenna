@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Can Data Die? Tracking the Lenna Image</title><meta charset="utf-8" data-svelte="svelte-19hxfla"><meta name="viewport" content="width=device-width, initial-scale=1.0" data-svelte="svelte-19hxfla"><meta http-equiv="Content-Type" content="text/html; charset=utf-8" data-svelte="svelte-19hxfla"><meta name="description" content="Why One of the Internet’s Oldest Images Lives On Without Its Subject’s Consent" data-svelte="svelte-19hxfla"><meta name="author" content="The Pudding" data-svelte="svelte-19hxfla"><meta name="news_keywords" content="" data-svelte="svelte-19hxfla"><meta property="og:title" content="Can Data Die? Tracking the Lenna Image" data-svelte="svelte-19hxfla"><meta property="og:site_name" content="The Pudding" data-svelte="svelte-19hxfla"><meta property="og:url" content="https://pudding.cool/2021/10/lenna" data-svelte="svelte-19hxfla"><meta property="og:description" content="Why One of the Internet’s Oldest Images Lives On Without Its Subject’s Consent" data-svelte="svelte-19hxfla"><meta property="og:type" content="article" data-svelte="svelte-19hxfla"><meta property="og:locale" content="en_US" data-svelte="svelte-19hxfla"><meta property="og:image" content="https://pudding.cool/2021/10/lenna/static/assets/img/social/social-facebook.jpg" data-svelte="svelte-19hxfla"><meta property="og:image:type" content="image/jpeg" data-svelte="svelte-19hxfla"><meta property="og:image:width" content="1200" data-svelte="svelte-19hxfla"><meta property="og:image:height" content="600" data-svelte="svelte-19hxfla"><meta name="twitter:card" content="summary_large_image" data-svelte="svelte-19hxfla"><meta name="twitter:site" content="https://pudding.cool" data-svelte="svelte-19hxfla"><meta name="twitter:creator" content="@puddingviz" data-svelte="svelte-19hxfla"><meta name="twitter:title" content="Can Data Die? Tracking the Lenna Image" data-svelte="svelte-19hxfla"><meta name="twitter:description" content="Why One of the Internet’s Oldest Images Lives On Without Its Subject’s Consent" data-svelte="svelte-19hxfla"><meta name="twitter:image:src" content="https://pudding.cool/2021/10/lenna/static/assets/img/social/social-twitter.jpg" data-svelte="svelte-19hxfla"><meta name="robots" content="max-image-preview:large" data-svelte="svelte-19hxfla"><link rel="canonical" href="https://pudding.cool/2021/10/lenna/" data-svelte="svelte-19hxfla">
+
+		
+
+		<link rel="modulepreload" href="/lenna/_app/start-24b97123.js">
+		<link rel="modulepreload" href="/lenna/_app/chunks/vendor-24f9b002.js">
+		<link rel="modulepreload" href="/lenna/_app/pages/__layout.svelte-3a964aac.js">
+		<link rel="modulepreload" href="/lenna/_app/chunks/wordmark-0849a013.js">
+		<link rel="modulepreload" href="/lenna/_app/pages/index.svelte-055d247e.js">
+		<link rel="stylesheet" href="/lenna/_app/assets/start-c446e5f0.css">
+		<link rel="stylesheet" href="/lenna/_app/assets/pages/__layout.svelte-500217dd.css">
+		<link rel="stylesheet" href="/lenna/_app/assets/pages/index.svelte-c53756fa.css">
+
+		<script type="module">
+			import { start } from "/lenna/_app/start-24b97123.js";
+			start({
+				target: document.querySelector("#svelte"),
+				paths: {"base":"/lenna","assets":""},
+				session: {},
+				host: location.host,
+				route: true,
+				spa: false,
+				trailing_slash: "never",
+				hydrate: {
+					status: 200,
+					error: null,
+					nodes: [
+						import("/lenna/_app/pages/__layout.svelte-3a964aac.js"),
+						import("/lenna/_app/pages/index.svelte-055d247e.js")
+					],
+					page: {
+						host: location.host, // TODO this is redundant
+						path: "/",
+						query: new URLSearchParams(""),
+						params: {}
+					}
+				}
+			});
+		</script>
+  </head>
+
+  <body>
+    <a href="#content" class="skip-to-main">Skip to main content</a>
+    <div id="svelte">
+
+
+<header class="svelte-iadfpb"><div class="wordmark svelte-iadfpb"><a href="https://pudding.cool" aria-label="The Pudding" class="svelte-iadfpb"><!-- HTML_TAG_START --><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.6 50"><path class="st0" d="M150.1 9.5c1.5 0 2.8 1.3 2.8 2.8s-1.3 2.8-2.8 2.8-2.8-1.3-2.8-2.8 1.3-2.8 2.8-2.8zM147.2 17.3h5.6v18.2h-5.6V17.3zM77.1 9.5h-8.9v26h5.6v-8.1h3.3c4.9 0 8.9-4 8.9-8.9s-3.9-9-8.9-9zm0 12.3h-3.3v-6.6h3.3c1.8 0 3.3 1.5 3.3 3.3s-1.4 3.3-3.3 3.3zM105.7 17.6h-5.6v8.9c0 1.8-1.5 3.3-3.3 3.3s-3.3-1.5-3.3-3.3v-8.9h-5.6v8.9c0 4.9 4 8.9 8.9 8.9s8.9-4 8.9-8.9v-8.9zM164.1 17.6c-4.9 0-8.9 4-8.9 8.9v8.9h5.6v-8.9c0-1.8 1.5-3.3 3.3-3.3s3.3 1.5 3.3 3.3v8.9h5.6v-8.9c0-4.9-4-8.9-8.9-8.9zM119.7 16.2v1.4h-3.3c-4.9 0-8.9 4-8.9 8.9s4 8.9 8.9 8.9h8.9V9.5l-5.6 3.3v3.4zm.1 8.4V29.8h-3.3c-1.8 0-3.3-1.5-3.3-3.3s1.5-3.3 3.3-3.3h3.3v1.4zM139.3 16.2v1.4H136c-4.9 0-8.9 4-8.9 8.9s4 8.9 8.9 8.9h8.9V9.5l-5.6 3.3v3.4zm.1 8.4V29.8H136c-1.8 0-3.3-1.5-3.3-3.3s1.5-3.3 3.3-3.3h3.3v1.4h.1zM183.7 17.6c-4.9 0-8.9 4-8.9 8.9s4 8.9 8.9 8.9h3.3v5.1c0 1.8-1.5 3.3-3.3 3.3s-3.3-1.5-3.3-3.3V38l-5.6 3.3c.4 4.5 4.2 8.1 8.9 8.1 4.9 0 8.9-4 8.9-8.9V17.6h-8.9zm3.3 5.8V30h-3.3c-1.8 0-3.3-1.5-3.3-3.3s1.5-3.3 3.3-3.3h3.3zM28.6 17.6c-1.2 0-2.3.2-3.3.6V9.5l-5.6 3.3v22.6h5.6v-8.9c0-1.8 1.5-3.3 3.3-3.3s3.3 1.5 3.3 3.3v8.9h5.6v-8.9c0-4.9-4-8.9-8.9-8.9zM17.8 9.5H0v5.6h6.1v20.3h5.6V15.1h6.1V9.5zM48.3 30.2c-.4 0-1.2-.1-1.8-.4l5.2-2.1 5.6-2.3-1-2.3-.1-.2c-.1-.3-.3-.6-.5-1-.1-.1-.1-.2-.2-.3 0 0 0-.1-.1-.1l-.1-.1-.1-.1c-1.6-2.2-4-3.5-6.7-3.7h-.6c-4.9 0-8.9 4-8.9 8.9 0 .4 0 .9.1 1.4V28.2c0 .3.1.5.2.8v.2c.1.3.2.7.4 1v.2c.1.3.3.5.4.8 0 .1.1.1.1.2.1.2.3.4.4.6v.1s0 .1.1.1l.1.1c1.7 2.1 4.4 3.4 7.2 3.4h6.1v-5.2c.4-.3-3.5-.3-5.8-.3zm7.9-7.3zm-11.6 2.8l-.2.1c.2-1.9 1.8-3.5 3.7-3.5.9 0 1.8.4 2.4.9L46.2 25l-1.6.7z"/></svg><!-- HTML_TAG_END --></a></div>
+</header>
+<main id="content">
+
+<div class="hero svelte-1uyf4hx"><h1 class="svelte-1uyf4hx">CAN DATA DIE?</h1>
+    <h2 class="svelte-1uyf4hx">Why One of the Internet’s Oldest Images Lives On Without Its Subject’s Consent</h2>
+    <div class="authors svelte-1uyf4hx"><div>By <a href="https://pudding.cool/author/jennifer-ding/">Jennifer Ding</a></div>
+      <div>with <a href="https://pudding.cool/author/jan-diehm/">Jan Diehm</a> and
+        <a href="https://pudding.cool/author/michelle-mcghee/">Michelle McGhee</a></div></div></div>
+
+<div class="scroll-container svelte-oauysb"><div class="sticky svelte-oauysb"><div class="images"><img src="assets/img/memes/pic1.jpg" alt="memes-0" style="--border: 0px; color: #F29F80; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic2.jpg" alt="memes-0" style="--border: 0px; color: #D96666; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic3.jpg" alt="memes-0" style="--border: 0px; color: #A64153; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic4.jpg" alt="memes-0" style="--border: 0px; color: #586FA6; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic5.jpg" alt="memes-0" style="--border: 0px; color: #F2C299; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden">
+</div>
+    <div class="images"><img src="assets/img/memes/pic1.jpg" alt="memes-1" style="--border: 0px; color: #F29F80; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic2.jpg" alt="memes-1" style="--border: 0px; color: #D96666; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic3.jpg" alt="memes-1" style="--border: 0px; color: #A64153; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic4.jpg" alt="memes-1" style="--border: 0px; color: #586FA6; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic5.jpg" alt="memes-1" style="--border: 0px; color: #F2C299; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden">
+</div><div class="images"><img src="assets/img/memes/pic6.jpg" alt="memes-2" style="--border: 0px; color: #F29F80; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic7.jpg" alt="memes-2" style="--border: 0px; color: #D96666; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic8.jpg" alt="memes-2" style="--border: 0px; color: #A64153; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic9.jpg" alt="memes-2" style="--border: 0px; color: #586FA6; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic10.jpg" alt="memes-2" style="--border: 0px; color: #F2C299; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden">
+</div><div class="images"><img src="assets/img/memes/pic11.jpg" alt="memes-3" style="--border: 0px; color: #F29F80; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic12.jpg" alt="memes-3" style="--border: 0px; color: #D96666; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic13.jpg" alt="memes-3" style="--border: 0px; color: #A64153; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic14.jpg" alt="memes-3" style="--border: 0px; color: #586FA6; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic15.jpg" alt="memes-3" style="--border: 0px; color: #F2C299; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden">
+</div><div class="images"><img src="assets/img/memes/pic16.jpg" alt="memes-4" style="--border: 0px; color: #F29F80; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic17.jpg" alt="memes-4" style="--border: 0px; color: #D96666; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic18.jpg" alt="memes-4" style="--border: 0px; color: #A64153; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic19.jpg" alt="memes-4" style="--border: 0px; color: #586FA6; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden"><img src="assets/img/memes/pic20.jpg" alt="memes-4" style="--border: 0px; color: #F2C299; top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden">
+</div>
+
+    <div class="images"><img src="assets/img/screenshots/pic1.jpg" alt="lennas" style="--border: 0px; color: var(--base-tan-1); top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden delayed-opacity"><img src="assets/img/screenshots/pic2.jpg" alt="lennas" style="--border: 0px; color: var(--base-purple-3); top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden delayed-opacity"><img src="assets/img/screenshots/pic3.jpg" alt="lennas" style="--border: 0px; color: var(--base-tan-1); top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden delayed-opacity"><img src="assets/img/screenshots/pic4.jpg" alt="lennas" style="--border: 0px; color: var(--base-purple-3); top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden delayed-opacity"><img src="assets/img/screenshots/pic5.jpg" alt="lennas" style="--border: 0px; color: var(--base-tan-1); top: -2px; left: -3.5px;" class="svelte-1d26gt9    hidden delayed-opacity">
+</div>
+
+    
+
+    <svg width="0" height="0" class="bar-chart svelte-huv3ic"><g><g id="x-axis" transform="translate(0, -100)"></g><g id="y-axis" transform="translate(45, 0)"></g></g></svg></div>
+
+  <div style="display: flex; flex-direction: column; width: 100%;"><div class="step svelte-oauysb">
+        <p class="svelte-oauysb"><!-- HTML_TAG_START -->In 2021, sharing content is easier than ever. Our lingua franca is visual: memes, infographics, TikToks. Our references cross borders and platforms, shared and remixed a hundred different ways in minutes. Digital culture is collective by default and has us 😂, 😭, and 😍 together all around the world.<!-- HTML_TAG_END --></p>
+      </div><div class="step svelte-oauysb">
+        <p class="svelte-oauysb"><!-- HTML_TAG_START -->But as the internet reaches its “dirty 30s,” what happens when pieces of digital culture that have been saved, screenshotted, and reposted for years need to retire? Let’s dig into the story of one of these artifacts: <span class=bolded>The Lenna image</span>.<!-- HTML_TAG_END --></p>
+      </div><div class="step svelte-oauysb">
+        <p class="svelte-oauysb"><!-- HTML_TAG_START -->The Lenna image may be relatively unknown in pop culture today, but in the engineering world, it remains an icon. I first encountered the image in an undergrad class, then grad school, and then all over the sites and software I use every day as a tech worker like <a href=https://github.com/mikolalysenko/lena target=_blank>Github</a>, <a href=https://docs.opencv.org/4.5.3/dc/dd3/tutorial_gausian_median_blur_bilateral_filter.html target=_blank>OpenCV</a>, <a href=https://stackoverflow.com/questions/56346850/set-image-inside-png-transparency target=_blank>Stack Overflow</a>, and <a href=https://www.quora.com/topic/Image-Processing target=_blank>Quora</a>.<!-- HTML_TAG_END --></p>
+      </div><div class="step svelte-oauysb">
+        <p class="svelte-oauysb"><!-- HTML_TAG_START --><span class=bolded>This is Lenna.</span><!-- HTML_TAG_END --></p>
+      </div><div class="step svelte-oauysb">
+        <p class="svelte-oauysb"><!-- HTML_TAG_START -->To understand where the image is today, you have to understand how it got here. So, I decided to scrape Google scholar, search, and reverse image search results to track down thousands of instances of the image across the internet (see more in the <a href=#methods>methods section</a>).<!-- HTML_TAG_END --></p>
+      </div><div class="step svelte-oauysb"><img src="assets/img/story/playboy.jpg" alt="playboy">
+        <p class="svelte-oauysb"><!-- HTML_TAG_START -->Lena Forsén, the real human behind the Lenna image, was <a href=https://www.iplayboy.com/issue/19721101 target=_blank>first published in Playboy</a> in <span>1972</span>. Soon after, USC engineers searching for a suitable test image for their image processing research sought inspiration from the magazine. They deemed Lenna the right fit and scanned the image into digital, <a href=https://www.pcmag.com/encyclopedia/term/rgb target=_blank>RGB</a> existence.<!-- HTML_TAG_END --></p>
+      </div><div class="step svelte-oauysb">
+        <p class="svelte-oauysb"><!-- HTML_TAG_START -->From here, the story of the image follows the story of the internet. Lenna was one of the first inhabitants of ARPANet, the internet’s predecessor, and then the world wide web.<!-- HTML_TAG_END --></p>
+      </div><div class="step svelte-oauysb"><img src="assets/img/story/journal.jpg" alt="journal">
+        <p class="svelte-oauysb"><!-- HTML_TAG_START -->While the image’s reach was limited to a few research papers in the ‘70s and ‘80s, in <span>1991</span>, Lenna was featured on the cover of an <a href=https://www.spiedigitallibrary.org/journals/optical-engineering/volume-30/issue-07 target=_blank>engineering journal</a> alongside another popular test image, <a href=https://www.researchgate.net/figure/Original-standard-test-image-of-Peppers_fig8_259521525 target=_blank>Peppers</a>.<!-- HTML_TAG_END --></p>
+      </div><div class="step svelte-oauysb">
+        <p class="svelte-oauysb"><!-- HTML_TAG_START -->This caught the attention of Playboy, which threatened a copyright infringement lawsuit. Engineers who had grown attached to Lenna fought back. Ultimately, they prevailed, and as a Playboy VP <a href=https://www.wired.com/1997/05/playmate-meets-geeks-who-made-her-a-net-star/ target=_blank>reflected on the drama</a>: "We decided we should exploit this because it is a phenomenon."<!-- HTML_TAG_END --></p>
+      </div><div class="step svelte-oauysb">
+        <p class="svelte-oauysb"><!-- HTML_TAG_START -->The Playboy controversy canonized Lenna in engineering folklore and prompted an explosion of conversation about the image. Image hits on the internet rose to a peak number in <span>1995</span>.<!-- HTML_TAG_END --></p>
+      </div><div class="step svelte-oauysb"><img src="assets/img/story/silicon-valley.jpg" alt="silicon-valley">
+        <p class="svelte-oauysb"><!-- HTML_TAG_START -->In the 21st century, the image has remained a common sight in classrooms and on TV, including a feature on <a href=https://www.hbo.com/silicon-valley target=_blank>Silicon Valley</a> in <span>2014</span>.<!-- HTML_TAG_END --></p>
+      </div><div class="step svelte-oauysb">
+        <p class="svelte-oauysb"><!-- HTML_TAG_START -->Pushback towards the use of the image also grew in the 2010s leading up to <span>2019</span>, when the <a href=https://www.losinglena.com/ target=_blank>Losing Lena</a> documentary was released.<!-- HTML_TAG_END --></p>
+      </div><div class="step svelte-oauysb"><img src="assets/img/story/losing-lena.jpg" alt="losing-lena">
+        <p class="svelte-oauysb"><!-- HTML_TAG_START -->Forsén shares her side of the story and asks for her image to be retired: “I retired from modelling a long time ago. It’s time I retired from tech, too. We can make a simple change today that creates a lasting change for tomorrow. Let’s commit to losing me.”<!-- HTML_TAG_END --></p>
+      </div><div class="step svelte-oauysb">
+        <p class="svelte-oauysb"><!-- HTML_TAG_START -->After the film’s release, many of my female colleagues shared stories about their own encounters with the image throughout their careers. When one of the only women this well referenced, respected, and remembered in your field is known for a nude photo that was taken of her and is now used without her consent, it inevitably shapes the perception of the position of women in tech and the value of our contributions.<!-- HTML_TAG_END --></p>
+      </div><div class="step svelte-oauysb">
+        <p class="svelte-oauysb"><!-- HTML_TAG_START -->The film called on the engineering community to stop their spread of the image and use alternatives instead. This led to efforts to remove the image from textbooks and production code and a slow, but noticeable decline in the image’s use for research.<!-- HTML_TAG_END --></p>
+      </div><div class="step svelte-oauysb">
+        <p class="svelte-oauysb"><!-- HTML_TAG_START -->But despite this progress, almost 2 years later, the use of Lenna continues. The image appears on the internet in 30+ different languages in the last decade, including 10+ languages in <span>2021</span>.<!-- HTML_TAG_END --></p>
+      </div><div class="step svelte-oauysb">
+        <p class="svelte-oauysb"><!-- HTML_TAG_START -->The image’s spread across digital geographies has mirrored this geographical growth, moving from mostly <span class=org-span>.org</span> domains before 1990 to over 100 different domains today, notably <span class=com-span>.com</span> and <span class=edu-span>.edu</span>, along with <span class=other-span>others</span>.<!-- HTML_TAG_END --></p>
+      </div><div class="step svelte-oauysb">
+        <p class="svelte-oauysb"><!-- HTML_TAG_START -->Within the <span class=edu-span>.edu</span> world, the Lenna image continues to appear in <a href=https://www.cis.rit.edu/class/simg782/homework/Homework_1/pgm_ex13.html target=_blank>homework questions</a>, <a href=http://www.cs.cornell.edu/courses/cs1109/2013su/lecs/lec11.pdf target=_blank>class slides</a> and to be hosted on <a href=https://www.ece.rice.edu/~wakin/images/ target=_blank>educational and research sites</a>, ensuring that it is passed down to new generations of engineers. Whether it's due to institutional negligence or defiance, it seems that for now, the image is here to stay.<!-- HTML_TAG_END --></p>
+      </div></div></div>
+
+<div class="conclusion svelte-18tnry9"><p class="svelte-18tnry9"><!-- HTML_TAG_START -->Having known Lenna for almost a decade, I have struggled to understand what the story of the image means for what tech culture is and what it is becoming.<!-- HTML_TAG_END --></p><p class="svelte-18tnry9"><!-- HTML_TAG_START -->To me, the crux of the Lenna story is how little power we have over our data and how it is used and abused. This threat seems disproportionately higher for women who are often overrepresented in internet content, but <a href=https://www.theverge.com/2021/7/2/22560628/google-diversity-report-departures-black-women target=_blank>underrepresented</a> <a href=https://www.protocol.com/twitter-pay-equity target=_blank>in</a> <a href=https://www.theverge.com/2021/4/29/22409753/snap-diversity-report-numbers-inclusive-camera target=_blank>internet</a> <a href=https://www.theverge.com/2020/12/1/21755406/pinterest-shareholders-lawsuit-sue-toxic-work-culture-discrimination target=_blank>company</a> <a href=https://www.usatoday.com/story/tech/2020/07/15/facebook-diversity-african-american-black-hispanic-latino-employees/5430124002/ target=_blank>leadership</a> and decision making. Given this reality, engineering and product decisions will continue to consciously (and unconsciously) exclude our needs and concerns.<!-- HTML_TAG_END --></p><p class="svelte-18tnry9"><!-- HTML_TAG_START -->While social norms are changing towards non-consensual data collection and data exploitation, digital norms seem to be moving in the opposite direction. Advancements in machine learning algorithms and data storage capabilities are only making data misuse easier. Whether the outcome is revenge porn or targeted ads, surveillance or discriminatory AI, if we want a world where our data can retire when it's outlived its time, or when it's directly harming our lives, we must create the tools and policies that empower data subjects to have a say in what happens to their data… including allowing their data to die.<!-- HTML_TAG_END --></p>
+
+  <h3 class="svelte-18tnry9">Further Reading</h3>
+
+  <p class="list-header svelte-18tnry9"><!-- HTML_TAG_START -->On the Lenna image<!-- HTML_TAG_END --></p>
+    <ul class="svelte-18tnry9"><li class="svelte-18tnry9"><!-- HTML_TAG_START --><a href=https://mitpress.mit.edu/books/proxies target=_blank>“Proxies: The Cultural Work of Standing In,”</a> Dylan Mulvin<!-- HTML_TAG_END --></li><li class="svelte-18tnry9"><!-- HTML_TAG_START --><a href=https://www.wired.com/story/finding-lena-the-patron-saint-of-jpegs/  target=_blank>Finding Lena, The Patron Saint of JPEGs</a>, Linda Kintsler, Wired<!-- HTML_TAG_END --></li><li class="svelte-18tnry9"><!-- HTML_TAG_START --><a href=https://www.spiedigitallibrary.org/journals/optical-engineering/volume-57/issue-12/120101/Farewell-Lena/10.1117/1.OE.57.12.120101.full?SSO=1 target=_blank>Farewell, Lena</a>, Michael T. Eismann, Optical Engineering<!-- HTML_TAG_END --></li>
+    </ul><p class="list-header svelte-18tnry9"><!-- HTML_TAG_START -->On data exploitation<!-- HTML_TAG_END --></p>
+    <ul class="svelte-18tnry9"><li class="svelte-18tnry9"><!-- HTML_TAG_START --><a href=https://www.thecut.com/article/emily-ratajkowski-owning-my-image-essay.html target=_blank>Buying Myself Back: When does a model own her own image?</a>, Emily Ratajkowski, The Cut<!-- HTML_TAG_END --></li><li class="svelte-18tnry9"><!-- HTML_TAG_START --><a href=https://www.washingtonpost.com/technology/2020/10/20/deep-fake-nudes/  target=_blank>A shadowy AI service has transformed thousands of women’s photos into fake nudes: ‘Make fantasy a reality,’</a> Drew Harwell, The Washington Post<!-- HTML_TAG_END --></li><li class="svelte-18tnry9"><!-- HTML_TAG_START --><a href=https://www.eff.org/deeplinks/2020/01/clearview-ai-yet-another-example-why-we-need-ban-law-enforcement-use-face target=_blank>Clearview AI—Yet Another Example of Why We Need A Ban on Law Enforcement Use of Face Recognition Now</a>, Jennifer Lynch, The Electronic Frontier Foundation<!-- HTML_TAG_END --></li>
+    </ul><p class="list-header svelte-18tnry9"><!-- HTML_TAG_START -->On data rights<!-- HTML_TAG_END --></p>
+    <ul class="svelte-18tnry9"><li class="svelte-18tnry9"><!-- HTML_TAG_START -->California’s <a href=https://oag.ca.gov/privacy/ccpa target=_blank>Right to Delete</a> (CCPA) and the EU’s <a href=https://gdpr.eu/right-to-be-forgotten/ target=_blank>Right to Be Forgotten</a> (GDPR)<!-- HTML_TAG_END --></li><li class="svelte-18tnry9"><!-- HTML_TAG_START --><a href=https://www.penguinrandomhouse.com/books/565026/habeas-data-by-cyrus-farivar/ target=_blank>”Habeas Data: Privacy vs. the Rise of Surveillance Tech,”</a> Cyrus Farivar<!-- HTML_TAG_END --></li><li class="svelte-18tnry9"><!-- HTML_TAG_START --><a href=https://www.publicaffairsbooks.com/titles/shoshana-zuboff/the-age-of-surveillance-capitalism/9781610395694/ target=_blank>”The Age of Surveillance Capitalism: The Fight for a Human Future at the New Frontier of Power,”</a> Shoshana Zuboff<!-- HTML_TAG_END --></li>
+    </ul>
+
+  <h3 id="methods" class="svelte-18tnry9">Methods &amp; Notes</h3>
+  <p class="methods svelte-18tnry9"><!-- HTML_TAG_START -->To build our dataset of instances of Lenna on the internet, I used three sources: Google <a href=https://scholar.google.com/ target=_blank>scholar</a>, <a href=https://www.google.com/ target=_blank>search</a>, and <a href=https://www.google.com/imghp?hl=en target=_blank>reverse image search</a>, which respectively returned 5300, 1100, and 720 results. For the two text-based search engines (Google scholar and search), I used combinations of keywords, variations on "lenna+jpg"+OR+"lenna+jpeg" or “lenna+computer+vision” to scrape hits that matched those queries. For Google scholar, I used different time intervals from 1970-2021, usually in 5 year chunks, to pull data. For Google search, I performed a manual check on the results, to filter out irrelevant pages from the dataset. In order to identify variations of the Lenna image, I used four different base images for the Google Reverse image search: the standard image, wider cropped image, grayscale image, and a flipped grayscale image. In all cases I only pulled data up to the first 100 pages of results. Data was pulled for dates through September 2021.<!-- HTML_TAG_END --></p><p class="methods svelte-18tnry9"><!-- HTML_TAG_START -->Next, I aggregated the three resulting datasets into a combined dataset and extracted the title, dates, and url/domain information from each hit (e.g. domain endings like .com and .edu). After the data was cleaned and processed, it was loaded into Google Sheets to identify the language of the title and description using the DETECTLANGUAGE function, which draws from Google Translate.<!-- HTML_TAG_END --></p><p class="methods svelte-18tnry9"><!-- HTML_TAG_START -->The data and code can be found in this <a href=https://github.com/the-pudding/lenna-data target=_blank>repo</a>. To make sure we weren’t contributing to the spread of the Lenna image, the large Lenna “image” you see on this page is actually a collection of colored pixels. The Lenna image has also been blurred and pixelated anywhere it appears in other images on this website.<!-- HTML_TAG_END --></p>
+</div>
+<footer class="svelte-19wz8uu"><section class="stories svelte-19wz8uu"></section>
+
+  <section class="about svelte-19wz8uu"><div class="wordmark svelte-19wz8uu"><!-- HTML_TAG_START --><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.6 50"><path class="st0" d="M150.1 9.5c1.5 0 2.8 1.3 2.8 2.8s-1.3 2.8-2.8 2.8-2.8-1.3-2.8-2.8 1.3-2.8 2.8-2.8zM147.2 17.3h5.6v18.2h-5.6V17.3zM77.1 9.5h-8.9v26h5.6v-8.1h3.3c4.9 0 8.9-4 8.9-8.9s-3.9-9-8.9-9zm0 12.3h-3.3v-6.6h3.3c1.8 0 3.3 1.5 3.3 3.3s-1.4 3.3-3.3 3.3zM105.7 17.6h-5.6v8.9c0 1.8-1.5 3.3-3.3 3.3s-3.3-1.5-3.3-3.3v-8.9h-5.6v8.9c0 4.9 4 8.9 8.9 8.9s8.9-4 8.9-8.9v-8.9zM164.1 17.6c-4.9 0-8.9 4-8.9 8.9v8.9h5.6v-8.9c0-1.8 1.5-3.3 3.3-3.3s3.3 1.5 3.3 3.3v8.9h5.6v-8.9c0-4.9-4-8.9-8.9-8.9zM119.7 16.2v1.4h-3.3c-4.9 0-8.9 4-8.9 8.9s4 8.9 8.9 8.9h8.9V9.5l-5.6 3.3v3.4zm.1 8.4V29.8h-3.3c-1.8 0-3.3-1.5-3.3-3.3s1.5-3.3 3.3-3.3h3.3v1.4zM139.3 16.2v1.4H136c-4.9 0-8.9 4-8.9 8.9s4 8.9 8.9 8.9h8.9V9.5l-5.6 3.3v3.4zm.1 8.4V29.8H136c-1.8 0-3.3-1.5-3.3-3.3s1.5-3.3 3.3-3.3h3.3v1.4h.1zM183.7 17.6c-4.9 0-8.9 4-8.9 8.9s4 8.9 8.9 8.9h3.3v5.1c0 1.8-1.5 3.3-3.3 3.3s-3.3-1.5-3.3-3.3V38l-5.6 3.3c.4 4.5 4.2 8.1 8.9 8.1 4.9 0 8.9-4 8.9-8.9V17.6h-8.9zm3.3 5.8V30h-3.3c-1.8 0-3.3-1.5-3.3-3.3s1.5-3.3 3.3-3.3h3.3zM28.6 17.6c-1.2 0-2.3.2-3.3.6V9.5l-5.6 3.3v22.6h5.6v-8.9c0-1.8 1.5-3.3 3.3-3.3s3.3 1.5 3.3 3.3v8.9h5.6v-8.9c0-4.9-4-8.9-8.9-8.9zM17.8 9.5H0v5.6h6.1v20.3h5.6V15.1h6.1V9.5zM48.3 30.2c-.4 0-1.2-.1-1.8-.4l5.2-2.1 5.6-2.3-1-2.3-.1-.2c-.1-.3-.3-.6-.5-1-.1-.1-.1-.2-.2-.3 0 0 0-.1-.1-.1l-.1-.1-.1-.1c-1.6-2.2-4-3.5-6.7-3.7h-.6c-4.9 0-8.9 4-8.9 8.9 0 .4 0 .9.1 1.4V28.2c0 .3.1.5.2.8v.2c.1.3.2.7.4 1v.2c.1.3.3.5.4.8 0 .1.1.1.1.2.1.2.3.4.4.6v.1s0 .1.1.1l.1.1c1.7 2.1 4.4 3.4 7.2 3.4h6.1v-5.2c.4-.3-3.5-.3-5.8-.3zm7.9-7.3zm-11.6 2.8l-.2.1c.2-1.9 1.8-3.5 3.7-3.5.9 0 1.8.4 2.4.9L46.2 25l-1.6.7z"/></svg><!-- HTML_TAG_END --></div>
+    <p><a href="https://pudding.cool" class="svelte-19wz8uu">The Pudding</a>
+      is a digital publication that explains ideas debated in culture with visual essays.
+    </p></section>
+
+  <section class="links svelte-19wz8uu"><ul class="svelte-19wz8uu"><li class="svelte-19wz8uu"><a href="https://pudding.cool/about" class="svelte-19wz8uu"><span class="svelte-19wz8uu">ABOUT</span></a>
+        </li><li class="svelte-19wz8uu"><a href="https://facebook.com/pudding.viz/" class="svelte-19wz8uu"><span class="svelte-19wz8uu">FACEBOOK</span></a>
+        </li><li class="svelte-19wz8uu"><a href="https://twitter.com/puddingviz/" class="svelte-19wz8uu"><span class="svelte-19wz8uu">TWITTER</span></a>
+        </li><li class="svelte-19wz8uu"><a href="https://www.instagram.com/the.pudding" class="svelte-19wz8uu"><span class="svelte-19wz8uu">INSTAGRAM</span></a>
+        </li><li class="svelte-19wz8uu"><a href="https://patreon.com/thepudding/" class="svelte-19wz8uu"><span class="svelte-19wz8uu">PATREON</span></a>
+        </li><li class="svelte-19wz8uu"><a href="https://pudding.cool/privacy/" class="svelte-19wz8uu"><span class="svelte-19wz8uu">PRIVACY</span></a>
+        </li><li class="svelte-19wz8uu"><a href="http://eepurl.com/czym6f" class="svelte-19wz8uu"><span class="svelte-19wz8uu">NEWSLETTER</span></a>
+        </li><li class="svelte-19wz8uu"><a href="https://pudding.cool/feed/index.xml" class="svelte-19wz8uu"><span class="svelte-19wz8uu">RSS</span></a>
+        </li></ul></section>
+</footer></main>
+
+
+
+			
+		</div>
+    <script src="assets/scripts/d3.v6.min.js"></script>
+  </body>
+</html>
