@@ -29,29 +29,17 @@
 
 <div class="scroll-container">
   <div class="sticky">
-    <Screenshots
-      visible={step >= 0 && step < 3}
-      faded={step >= 1 && step < 3}
-      key="memes-0"
-      {step}
-    />
+    <Screenshots visible={step >= 0 && step < 3} faded={step >= 1 && step < 3} key="memes-0" />
     {#each [...new Array(4).keys()] as i}
       <Screenshots
         visible={step >= 1 && step < 3}
         faded={step >= 2 && step < 3}
-        delay={200 * i}
         picNums={[1 + i * 5, 2 + i * 5, 3 + i * 5, 4 + i * 5, 5 + i * 5]}
         key={`memes-${i + 1}`}
-        {step}
       />
     {/each}
 
-    <Screenshots
-      visible={step >= 2 && step < 3}
-      faded={step >= 3 && step < 3}
-      key="lennas"
-      {step}
-    />
+    <Screenshots visible={step >= 2 && step < 3} faded={step >= 3 && step < 3} key="lennas" />
 
     {#if pixels && step !== undefined}
       <Lenna {pixels} {step} />
@@ -166,6 +154,9 @@
     .step {
       margin: 0 auto 60vh auto;
       font-size: 16px;
+    }
+    .step:nth-child(n + 6) {
+      margin: 0 auto 90vh auto;
     }
   }
 </style>

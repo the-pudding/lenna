@@ -8,9 +8,7 @@
   export let key = "";
   export let visible = false;
   export let faded = false;
-  export let delay = 600;
   export let picNums = [1, 2, 3, 4, 5];
-  export let step;
 
   const count = 5;
   const duration = 2000;
