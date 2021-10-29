@@ -19,12 +19,14 @@
   export let value = undefined;
   export let styles;
 
-  const steps = [];
+  let steps = [];
   const threshold = [];
 
   let nodes = [];
   let intersectionObservers = [];
   let container;
+
+  //$: console.log(steps);
 
   $: top, bottom, update();
 
@@ -32,7 +34,7 @@
     if (!nodes.length) return;
     nodes.forEach(createObserver);
   };
-
+  // 0 1 2 3 4 5
   const mostInView = () => {
     let maxRatio = 0;
     let maxIndex = 0;
@@ -40,6 +42,16 @@
       if (steps[i] > maxRatio) {
         maxRatio = steps[i];
         maxIndex = i;
+
+        // make the rest zero
+        // const before = maxIndex - 1 > 0 ? [...new Array(maxIndex - 1).keys()].fill(0) : [];
+        // const after =
+        //   steps.length - maxIndex - 2 > 0
+        //     ? [...new Array(steps.length - maxIndex - 2)].fill(0)
+        //     : [];
+        // steps = [...before, steps[maxIndex - 1], maxRatio, steps[maxIndex + 1], ...after];
+
+        //console.log(steps);
       }
     }
 
