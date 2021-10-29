@@ -3,7 +3,6 @@
   import Scrolly from "./helpers/Scrolly.svelte";
   import Screenshots from "./Screenshots.svelte";
   import Lenna from "./Lenna.svelte";
-  import Playboy from "./Playboy.svelte";
   import BarChart from "./BarChart.svelte";
   import Conclusion from "./Conclusion.svelte";
   import Footer from "./Footer.svelte";

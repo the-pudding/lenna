@@ -28,7 +28,8 @@
   $: canvasWidth, canvasHeight, face(); // redraw on resize
   $: if (visible && ready) face();
 
-  const face = () => {
+  const face = async () => {
+    await tick();
     if (ready) {
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
       pixels.forEach((d) => {
