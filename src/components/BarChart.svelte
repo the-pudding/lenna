@@ -155,7 +155,7 @@
       {/each}
 
       {#if domains}
-        <DomainBars {domains} {xScale} {yScale} {barColors} {step} />
+        <DomainBars {domains} {xScale} {yScale} {barColors} />
       {/if}
     {/if}
   </g>

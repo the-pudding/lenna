@@ -8,7 +8,6 @@
   export let xScale;
   export let yScale;
   export let barColors;
-  export let step;
 
   let stackData;
   onMount(() => {
@@ -37,16 +36,6 @@
       .on("mouseleave", mouseLeave);
   });
 
-  //$: dataToShow = filterData(stackData, step);
-
-  // const filterData = (stackData, step) => {
-  //   if (!stackData) return null;
-  //   return stackData;
-  //   // if (step === 11) return [stackData[0]]; // only show .org
-  //   // if (step === 12) return stackData;
-  //   // return null;
-  // };
-
   let hovered = null;
   const mouseEnter = (e) => {
     hovered = e.target.id;
@@ -74,7 +63,7 @@
     {/each}
   {/each}
 {/if}
-<Legend {barColors} x={xScale(1975)} y={yScale(250)} {step} bind:hovered />
+<Legend {barColors} x={xScale(1975)} y={yScale(250)} bind:hovered />
 
 <style>
   .faded {

@@ -4,18 +4,10 @@
   export let barColors;
   export let x;
   export let y;
-  export let step;
   export let hovered;
 
   const size = 25;
-  $: itemsToShow = filterItems(step);
-
-  const filterItems = (step) => {
-    return _.keys(barColors);
-    // if (step === 11) return [".org"];
-    // if (step === 12) return _.keys(barColors);
-    // return null;
-  };
+  $: itemsToShow = _.keys(barColors);
 
   const mouseEnter = (e) => {
     hovered = e.target.id;
@@ -29,7 +21,13 @@
   <g transform={`translate(${x}, ${y})`}>
     {#each itemsToShow as legendItem, i}
       <g class="legend-item" id={legendItem} on:mouseenter={mouseEnter} on:mouseleave={mouseLeave}>
-        <rect height={size} width={size} fill={barColors[legendItem]} y={i * size * 1.5} />
+        <rect
+          height={size}
+          width={size}
+          fill={barColors[legendItem]}
+          y={i * size * 1.5}
+          class:outline={hovered === legendItem}
+        />
         <text x={size * 1.5} y={i * size * 1.5 + 16}>{legendItem}</text>
       </g>
     {/each}
@@ -43,5 +41,10 @@
   .legend-item {
     pointer-events: bounding-box;
     cursor: default;
+  }
+
+  .outline {
+    stroke-width: 2px;
+    stroke: #282828;
   }
 </style>
