@@ -1,7 +1,7 @@
 <script>
   export let title = "Can Data Die? Tracking the Lenna Image";
   export let description =
-    "Why One of the Internet’s Oldest Images Lives On Without Its Subject’s Consent";
+    "Why one of the Internet’s oldest images lives on without its subject’s consent";
   export let url = "https://pudding.cool/2021/10/lenna";
 </script>
 
