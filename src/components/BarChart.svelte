@@ -57,7 +57,7 @@
       if (screenType === "desktop-large") n = 2;
       else if (screenType === "desktop-small") n = 5;
       else if (screenType === "mobile-large") n = 5;
-      else if (screenType === "mobile-small") n = 6;
+      else if (screenType === "mobile-small") n = 8;
 
       d3.selectAll("#x-axis .tick text")
         .filter((d) => (d - 1972) % n !== 0 && d !== showUntil)
@@ -68,11 +68,17 @@
         .attr("class", "");
 
       // prevent overlap
-      if (showUntil % 2 === 1) {
-        d3.selectAll("#x-axis .tick text")
-          .filter((d) => d === showUntil - 1 || d === showUntil + 1)
-          .attr("class", "hide");
-      }
+      //if (showUntil % 2 === 1) {
+      d3.selectAll("#x-axis .tick text")
+        .filter((d) =>
+          screenType === "mobile-large" ||
+          screenType === "mobile-small" ||
+          screenType === "desktop-small"
+            ? Math.abs(d - showUntil) <= 6 && Math.abs(d - showUntil) !== 0
+            : Math.abs(d - showUntil) === 1
+        )
+        .attr("class", "hide");
+      //}
     }
   };
 

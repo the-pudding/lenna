@@ -3,11 +3,12 @@
   import { fade } from "svelte/transition";
   import copy from "$data/doc.json";
   import { onMount } from "svelte";
+  import { gridPixelSize } from "$stores/misc";
 
   export let step;
 
   let dpr = 1;
-  $: pixelSize = 15 * dpr;
+  $: $gridPixelSize = 15 * dpr;
 
   const { title, subtitle, bylines } = copy;
 
@@ -22,7 +23,7 @@
 </script>
 
 {#if gridVisible && ready}
-  <PixelGalaxy {step} size={pixelSize} />
+  <PixelGalaxy {step} size={$gridPixelSize} />
 {/if}
 {#if titleVisible}
   <div class="hero" transition:fade>

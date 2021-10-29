@@ -43,7 +43,6 @@
         ctx.fillStyle = `rgb(${r}, ${g}, ${b}, ${a})`;
         ctx.fillRect(x + xOffset, y + yOffset, w * dpr, h * dpr);
       });
-      console.log(pixels);
     }
   };
 

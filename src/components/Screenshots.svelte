@@ -1,9 +1,7 @@
 <script>
-  import { getOrigins, getDestinations, getLabels, colors } from "$utils/screenshots.js";
+  import { getOrigins, getDestinations, colors } from "$utils/screenshots.js";
   import viewport from "$stores/viewport.js";
-  import { pixelSize } from "$stores/misc";
-  import { tweened } from "svelte/motion";
-  import { cubicOut } from "svelte/easing";
+  import { pixelSize, gridPixelSize } from "$stores/misc";
   import _ from "lodash";
 
   export let key = "";
@@ -101,11 +99,4 @@
     width: 200px;
     height: 200px;
   }
-
-  /* .hidden {
-    opacity: 0;
-  }
-  .faded {
-    opacity: 0.2;
-  } */
 </style>

@@ -42,11 +42,9 @@
 
     <Screenshots visible={step >= 2 && step < 3} faded={step >= 3 && step < 3} key="lennas" />
 
-    {#if pixels && step > 1}
+    {#if pixels && step !== undefined}
       <Lenna {pixels} {step} />
     {/if}
-
-    <!-- <Playboy {step} {playboyDestination} /> -->
 
     <BarChart {step} bind:playboyDestination />
   </div>
