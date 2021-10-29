@@ -135,6 +135,7 @@
       ctx.globalAlpha = 1;
       ctx.fillStyle = baseColors.base["purple-1"].value;
       ctx.fillRect(pixels[i][0], pixels[i][1], pixels[i][2], pixels[i][3]);
+
       // draw a colored pixel
       if (pixels[i][5] > 0) {
         ctx.globalAlpha = pixels[i][5];

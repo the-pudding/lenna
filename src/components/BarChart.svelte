@@ -19,8 +19,6 @@
   $: visible = step >= 5 || step === -1;
   $: [showUntil, previousShowUntil] = showUntilYear(step, showUntil);
 
-  $: console.log({ showUntil, previousShowUntil });
-
   const margin = { left: 50, right: 50, top: 100, bottom: 100 };
   $: width = $viewport.width;
   $: height = $viewport.height;
@@ -84,7 +82,6 @@
 
   const drawAxes = () => {
     if (xScale && yScale) {
-      console.log("draw");
       drawXAxis = (g) => g.call(d3.axisBottom(xScale));
       drawYAxis = (g) =>
         g.call(d3.axisLeft(yScale).tickSize(-1 * (width - margin.left - margin.right)));
@@ -163,12 +160,14 @@
 </svg>
 
 <style>
-  .visible {
-    opacity: 1;
-  }
   svg {
-    opacity: 0;
-    transition: opacity 0.75s;
+    display: none;
+    /* opacity: 0;
+    transition: opacity 0.75s; */
+  }
+  .visible {
+    display: block;
+    /* opacity: 1; */
   }
   rect {
     fill: var(--base-purple-3);
