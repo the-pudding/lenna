@@ -84,6 +84,7 @@
 
   const drawAxes = () => {
     if (xScale && yScale) {
+      console.log("draw");
       drawXAxis = (g) => g.call(d3.axisBottom(xScale));
       drawYAxis = (g) =>
         g.call(d3.axisLeft(yScale).tickSize(-1 * (width - margin.left - margin.right)));

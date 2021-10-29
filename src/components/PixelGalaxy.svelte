@@ -34,7 +34,6 @@
       await tick();
     }
   };
-
   const mouseMove = (e) => {
     mousePosition = { x: e.clientX * dpr, y: e.clientY * dpr };
   };

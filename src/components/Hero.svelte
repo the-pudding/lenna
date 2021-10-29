@@ -41,6 +41,7 @@
 
 <style>
   .hero {
+    height: 90vh;
     max-width: 800px;
     position: relative;
     pointer-events: none;
