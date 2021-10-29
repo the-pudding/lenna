@@ -14,7 +14,7 @@
   let playboyDestination;
   const steps = copy.scrollProse;
 
-  $: console.log({ step });
+  // $: console.log({ step });
 </script>
 
 <Hero {step} />
