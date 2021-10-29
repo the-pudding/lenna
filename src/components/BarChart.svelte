@@ -162,12 +162,9 @@
 <style>
   svg {
     display: none;
-    /* opacity: 0;
-    transition: opacity 0.75s; */
   }
   .visible {
     display: block;
-    /* opacity: 1; */
   }
   rect {
     fill: var(--base-purple-3);

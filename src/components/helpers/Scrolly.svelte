@@ -46,6 +46,7 @@
     else {
       if (value > 0) value = -1;
       else value = undefined;
+      //value = undefined;
     }
   };
 
